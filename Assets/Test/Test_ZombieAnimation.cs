@@ -11,6 +11,8 @@ public class Test_ZombieAnimation : MonoBehaviour
 #region Fields
     Animator animator;
     public int idleStateCount;
+
+    public Transform target;
 #endregion
 
 #region Properties
@@ -20,9 +22,16 @@ public class Test_ZombieAnimation : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent< Animator >();
-        //Play random state called idle_X with randomized normalized Time. 
+		//Play random state called idle_X with randomized normalized Time. 
 		animator.Play( "idle_" + Random.Range( 0, idleStateCount + 1 ), 0, Random.Range( 0, 1f ) );
 	}
+
+	// void OnAnimatorIK( int layerIndex )
+    // {
+	// 	animator.SetLookAtPosition( target.position );
+	// 	animator.SetLookAtWeight( 1, 1, 1, 1 );
+	// }
+
 #endregion
 
 #region API
