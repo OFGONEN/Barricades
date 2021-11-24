@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: 21a981cabf22a40ee83ede675cc85b47
+guid: 4925f4773549b46e78d4c8aa363cd140
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable:
-  - first:
-      74: -203655887218126122
-    second: mixamo.com
   - first:
       74: -4791504522942941401
     second: Armature|Armature|mixamo.com|Layer0
@@ -361,13 +358,13 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: char_zombie_rig(Clone)
+    - name: char_zombie_killed_rig(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Armature
-      parentName: char_zombie_rig(Clone)
+      parentName: char_zombie_killed_rig(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 1, y: 1, z: 1}
@@ -612,7 +609,7 @@ ModelImporter:
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Zombie
-      parentName: char_zombie_rig(Clone)
+      parentName: char_zombie_killed_rig(Clone)
       position: {x: -6.833579e-10, y: 2.2351747e-10, z: -3.4924588e-10}
       rotation: {x: 0.7071068, y: -2.5724403e-10, z: 1.9550547e-10, w: 0.7071067}
       scale: {x: 0.009999998, y: 0.009999998, z: 0.01}

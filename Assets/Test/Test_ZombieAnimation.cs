@@ -12,7 +12,10 @@ public class Test_ZombieAnimation : MonoBehaviour
     Animator animator;
     public int idleStateCount;
 
-    public Transform target;
+    // public Transform baseBone;
+    // public Transform targetBone;
+
+    // public Transform target;
 #endregion
 
 #region Properties
@@ -35,6 +38,13 @@ public class Test_ZombieAnimation : MonoBehaviour
 #endregion
 
 #region API
+    // [ Button() ]
+    // public void Killed()
+    // {
+	// 	gameObject.SetActive( false );
+	// 	targetBone.parent.gameObject.SetActive( true );
+	// 	baseBone.ReplaceHumanoidModel( targetBone );
+	// }
 #endregion
 
 #region Implementation
