@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Unity.AI.Navigation;
 using FFStudio;
+using DG.Tweening;
 using UnityEditor;
 using NaughtyAttributes;
 
@@ -31,12 +32,6 @@ public class Enemy : MonoBehaviour
 		updateMethod = ExtensionMethods.EmptyMethod;
 	}
 
-    private void Start()
-    {
-		Spawn( transform.position );
-		navMeshAgent.destination = Vector3.zero;
-	}
-
     private void Update()
     {
 		updateMethod();
@@ -44,7 +39,7 @@ public class Enemy : MonoBehaviour
 #endregion
 
 #region API
-    private void Spawn( Vector3 position )
+    public void Spawn( Vector3 position )
     {
 		ConfigureRandomValues();
 
@@ -56,6 +51,17 @@ public class Enemy : MonoBehaviour
 #endregion
 
 #region Implementation
+    private void Vault( OffMeshLinkData linkData )
+    {
+		animator.SetTrigger( "vault" );
+
+		var vaultSequence = DOTween.Sequence();
+
+		vaultSequence.Append( transform.DOMove( linkData.endPos, GameSettings.Instance.enemy_animation_vault_duration ) );
+		vaultSequence.Join( transform.DOLookAt( linkData.endPos, GameSettings.Instance.enemy_animation_vault_duration ) );
+		vaultSequence.OnComplete( navMeshAgent.CompleteOffMeshLink );
+	}
+
     private void CheckNavMeshAgent() 
     {
 		var isRunning = navMeshAgent.velocity.magnitude >= GameSettings.Instance.enemy_animation_run_speed;
@@ -72,6 +78,20 @@ public class Enemy : MonoBehaviour
 
 #region Editor Only
 #if UNITY_EDITOR
+    [ Button() ]
+    private void Test_Start()
+    {
+        //For Testing
+		Spawn( transform.position );
+		navMeshAgent.destination = Vector3.zero;
+    }
+
+    [ Button() ]
+    private void Test_Vault()
+    {
+		Vault( navMeshAgent.currentOffMeshLinkData );
+	}
+
     [ Button() ]
     private void LogOffMeshLinkData()
     {
