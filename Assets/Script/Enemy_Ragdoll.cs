@@ -3,11 +3,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 public class Enemy_Ragdoll : MonoBehaviour
 {
 #region Fields
-    public EnemyRagdollPool pool;
+    [ BoxGroup( "Shared Variables" ) ] public EnemyRagdollPool enemyRagdollPool;
+    [ BoxGroup( "Setup" ) ] public Transform rootBone;
 #endregion
 
 #region Properties

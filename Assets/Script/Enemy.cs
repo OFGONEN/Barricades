@@ -13,12 +13,16 @@ using NaughtyAttributes;
 public class Enemy : MonoBehaviour
 {
 #region Fields
+    [ BoxGroup( "Shared Variables" ) ] public EnemyRagdollPool enemyRagdollPool;
+    [ BoxGroup( "Setup" ) ] public Transform rootBone;
+
     // Components \\
     private Animator animator;
     private NavMeshAgent navMeshAgent;
 
     // Delegates \\
     private UnityMessage updateMethod;
+    private Sequence vaultSequence;
 #endregion
 
 #region Properties
@@ -55,11 +59,17 @@ public class Enemy : MonoBehaviour
     {
 		animator.SetTrigger( "vault" );
 
-		var vaultSequence = DOTween.Sequence();
+		vaultSequence = DOTween.Sequence();
 
 		vaultSequence.Append( transform.DOMove( linkData.endPos, GameSettings.Instance.enemy_animation_vault_duration ) );
 		vaultSequence.Join( transform.DOLookAt( linkData.endPos, GameSettings.Instance.enemy_animation_vault_duration ) );
-		vaultSequence.OnComplete( navMeshAgent.CompleteOffMeshLink );
+		vaultSequence.OnComplete( OnVaultComplete );
+	}
+
+    private void OnVaultComplete()
+    {
+		vaultSequence = null;
+		navMeshAgent.CompleteOffMeshLink();
 	}
 
     private void CheckNavMeshAgent() 
@@ -73,6 +83,18 @@ public class Enemy : MonoBehaviour
 		animator.SetInteger( "random_idle", Random.Range( 1, GameSettings.Instance.enemy_animation_idle_count + 1 ) );
 		animator.SetInteger( "random_run", Random.Range( 0, GameSettings.Instance.enemy_animation_run_count ) );
 		animator.SetInteger( "random_attack", Random.Range( 0, GameSettings.Instance.enemy_animation_attack_count ) );
+	}
+
+    private void Die()
+    {
+		vaultSequence.KillProper(); //Kill if vault sequence is active
+
+		gameObject.SetActive( false ); // Disable the object
+
+        // Get a ragdoll from pool and replace with the current object
+		var ragdoll = enemyRagdollPool.GiveEntity();
+		rootBone.ReplaceHumanoidModel( ragdoll.rootBone );
+		ragdoll.gameObject.SetActive( true );
 	}
 #endregion
 
@@ -90,6 +112,12 @@ public class Enemy : MonoBehaviour
     private void Test_Vault()
     {
 		Vault( navMeshAgent.currentOffMeshLinkData );
+	}
+
+    [ Button() ]
+    private void Test_Die()
+    {
+		Die();
 	}
 
     [ Button() ]

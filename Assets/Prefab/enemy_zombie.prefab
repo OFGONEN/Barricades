@@ -1,17 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &4061762061695063864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1006394424184065058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb3a388482e0422ba7b9fe2fca1b753, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!195 &-6247318270753795341
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -34,6 +22,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 1
+--- !u!114 &4061762061695063864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006394424184065058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb3a388482e0422ba7b9fe2fca1b753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyRagdollPool: {fileID: 11400000, guid: 94a0c9647b3f74e21ac06da9190655fe, type: 2}
+  rootBone: {fileID: 8794522489594529286}
 --- !u!1001 &87265714223837555
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102,5 +104,10 @@ PrefabInstance:
 --- !u!1 &1006394424184065058 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 21a981cabf22a40ee83ede675cc85b47, type: 3}
+  m_PrefabInstance: {fileID: 87265714223837555}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8794522489594529286 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8879528566716807029, guid: 21a981cabf22a40ee83ede675cc85b47, type: 3}
   m_PrefabInstance: {fileID: 87265714223837555}
   m_PrefabAsset: {fileID: 0}
