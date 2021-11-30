@@ -13,11 +13,13 @@ public class AppAssetHolder : MonoBehaviour
 	public CurrentLevelData currentLevelData;
 
 	[ BoxGroup( "Pools" ) ] public EnemyRagdollPool enemyRagdollPool;
+	[ BoxGroup( "Pools" ) ] public EnemyPool enemyPool;
 
 	private void Awake()
 	{
 		//Init Pools
 		enemyRagdollPool.InitPool( transform, false );
+		enemyPool.InitPool( transform, false );
 	}
 #endregion
 }

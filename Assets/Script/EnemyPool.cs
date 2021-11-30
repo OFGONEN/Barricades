@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
 
-[ CreateAssetMenu( fileName = "pool_ragdoll", menuName = "FF/Data/Pool/Enemy_Ragdoll" ) ]
-public class EnemyRagdollPool : FixedComponentPool< Enemy_Ragdoll >
+[CreateAssetMenu( fileName = "pool_enemy", menuName = "FF/Data/Pool/Enemy_Pool" )]
+public class EnemyPool : ComponentPool< Enemy >
 {
 	private Transform initialParent;
 	private bool initialActive;
-#region API
+	#region API
 	public void InitPool( Transform parent, bool active )
 	{
 		initialParent = parent;
@@ -25,28 +25,12 @@ public class EnemyRagdollPool : FixedComponentPool< Enemy_Ragdoll >
 		}
 	}
 
-	public override void ReturnEntity( Enemy_Ragdoll entity )
+	public override Enemy GiveEntity()
 	{
-		entity.transform.parent = initialParent;
-		base.ReturnEntity( entity);
-	}
-
-
-	public override Enemy_Ragdoll GiveEntity()
-	{
-		Enemy_Ragdoll entity;
+		Enemy entity;
 
 		if( stack.Count > 0 )
-		{
 			entity = stack.Pop();
-			activeEntities.Add( entity );
-		}
-		else if( activeEntities.Count > 0 )
-		{
-			entity = activeEntities[ 0 ];
-			activeEntities.RemoveAt( 0 );
-			activeEntities.Add( entity );
-		}
 		else
 		{
 			entity = GameObject.Instantiate( poolEntity );
@@ -55,6 +39,12 @@ public class EnemyRagdollPool : FixedComponentPool< Enemy_Ragdoll >
 		}
 
 		return entity;
+	}
+
+	public override void ReturnEntity( Enemy entity )
+	{
+		entity.transform.parent = initialParent;
+		stack.Push( entity );
 	}
 #endregion
 }
