@@ -6,7 +6,7 @@ using UnityEngine;
 using FFStudio;
 
 [ CreateAssetMenu( fileName = "RagdollPool", menuName = "FF/Data/Pool/Enemy_Ragdoll" ) ]
-public class EnemyRagdollPool : ComponentPool< Enemy_Ragdoll >
+public class EnemyRagdollPool : FixedComponentPool< Enemy_Ragdoll >
 {
 	private Transform initialParent;
 	private bool initialActive;
@@ -28,7 +28,7 @@ public class EnemyRagdollPool : ComponentPool< Enemy_Ragdoll >
 	public override void ReturnEntity( Enemy_Ragdoll entity )
 	{
 		entity.transform.parent = initialParent;
-		stack.Push( entity );
+		base.ReturnEntity( entity);
 	}
 
 
@@ -37,7 +37,16 @@ public class EnemyRagdollPool : ComponentPool< Enemy_Ragdoll >
 		Enemy_Ragdoll entity;
 
 		if( stack.Count > 0 )
+		{
 			entity = stack.Pop();
+			activeEntities.Add( entity );
+		}
+		else if( activeEntities.Count > 0 )
+		{
+			entity = activeEntities[ 0 ];
+			activeEntities.RemoveAt( 0 );
+			activeEntities.Add( entity );
+		}
 		else
 		{
 			entity = GameObject.Instantiate( poolEntity );

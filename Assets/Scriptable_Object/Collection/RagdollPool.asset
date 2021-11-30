@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackSize: 10
   poolEntity: {fileID: -7498066817856813935, guid: 46eb6ed60c5ee415cbf4484aad8e0fd1, type: 3}
+  activeEntities: []
