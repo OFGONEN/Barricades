@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
 {
 #region Fields
     [ BoxGroup( "Shared Variables" ) ] public EnemyRagdollPool enemyRagdollPool;
+    [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier destinationInside;
+    [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier destinationOutside;
     [ BoxGroup( "Setup" ) ] public Transform rootBone;
 
     // Components \\
@@ -48,9 +50,12 @@ public class Enemy : MonoBehaviour
 		ConfigureRandomValues();
 
 		animator.Play( "idle_" + Random.Range( 1, GameSettings.Instance.enemy_animation_idle_count + 1 ), 0, Random.Range( 0f, 1f ) );
-		navMeshAgent.Warp( position );
 
-		updateMethod = CheckNavMeshAgent;
+		navMeshAgent.Warp( position );
+		navMeshAgent.destination = ( destinationOutside.SharedValue as Transform ).position;
+
+		updateMethod = CheckNavMeshAgent_Outside;
+		gameObject.SetActive( true );
 	}
 #endregion
 
@@ -71,19 +76,24 @@ public class Enemy : MonoBehaviour
 		vaultSequence = null;
 		navMeshAgent.CompleteOffMeshLink();
 
-		updateMethod = CheckNavMeshAgent;
+		navMeshAgent.destination = ( destinationInside.SharedValue as Transform ).position;
+		updateMethod = CheckNavMeshAgent_Inside;
 	}
 
-    private void CheckNavMeshAgent() 
+    private void CheckNavMeshAgent_Outside() 
     {
-		var isRunning = navMeshAgent.velocity.magnitude >= GameSettings.Instance.enemy_animation_run_speed;
-		animator.SetBool( "run", isRunning );
+		CheckIfRunning();
 
         if( navMeshAgent.isOnOffMeshLink )
         {
 			updateMethod = ExtensionMethods.EmptyMethod;
 			Vault( navMeshAgent.currentOffMeshLinkData );
         }
+	}
+
+    private void CheckNavMeshAgent_Inside() 
+    {
+		CheckIfRunning();
 	}
 
     private void ConfigureRandomValues()
@@ -107,6 +117,12 @@ public class Enemy : MonoBehaviour
 		ragdoll.RootRigidbody.AddForce( Random.insideUnitSphere * GameSettings.Instance.enemy_death_velocity_range.RandomRange(), ForceMode.Impulse );
 		ragdoll.Spawn();
 	}
+
+    private void CheckIfRunning()
+    {
+		var isRunning = navMeshAgent.velocity.magnitude >= GameSettings.Instance.enemy_animation_run_speed;
+		animator.SetBool( "run", isRunning );
+    }
 #endregion
 
 #region Editor Only
@@ -116,7 +132,6 @@ public class Enemy : MonoBehaviour
     {
         //For Testing
 		Spawn( transform.position );
-		navMeshAgent.destination = Vector3.zero;
     }
 
     [ Button() ]
