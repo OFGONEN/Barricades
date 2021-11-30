@@ -8,9 +8,14 @@ using FFStudio;
 [ CreateAssetMenu( fileName = "RagdollPool", menuName = "FF/Data/Pool/Enemy_Ragdoll" ) ]
 public class EnemyRagdollPool : ComponentPool< Enemy_Ragdoll >
 {
+	private Transform initialParent;
+	private bool initialActive;
 #region API
 	public void InitPool( Transform parent, bool active )
 	{
+		initialParent = parent;
+		initialActive = active;
+
 		InitPool();
 
 		foreach( var element in stack )
@@ -18,6 +23,29 @@ public class EnemyRagdollPool : ComponentPool< Enemy_Ragdoll >
 			element.transform.parent = parent;
 			element.gameObject.SetActive( active );
 		}
+	}
+
+	public override void ReturnEntity( Enemy_Ragdoll entity )
+	{
+		entity.transform.parent = initialParent;
+		stack.Push( entity );
+	}
+
+
+	public override Enemy_Ragdoll GiveEntity()
+	{
+		Enemy_Ragdoll entity;
+
+		if( stack.Count > 0 )
+			entity = stack.Pop();
+		else
+		{
+			entity = GameObject.Instantiate( poolEntity );
+			entity.transform.parent = initialParent;
+			entity.gameObject.SetActive( initialActive );
+		}
+
+		return entity;
 	}
 #endregion
 }
