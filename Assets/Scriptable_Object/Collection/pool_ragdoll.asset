@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c51b02d561754798a1b728f8733da4d, type: 3}
-  m_Name: RagdollPool
+  m_Name: pool_ragdoll
   m_EditorClassIdentifier: 
-  stackSize: 10
+  stackSize: 15
   poolEntity: {fileID: -7498066817856813935, guid: 46eb6ed60c5ee415cbf4484aad8e0fd1, type: 3}
   activeEntities: []
