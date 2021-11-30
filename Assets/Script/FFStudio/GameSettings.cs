@@ -32,6 +32,7 @@ namespace FFStudio
         [ Foldout( "Enemy" ) ] public int enemy_animation_attack_count;
         [ Foldout( "Enemy" ) ] public float enemy_animation_vault_duration;
         [ Foldout( "Enemy" ) ] public float enemy_animation_run_speed;
+        [ Foldout( "Enemy" ) ] public float enemy_ragdoll_duration;
         [ Foldout( "Enemy" ) ] public Vector2 enemy_death_velocity_range;
 #endregion
 

@@ -97,6 +97,7 @@ public class Enemy : MonoBehaviour
 		rootBone.ReplaceHumanoidModel( ragdoll.RootBone );
 		ragdoll.gameObject.SetActive( true );
 		ragdoll.RootRigidbody.AddForce( Random.insideUnitSphere * GameSettings.Instance.enemy_death_velocity_range.RandomRange(), ForceMode.Impulse );
+		ragdoll.Spawn();
 	}
 #endregion
 
