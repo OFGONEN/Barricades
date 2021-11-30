@@ -70,12 +70,20 @@ public class Enemy : MonoBehaviour
     {
 		vaultSequence = null;
 		navMeshAgent.CompleteOffMeshLink();
+
+		updateMethod = CheckNavMeshAgent;
 	}
 
     private void CheckNavMeshAgent() 
     {
 		var isRunning = navMeshAgent.velocity.magnitude >= GameSettings.Instance.enemy_animation_run_speed;
 		animator.SetBool( "run", isRunning );
+
+        if( navMeshAgent.isOnOffMeshLink )
+        {
+			updateMethod = ExtensionMethods.EmptyMethod;
+			Vault( navMeshAgent.currentOffMeshLinkData );
+        }
 	}
 
     private void ConfigureRandomValues()
