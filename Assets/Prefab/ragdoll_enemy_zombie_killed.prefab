@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyRagdollPool: {fileID: 11400000, guid: 94a0c9647b3f74e21ac06da9190655fe, type: 2}
   rootBone: {fileID: 2409271765832467928}
+  rootRigidbody: {fileID: 755038109}
 --- !u!54 &755038109
 Rigidbody:
   m_ObjectHideFlags: 0

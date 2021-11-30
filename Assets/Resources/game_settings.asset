@@ -25,3 +25,4 @@ MonoBehaviour:
   enemy_animation_attack_count: 3
   enemy_animation_vault_duration: 1.12
   enemy_animation_run_speed: 1
+  enemy_death_velocity_range: {x: 50, y: 100}

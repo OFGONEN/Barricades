@@ -93,8 +93,10 @@ public class Enemy : MonoBehaviour
 
         // Get a ragdoll from pool and replace with the current object
 		var ragdoll = enemyRagdollPool.GiveEntity();
-		rootBone.ReplaceHumanoidModel( ragdoll.rootBone );
+        
+		rootBone.ReplaceHumanoidModel( ragdoll.RootBone );
 		ragdoll.gameObject.SetActive( true );
+		ragdoll.RootRigidbody.AddForce( Random.insideUnitSphere * GameSettings.Instance.enemy_death_velocity_range.RandomRange(), ForceMode.Impulse );
 	}
 #endregion
 
