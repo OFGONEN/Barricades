@@ -13,6 +13,7 @@ using NaughtyAttributes;
 public class Enemy : MonoBehaviour
 {
 #region Fields
+    [ BoxGroup( "Shared Variables" ) ] public EnemyPool enemyPool;
     [ BoxGroup( "Shared Variables" ) ] public EnemyRagdollPool enemyRagdollPool;
     [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier destinationInside;
     [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier destinationOutside;
@@ -47,6 +48,8 @@ public class Enemy : MonoBehaviour
 #region API
     public void Spawn( Vector3 position )
     {
+		gameObject.SetActive( true );
+
 		ConfigureRandomValues();
 
 		animator.Play( "idle_" + Random.Range( 1, GameSettings.Instance.enemy_animation_idle_count + 1 ), 0, Random.Range( 0f, 1f ) );
@@ -55,7 +58,6 @@ public class Enemy : MonoBehaviour
 		navMeshAgent.destination = ( destinationOutside.SharedValue as Transform ).position;
 
 		updateMethod = CheckNavMeshAgent_Outside;
-		gameObject.SetActive( true );
 	}
 #endregion
 
@@ -108,8 +110,9 @@ public class Enemy : MonoBehaviour
 		vaultSequence.KillProper(); //Kill if vault sequence is active
 
 		gameObject.SetActive( false ); // Disable the object
+		enemyPool.ReturnEntity( this ); // Return to pool
 
-        // Get a ragdoll from pool and replace with the current object
+		// Get a ragdoll from pool and replace with the current object
 		var ragdoll = enemyRagdollPool.GiveEntity();
         
 		rootBone.ReplaceHumanoidModel( ragdoll.RootBone );
