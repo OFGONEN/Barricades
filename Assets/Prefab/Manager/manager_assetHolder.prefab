@@ -45,3 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSettings: {fileID: 11400000, guid: 109113abc7450a64db67bb41e0cc2dc0, type: 2}
   currentLevelData: {fileID: 11400000, guid: d35c98ef4c868d94f85bf38a98066033, type: 2}
+  enemyRagdollPool: {fileID: 11400000, guid: 94a0c9647b3f74e21ac06da9190655fe, type: 2}
+  enemyPool: {fileID: 11400000, guid: 1ae3ceca9a54745c28d429c8c6c991da, type: 2}

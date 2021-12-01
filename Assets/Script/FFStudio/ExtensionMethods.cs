@@ -280,6 +280,10 @@ namespace FFStudio
 
 			return tween;
 		}
+
+		public static float RandomRange( this Vector2 range )
+		{
+			return Random.Range( range.x, range.y );
+		}
 	}
 }
-

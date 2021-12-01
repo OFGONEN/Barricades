@@ -20,3 +20,10 @@ MonoBehaviour:
   ui_Entity_Scale_TweenDuration: 0.5
   ui_Entity_FloatingMove_TweenDuration: 0.5
   swipeThreshold: 2
+  enemy_animation_idle_count: 2
+  enemy_animation_run_count: 2
+  enemy_animation_attack_count: 3
+  enemy_animation_vault_duration: 1.12
+  enemy_animation_run_speed: 1
+  enemy_ragdoll_duration: 3
+  enemy_death_velocity_range: {x: 75, y: 125}
