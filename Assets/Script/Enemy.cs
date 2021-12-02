@@ -63,7 +63,9 @@ public class Enemy : MonoBehaviour
 
 		ConfigureRandomValues();
 
-		animator.Play( "idle_" + Random.Range( 1, GameSettings.Instance.enemy_animation_idle_count + 1 ), 0, Random.Range( 0f, 1f ) );
+		var randomIdle = Random.Range( 1, GameSettings.Instance.enemy_animation_idle_count + 1 );
+		animator.Play( "idle_" + randomIdle , 0, Random.Range( 0f, 1f ) );
+		animator.Play( "idle_" + randomIdle , 1, Random.Range( 0f, 1f ) );
 
 		navMeshAgent.Warp( position );
 		navMeshAgent.destination = ( destinationOutside.SharedValue as Transform ).position;
