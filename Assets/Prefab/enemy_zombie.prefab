@@ -39,6 +39,20 @@ MonoBehaviour:
   destinationInside: {fileID: 11400000, guid: 4f242af9cf58344cf94826a5008e0033, type: 2}
   destinationOutside: {fileID: 11400000, guid: d1c657993c5124a679418b8a98df6cf3, type: 2}
   rootBone: {fileID: 8794522489594529286}
+--- !u!136 &689313818342083162
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464472042422061259}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.25
+  m_Height: 1.7923288
+  m_Direction: 1
+  m_Center: {x: 1.4158439e-13, y: 0.21275666, z: -0.0022926035}
 --- !u!1001 &87265714223837555
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46,6 +60,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8699787447509501512, guid: 21a981cabf22a40ee83ede675cc85b47, type: 3}
+      propertyPath: m_Layer
+      value: 31
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 21a981cabf22a40ee83ede675cc85b47, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -112,5 +130,10 @@ GameObject:
 --- !u!4 &8794522489594529286 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8879528566716807029, guid: 21a981cabf22a40ee83ede675cc85b47, type: 3}
+  m_PrefabInstance: {fileID: 87265714223837555}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &464472042422061259 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8699787447509501512, guid: 21a981cabf22a40ee83ede675cc85b47, type: 3}
   m_PrefabInstance: {fileID: 87265714223837555}
   m_PrefabAsset: {fileID: 0}
