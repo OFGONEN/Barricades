@@ -31,9 +31,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Enemy_Seek
+  - Enemy_Damage
+  - Ally_Seek
   - Environment
   - Ally_Damage
   - Ally_Health
