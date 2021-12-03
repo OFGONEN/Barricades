@@ -4,10 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
+using NaughtyAttributes;
 
 public class Window : MonoBehaviour, IInteractable
 {
 #region Fields
+    [ BoxGroup( "Setup" ) ] public Collider colliderHealth;
 #endregion
 
 #region Properties
@@ -17,6 +19,11 @@ public class Window : MonoBehaviour, IInteractable
 #endregion
 
 #region API
+    public Collider GiveHealthCollider()
+    {
+		return colliderHealth;
+	}
+
     public Vector3 GiveDepositPoint()
     {
 		return Vector3.zero;

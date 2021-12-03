@@ -106,7 +106,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 1.521, y: 1.238, z: 0.13900001}
+  m_Extents: {x: 1.521, y: 1.238, z: 0.025}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee06ec1072e44315871410a1fccfac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colliderHealth: {fileID: 8049649199486234942}
 --- !u!114 &1285276524249044588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,8 +138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_StartPoint: {x: 1.5, y: 0, z: 1.5}
-  m_EndPoint: {x: 1.5, y: 0, z: -1.5}
+  m_StartPoint: {x: 1.5, y: 0, z: 0.5}
+  m_EndPoint: {x: 1.5, y: 0, z: -0.5}
   m_Width: 1.5
   m_CostModifier: -1
   m_Bidirectional: 0
