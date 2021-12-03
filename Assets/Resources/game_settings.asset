@@ -27,3 +27,4 @@ MonoBehaviour:
   enemy_animation_run_speed: 1
   enemy_ragdoll_duration: 3
   enemy_death_velocity_range: {x: 75, y: 125}
+  enemy_damage: 1
