@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour
     [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier destinationOutside;
     [ BoxGroup( "Setup" ) ] public Transform rootBone;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_hitbox;
+    [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_seek;
+    [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_damage;
 
 	// 
 	[ HideInInspector ] public bool isAttacking = false;
@@ -39,11 +41,13 @@ public class Enemy : MonoBehaviour
 	private void OnEnable()
 	{
 		event_collide_hitbox.triggerEnter += OnCollision_HitBox;
+		event_collide_seek.triggerEnter += OnCollision_Seek_Outside;
 	}
 
 	private void OnDisable()
 	{
 		event_collide_hitbox.triggerEnter -= OnCollision_HitBox;
+		event_collide_seek.triggerEnter -= OnCollision_Seek_Outside;
 	}
 
     private void Awake()
@@ -102,11 +106,11 @@ public class Enemy : MonoBehaviour
     {
 		CheckIfRunning();
 
-        if( navMeshAgent.isOnOffMeshLink )
-        {
-			updateMethod = ExtensionMethods.EmptyMethod;
-			Vault( navMeshAgent.currentOffMeshLinkData );
-        }
+        // if( navMeshAgent.isOnOffMeshLink )
+        // {
+		// 	updateMethod = ExtensionMethods.EmptyMethod;
+		// 	Vault( navMeshAgent.currentOffMeshLinkData );
+        // }
 	}
 
     private void CheckNavMeshAgent_Inside() 
@@ -147,6 +151,19 @@ public class Enemy : MonoBehaviour
 	{
 		var direction = transform.position - other.transform.position;
 		Die( direction.SetY( 0 ) );
+	}
+
+	private void OnCollision_Seek_Outside( Collider other )
+	{
+		FFLogger.Log( "Seeked: " + other.name, other.gameObject );
+
+		var interactable = other.GetComponentInParent< IInteractable >();
+		interactable.Damage( 1 );
+	}
+
+	private void OnCollision_Damage( Collider other )
+	{
+
 	}
 #endregion
 
