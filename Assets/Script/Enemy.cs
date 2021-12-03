@@ -18,6 +18,10 @@ public class Enemy : MonoBehaviour
     [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier destinationInside;
     [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier destinationOutside;
     [ BoxGroup( "Setup" ) ] public Transform rootBone;
+    [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_hitbox;
+
+	// 
+	[ HideInInspector ] public bool isAttacking = false;
 
     // Components \\
     private Animator animator;
@@ -32,6 +36,16 @@ public class Enemy : MonoBehaviour
 #endregion
 
 #region Unity API
+	private void OnEnable()
+	{
+		event_collide_hitbox.triggerEnter += OnCollision_HitBox;
+	}
+
+	private void OnDisable()
+	{
+		event_collide_hitbox.triggerEnter -= OnCollision_HitBox;
+	}
+
     private void Awake()
     {
         animator     = GetComponent< Animator >();
@@ -52,7 +66,9 @@ public class Enemy : MonoBehaviour
 
 		ConfigureRandomValues();
 
-		animator.Play( "idle_" + Random.Range( 1, GameSettings.Instance.enemy_animation_idle_count + 1 ), 0, Random.Range( 0f, 1f ) );
+		var randomIdle = Random.Range( 1, GameSettings.Instance.enemy_animation_idle_count + 1 );
+		animator.Play( "idle_" + randomIdle , 0, Random.Range( 0f, 1f ) );
+		animator.Play( "idle_" + randomIdle , 1, Random.Range( 0f, 1f ) );
 
 		navMeshAgent.Warp( position );
 		navMeshAgent.destination = ( destinationOutside.SharedValue as Transform ).position;
@@ -105,7 +121,7 @@ public class Enemy : MonoBehaviour
 		animator.SetInteger( "random_attack", Random.Range( 0, GameSettings.Instance.enemy_animation_attack_count ) );
 	}
 
-    private void Die()
+    private void Die( Vector3 direction )
     {
 		vaultSequence.KillProper(); //Kill if vault sequence is active
 
@@ -117,7 +133,7 @@ public class Enemy : MonoBehaviour
         
 		rootBone.ReplaceHumanoidModel( ragdoll.RootBone );
 		ragdoll.gameObject.SetActive( true );
-		ragdoll.RootRigidbody.AddForce( Random.insideUnitSphere * GameSettings.Instance.enemy_death_velocity_range.RandomRange(), ForceMode.Impulse );
+		ragdoll.RootRigidbody.AddForce( direction * GameSettings.Instance.enemy_death_velocity_range.RandomRange(), ForceMode.Impulse );
 		ragdoll.Spawn();
 	}
 
@@ -126,6 +142,12 @@ public class Enemy : MonoBehaviour
 		var isRunning = navMeshAgent.velocity.magnitude >= GameSettings.Instance.enemy_animation_run_speed;
 		animator.SetBool( "run", isRunning );
     }
+
+	private void OnCollision_HitBox( Collider other )
+	{
+		var direction = transform.position - other.transform.position;
+		Die( direction.SetY( 0 ) );
+	}
 #endregion
 
 #region Editor Only
@@ -146,7 +168,7 @@ public class Enemy : MonoBehaviour
     [ Button() ]
     private void Test_Die()
     {
-		Die();
+		Die( Random.onUnitSphere );
 	}
 
     [ Button() ]
