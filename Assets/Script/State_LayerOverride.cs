@@ -29,6 +29,9 @@ public class State_LayerOverride : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+		if( enemy == null )
+			enemy = animator.GetComponent< Enemy >();
+
 		enemy.isAttacking = true; 
 
 		animator.SetLayerWeight( 1, layerWeight_OnExit );
