@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5802009095336480305}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7465982503928902503}
@@ -43,7 +43,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3, y: 2.5, z: 0.25}
-  m_Center: {x: 1.525, y: 1.25, z: 0.125}
+  m_Center: {x: 0, y: 1.25, z: 0.125}
 --- !u!65 &2782088520217208271
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -112,6 +112,18 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 1.521, y: 1.238, z: 0.13900001}
   m_TimeToStationary: 0.5
+--- !u!114 &-1427151520639970250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842929877442816477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ee06ec1072e44315871410a1fccfac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1285276524249044588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,18 +144,6 @@ MonoBehaviour:
   m_Bidirectional: 0
   m_AutoUpdatePosition: 0
   m_Area: 3
---- !u!114 &-1427151520639970250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7842929877442816477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ee06ec1072e44315871410a1fccfac6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8313262766352380104
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +169,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8313262766352380104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7465982503928902503}
@@ -187,7 +187,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3, y: 2.5, z: 0.25}
-  m_Center: {x: 1.525, y: 1.25, z: 0.375}
+  m_Center: {x: 0, y: 1.25, z: 0.375}
 --- !u!1001 &6923940256778278028
 PrefabInstance:
   m_ObjectHideFlags: 0
