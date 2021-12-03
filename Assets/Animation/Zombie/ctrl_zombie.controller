@@ -452,6 +452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08d408d66da8416eaa0b583adb9d536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerWeight_OnEnter: 0
+  layerWeight_OnExit: 1
 --- !u!1109 &-3621526854612378756
 AnimatorTransition:
   m_ObjectHideFlags: 1
@@ -1453,6 +1455,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08d408d66da8416eaa0b583adb9d536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerWeight_OnEnter: 0
+  layerWeight_OnExit: 1
 --- !u!1102 &6097383023624860734
 AnimatorState:
   serializedVersion: 6

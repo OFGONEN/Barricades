@@ -20,6 +20,9 @@ public class Enemy : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public Transform rootBone;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_hitbox;
 
+	// 
+	[ HideInInspector ] public bool isAttacking = false;
+
     // Components \\
     private Animator animator;
     private NavMeshAgent navMeshAgent;
