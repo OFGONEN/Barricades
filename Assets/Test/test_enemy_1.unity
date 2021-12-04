@@ -152,7 +152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &64416877
 MonoBehaviour:
@@ -296,7 +296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4364745634903858525, guid: ceed65b0ed263c842930cd7fefac090a, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4364745634903858525, guid: ceed65b0ed263c842930cd7fefac090a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -429,7 +429,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1144008942
 MonoBehaviour:
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPool: {fileID: 11400000, guid: 1ae3ceca9a54745c28d429c8c6c991da, type: 2}
   spawnPosition: {fileID: 1144008941}
-  spawnCount: 10
+  spawnCount: 3
 --- !u!1 &1331999086
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,7 +819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2785111270410174266, guid: 39c357f37eae14deb8b72df522a1be7a, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2785111270410174266, guid: 39c357f37eae14deb8b72df522a1be7a, type: 3}
       propertyPath: m_LocalPosition.x

@@ -21,17 +21,22 @@ public class Enemy : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_hitbox;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_seek;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_damage;
+    [ BoxGroup( "Setup" ) ] public Collider collider_seek;
 
-	// 
+	// Editor Hidden \\
 	[ HideInInspector ] public bool isAttacking = false;
 
-    // Components \\
-    private Animator animator;
+	// Private \\
+	private SharedReferenceNotifier currentDestination;
+
+	// Components \\
+	private Animator animator;
     private NavMeshAgent navMeshAgent;
 	private Collider attackCollider;
 
 	// Delegates \\
 	private UnityMessage updateMethod;
+	private UnityMessage onInteractableDeath;
 	private Sequence vaultSequence;
 #endregion
 
@@ -58,6 +63,8 @@ public class Enemy : MonoBehaviour
         animator     = GetComponent< Animator >();
         navMeshAgent = GetComponent< NavMeshAgent >();
 		updateMethod = ExtensionMethods.EmptyMethod;
+
+		currentDestination = destinationOutside;
 	}
 
     private void Update()
@@ -78,7 +85,7 @@ public class Enemy : MonoBehaviour
 		animator.Play( "idle_" + randomIdle , 1, Random.Range( 0f, 1f ) );
 
 		navMeshAgent.Warp( position );
-		navMeshAgent.destination = ( destinationOutside.SharedValue as Transform ).position;
+		navMeshAgent.destination = ( currentDestination.SharedValue as Transform ).position;
 
 		updateMethod = CheckNavMeshAgent;
 	}
@@ -101,27 +108,25 @@ public class Enemy : MonoBehaviour
 		vaultSequence = null;
 		navMeshAgent.CompleteOffMeshLink();
 
-		navMeshAgent.destination = ( destinationInside.SharedValue as Transform ).position;
-		updateMethod = CheckNavMeshAgent;
+		currentDestination       = destinationInside;
+		navMeshAgent.destination = ( currentDestination.SharedValue as Transform ).position;
+		updateMethod             = CheckNavMeshAgent;
 	}
 
     private void CheckNavMeshAgent() 
     {
 		CheckIfRunning();
 
-		if( attackCollider != null && !isAttacking )
+		if( attackCollider != null )
 		{
 			transform.LookAtOverTimeAxis( attackCollider.transform.position, Vector3.up, navMeshAgent.angularSpeed );
 
-			if( !attackCollider.enabled )
-			{
-				attackCollider = null;
-				navMeshAgent.destination = ( destinationOutside.SharedValue as Transform ).position;
-			}
-			else 
+			if( !isAttacking )
 				animator.SetTrigger( "attack" );
 		}
 	}
+
+
 
     private void ConfigureRandomValues()
     {
@@ -160,15 +165,31 @@ public class Enemy : MonoBehaviour
 
 	private void OnCollision_Seek( Collider other )
 	{
-		var interactable             = other.GetComponentInParent< IInteractable >();
-		    attackCollider           = interactable.GiveHealthCollider();
-		    navMeshAgent.destination = attackCollider.transform.position;
+		FFLogger.Log( "Seek them out", other.gameObject );
+		var interactable = other.GetComponentInParent< IInteractable >();
+
+		if( interactable.IsAlive() ) 
+		{
+			attackCollider           = interactable.GiveHealthCollider();
+			navMeshAgent.destination = attackCollider.transform.position;
+
+			interactable.Subscribe_OnDeath( OnInteractableDeath );
+		}
 	}
 
 	private void OnCollision_Damage( Collider other )
 	{
 		var interactable = other.GetComponentInParent< IInteractable >();
 		interactable.Damage( GameSettings.Instance.enemy_damage );
+	}
+
+	private void OnInteractableDeath()
+	{
+		collider_seek.enabled = false;
+		attackCollider = null;
+		navMeshAgent.Warp( transform.position );
+		navMeshAgent.destination = ( currentDestination.SharedValue as Transform ).position;
+		collider_seek.enabled = true;
 	}
 #endregion
 

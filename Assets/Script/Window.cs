@@ -9,7 +9,13 @@ using NaughtyAttributes;
 public class Window : MonoBehaviour, IInteractable
 {
 #region Fields
-    [ BoxGroup( "Setup" ) ] public Collider colliderHealth;
+    [ BoxGroup( "Setup" ) ] public BoxCollider colliderHealth;
+
+    // Private Fields \\
+    [ SerializeField ] private bool isAlive = true;
+
+    // Delegates \\
+    private event UnityMessage onDeath;
 #endregion
 
 #region Properties
@@ -38,6 +44,18 @@ public class Window : MonoBehaviour, IInteractable
     {
         FFLogger.Log( "Damage: " + count );
     }
+
+	public bool IsAlive()
+    {
+        return isAlive;
+    }
+
+	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )
+    {
+        //! DO onDeath = null for clearin the invoke list
+		onDeath += onDeathDelegate;
+	}
+
 #endregion
 
 #region Implementation
@@ -45,6 +63,31 @@ public class Window : MonoBehaviour, IInteractable
 
 #region Editor Only
 #if UNITY_EDITOR
+    [ Button() ]
+    private void Test_Death()
+    {
+		var center = colliderHealth.center;
+		center.y = -10f;
+
+		colliderHealth.center = center;
+
+		isAlive = false;
+		colliderHealth.enabled = false;
+
+		onDeath();
+		onDeath = null;
+	}
+
+    [ Button() ]
+    private void Test_Alive()
+    {
+		isAlive = true;
+		colliderHealth.enabled = true;
+
+		var center = colliderHealth.center;
+		center.y = 1.25f;
+		colliderHealth.center = center;
+	}
 #endif
 #endregion
 }
