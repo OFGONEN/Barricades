@@ -88,20 +88,20 @@ public class Enemy : MonoBehaviour
 
 		updateMethod = CheckNavMeshAgent;
 	}
-#endregion
 
-#region Implementation
-    private void Vault( OffMeshLinkData linkData )
+    public void Vault( Vector3 position )
     {
 		animator.SetTrigger( "vault" );
 
 		vaultSequence = DOTween.Sequence();
 
-		vaultSequence.Append( transform.DOMove( linkData.endPos, GameSettings.Instance.enemy_animation_vault_duration ) );
-		vaultSequence.Join( transform.DOLookAt( linkData.endPos, GameSettings.Instance.enemy_animation_vault_duration ) );
+		vaultSequence.Append( transform.DOMove( position, GameSettings.Instance.enemy_animation_vault_duration ) );
+		vaultSequence.Join( transform.DOLookAt( position, GameSettings.Instance.enemy_animation_vault_duration ) );
 		vaultSequence.OnComplete( OnVaultComplete );
 	}
+#endregion
 
+#region Implementation
     private void OnVaultComplete()
     {
 		vaultSequence = null;
@@ -202,7 +202,8 @@ public class Enemy : MonoBehaviour
     [ Button() ]
     private void Test_Vault()
     {
-		Vault( navMeshAgent.currentOffMeshLinkData );
+		// Vault is now a API method called from Window
+		// Vault( navMeshAgent.currentOffMeshLinkData );
 	}
 
     [ Button() ]
