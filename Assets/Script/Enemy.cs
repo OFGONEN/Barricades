@@ -45,16 +45,16 @@ public class Enemy : MonoBehaviour
 #region Unity API
 	private void OnEnable()
 	{
-		event_collide_hitbox.triggerEnter += OnCollision_HitBox;
-		event_collide_seek.triggerEnter += OnCollision_Seek;
-		event_collide_damage.triggerEnter += OnCollision_Damage;
+		event_collide_hitbox.triggerEvent += OnCollision_HitBox;
+		event_collide_seek.triggerEvent   += OnCollision_Seek;
+		event_collide_damage.triggerEvent += OnCollision_Damage;
 	}
 
 	private void OnDisable()
 	{
-		event_collide_hitbox.triggerEnter -= OnCollision_HitBox;
-		event_collide_seek.triggerEnter -= OnCollision_Seek;
-		event_collide_damage.triggerEnter -= OnCollision_Damage;
+		event_collide_hitbox.triggerEvent -= OnCollision_HitBox;
+		event_collide_seek.triggerEvent   -= OnCollision_Seek;
+		event_collide_damage.triggerEvent -= OnCollision_Damage;
 	}
 
     private void Awake()
