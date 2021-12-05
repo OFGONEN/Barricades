@@ -7,7 +7,7 @@ namespace FFStudio
 	public class ColliderListener_EventRaiser : MonoBehaviour
 	{
 #region Fields
-		public event TriggerEnter triggerEnter;
+		public event ColliderTrigger triggerEnter;
 #endregion
 
 #region UnityAPI
