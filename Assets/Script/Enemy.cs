@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
 	[ HideInInspector ] public bool isAttacking = false;
 
 	// Private \\
+	private bool isInside = false;
 	private SharedReferenceNotifier currentDestination;
 
 	// Components \\
@@ -37,6 +38,9 @@ public class Enemy : MonoBehaviour
 	private UnityMessage updateMethod;
 	private UnityMessage onInteractableDeath;
 	private Sequence vaultSequence;
+
+	// Properties
+	public bool IsInside => isInside;
 #endregion
 
 #region Properties
@@ -91,10 +95,13 @@ public class Enemy : MonoBehaviour
 
     public void Vault( Vector3 position )
     {
+		isInside = true;
+		event_collide_seek.AttachedCollider.enabled = false;
+
+		animator.SetLayerWeight( 1, 0 );
 		animator.SetTrigger( "vault" );
 
 		vaultSequence = DOTween.Sequence();
-
 		vaultSequence.Append( transform.DOMove( position, GameSettings.Instance.enemy_animation_vault_duration ) );
 		vaultSequence.Join( transform.DOLookAt( position, GameSettings.Instance.enemy_animation_vault_duration ) );
 		vaultSequence.OnComplete( OnVaultComplete );
@@ -104,12 +111,14 @@ public class Enemy : MonoBehaviour
 #region Implementation
     private void OnVaultComplete()
     {
+		updateMethod  = CheckNavMeshAgent;
 		vaultSequence = null;
-		navMeshAgent.CompleteOffMeshLink();
 
+		navMeshAgent.Warp( transform.position );
 		currentDestination       = destinationInside;
 		navMeshAgent.destination = ( currentDestination.SharedValue as Transform ).position;
-		updateMethod             = CheckNavMeshAgent;
+
+		event_collide_seek.AttachedCollider.enabled = true;
 	}
 
     private void CheckNavMeshAgent() 
@@ -192,40 +201,6 @@ public class Enemy : MonoBehaviour
 
 #region Editor Only
 #if UNITY_EDITOR
-    [ Button() ]
-    private void Test_Start()
-    {
-        //For Testing
-		Spawn( transform.position );
-    }
-
-    [ Button() ]
-    private void Test_Vault()
-    {
-		// Vault is now a API method called from Window
-		// Vault( navMeshAgent.currentOffMeshLinkData );
-	}
-
-    [ Button() ]
-    private void Test_Die()
-    {
-		Die( Random.onUnitSphere );
-	}
-
-    [ Button() ]
-    private void LogOffMeshLinkData()
-    {
-		var data = navMeshAgent.currentOffMeshLinkData;
-		FFLogger.Log( "Start Point: " + data.startPos );
-		FFLogger.Log( "End Point: " + data.endPos );
-		FFLogger.Log( "LinkType: " + data.linkType );
-
-        if( data.offMeshLink == null )
-            FFLogger.Log( "Link is NULL" );
-        else
-            FFLogger.Log( "Link", data.offMeshLink.gameObject );
-	}
-
     private void OnDrawGizmos()
     {
         if( !Application.isPlaying )

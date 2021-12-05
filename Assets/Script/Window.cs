@@ -96,12 +96,12 @@ public class Window : MonoBehaviour, IInteractable
 
     private void VaultInEnemies( Collider other )
     {
-		var canVault = lastVaultTime + GameSettings.Instance.window_cooldown_vault < Time.time;
-
-		if( !canVault ) return; // Cooldown is not met
-
 		// Vault enemies in
 		var enemy = other.GetComponentInParent< Enemy >();
+
+		var onCoolDown = lastVaultTime + GameSettings.Instance.window_cooldown_vault > Time.time;
+
+		if( onCoolDown || enemy.IsInside ) return; 
 
 		//Find vault position
 		var position = new Vector3
