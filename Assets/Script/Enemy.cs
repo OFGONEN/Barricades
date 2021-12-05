@@ -179,7 +179,7 @@ public class Enemy : MonoBehaviour
 	private void OnCollision_Damage( Collider other )
 	{
 		var interactable = other.GetComponentInParent< IInteractable >();
-		interactable.Damage( GameSettings.Instance.enemy_damage );
+		interactable.GetDamage( GameSettings.Instance.enemy_damage );
 	}
 
 	private void OnInteractableDeath()
