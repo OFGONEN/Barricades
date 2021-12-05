@@ -21,7 +21,6 @@ public class Enemy : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_hitbox;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_seek;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_damage;
-    [ BoxGroup( "Setup" ) ] public Collider collider_seek;
 
 	// Editor Hidden \\
 	[ HideInInspector ] public bool isAttacking = false;
@@ -185,11 +184,9 @@ public class Enemy : MonoBehaviour
 
 	private void OnInteractableDeath()
 	{
-		collider_seek.enabled = false;
 		attackCollider = null;
 		navMeshAgent.Warp( transform.position );
 		navMeshAgent.destination = ( currentDestination.SharedValue as Transform ).position;
-		collider_seek.enabled = true;
 	}
 #endregion
 

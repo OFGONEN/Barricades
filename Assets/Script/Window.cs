@@ -10,9 +10,10 @@ public class Window : MonoBehaviour, IInteractable
 {
 #region Fields
     [ BoxGroup( "Setup" ) ] public BoxCollider colliderHealth;
+    [ BoxGroup( "Setup" ) ] public BoxCollider colliderSeek;
 
     // Private Fields \\
-    [ SerializeField ] private bool isAlive = true;
+    private bool isAlive = true;
 
     // Delegates \\
     private event UnityMessage onDeath;
@@ -66,13 +67,9 @@ public class Window : MonoBehaviour, IInteractable
     [ Button() ]
     private void Test_Death()
     {
-		var center = colliderHealth.center;
-		center.y = -10f;
+        colliderHealth.enabled = false;
 
-		colliderHealth.center = center;
-
-		isAlive = false;
-		colliderHealth.enabled = false;
+        isAlive = false;
 
 		onDeath();
 		onDeath = null;
@@ -82,11 +79,10 @@ public class Window : MonoBehaviour, IInteractable
     private void Test_Alive()
     {
 		isAlive = true;
-		colliderHealth.enabled = true;
 
-		var center = colliderHealth.center;
-		center.y = 1.25f;
-		colliderHealth.center = center;
+        colliderSeek.enabled = false;
+        colliderHealth.enabled = true;
+        colliderSeek.enabled = true;
 	}
 #endif
 #endregion

@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliderHealth: {fileID: 8049649199486234942}
-  isAlive: 1
+  colliderSeek: {fileID: 2832376275542618816}
 --- !u!114 &1285276524249044588
 MonoBehaviour:
   m_ObjectHideFlags: 0
