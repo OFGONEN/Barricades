@@ -4,16 +4,12 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class ColliderListener_EventRaiser : MonoBehaviour
+	public class ColliderListener_EventRaiser : ColliderListener
 	{
-#region Fields
-		public event ColliderTrigger triggerEnter;
-#endregion
-
 #region UnityAPI
 		private void OnTriggerEnter( Collider other )
 		{
-			triggerEnter?.Invoke( other );
+			InvokeEvent( other );
 		}
 #endregion
 	}

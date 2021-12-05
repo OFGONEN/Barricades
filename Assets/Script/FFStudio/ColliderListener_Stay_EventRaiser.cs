@@ -4,17 +4,13 @@ using UnityEngine;
 
 namespace FFStudio
 {
-    public class ColliderListener_Stay_EventRaiser : MonoBehaviour
+    public class ColliderListener_Stay_EventRaiser : ColliderListener
     {
-#region Fields
-        public event ColliderTrigger triggerStay;
-#endregion
-
 #region UnityAPI
         private void OnTriggerStay( Collider other )
         {
-            triggerStay?.Invoke(other);
-        }
+			InvokeEvent( other );
+		}
 #endregion
     }
 }
