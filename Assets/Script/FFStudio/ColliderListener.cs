@@ -7,11 +7,22 @@ namespace FFStudio
 	public abstract class ColliderListener : MonoBehaviour
 	{
 #region Fields
-        public Component attachedComponent;
 		public event ColliderTrigger triggerEvent;
+
+		// Private
+        [ SerializeField ] private Component attachedComponent;
+		private Collider attachedCollider;
+
+		// Public Properties
+		public Component AttachedComponent => attachedComponent;
+		public Collider AttachedCollider   => attachedCollider;
 #endregion
 
 #region UnityAPI
+		private void Awake()
+		{
+			attachedCollider = GetComponent< Collider >();
+		}
 #endregion
 
 #region API
