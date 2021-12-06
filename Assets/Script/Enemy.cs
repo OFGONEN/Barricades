@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
 	// Components \\
 	private Animator animator;
     private NavMeshAgent navMeshAgent;
-	private Collider attackCollider;
+	private Collider currentAttackCollider;
 
 	// Delegates \\
 	private UnityMessage updateMethod;
@@ -125,9 +125,9 @@ public class Enemy : MonoBehaviour
     {
 		CheckIfRunning();
 
-		if( attackCollider != null )
+		if( currentAttackCollider != null )
 		{
-			transform.LookAtOverTimeAxis( attackCollider.transform.position, Vector3.up, navMeshAgent.angularSpeed );
+			transform.LookAtOverTimeAxis( currentAttackCollider.transform.position, Vector3.up, navMeshAgent.angularSpeed );
 
 			if( !isAttacking )
 				animator.SetTrigger( "attack" );
@@ -145,6 +145,11 @@ public class Enemy : MonoBehaviour
 
     private void Die( Vector3 direction )
     {
+		// Default variables
+		isInside              = false;
+		isAttacking           = false;
+		currentDestination    = destinationOutside;
+		currentAttackCollider = null;
 		vaultSequence.KillProper(); //Kill if vault sequence is active
 
 		gameObject.SetActive( false ); // Disable the object
@@ -177,8 +182,8 @@ public class Enemy : MonoBehaviour
 
 		if( interactable.IsAlive() ) 
 		{
-			attackCollider           = interactable.GiveHealthCollider();
-			navMeshAgent.destination = attackCollider.transform.position;
+			currentAttackCollider           = interactable.GiveHealthCollider();
+			navMeshAgent.destination = currentAttackCollider.transform.position;
 
 			interactable.Subscribe_OnDeath( OnInteractableDeath );
 		}
@@ -192,7 +197,7 @@ public class Enemy : MonoBehaviour
 
 	private void OnInteractableDeath()
 	{
-		attackCollider = null;
+		currentAttackCollider = null;
 		navMeshAgent.Warp( transform.position );
 		navMeshAgent.destination = ( currentDestination.SharedValue as Transform ).position;
 	}
@@ -200,6 +205,12 @@ public class Enemy : MonoBehaviour
 
 #region Editor Only
 #if UNITY_EDITOR
+	[ Button() ]
+	private void Test_Die()
+	{
+		Die( Random.onUnitSphere );
+	}
+
     private void OnDrawGizmos()
     {
         if( !Application.isPlaying )
