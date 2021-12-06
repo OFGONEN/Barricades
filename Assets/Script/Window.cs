@@ -44,7 +44,7 @@ public class Window : MonoBehaviour, IInteractable
 		return Vector3.zero;
 	}
 
-    public void GetDeposit( int count )     
+    public void GetDeposit( int count, DepositType type )     
     {
 
     }
