@@ -16,8 +16,8 @@ public class Window : MonoBehaviour, IInteractable
     [ BoxGroup( "Setup" ) ] public ColliderListener_Stay_EventRaiser colliderListener_Seek_Stay;
     [ BoxGroup( "Setup" ) ] public MeshFilter[] stackMeshFilters;
 
-    // Private Fields \\
-    private bool isAlive = true;
+	// Private Fields \\
+	private bool isAlive;
 	private float lastVaultTime;
 
 	// Deposit
@@ -34,6 +34,11 @@ public class Window : MonoBehaviour, IInteractable
     private void OnDisable()
     {
 		colliderListener_Seek_Stay.ClearEventList();
+	}
+
+    private void Awake()
+    {
+		Die();
 	}
 #endregion
 
@@ -61,6 +66,9 @@ public class Window : MonoBehaviour, IInteractable
         //TODO(OFG): spawn deposited particle effect
 		stackHealths[ emptyIndex ] = count * ( ( int )type + 1 );
 		stackMeshFilters[ emptyIndex ].mesh = GameSettings.Instance.window_meshes[ ( int )type ];
+
+        if( !isAlive )
+			Revive();
 	}
 
     public void GetDamage( int count )
@@ -121,7 +129,7 @@ public class Window : MonoBehaviour, IInteractable
         colliderHealth.enabled = false;
         isAlive                = false;
 
-		onDeath();
+		onDeath?.Invoke();
 		onDeath = null;
 
 		colliderListener_Seek_Stay.triggerEvent += VaultInEnemies;
