@@ -54,19 +54,31 @@ public class Window : MonoBehaviour, IInteractable
 
         for( var i = 0; i < stackHealths.Length; i++ )
         {
-            if( stackHealths[ i ] == 0 )
+            if( stackHealths[ i ] <= 0 )
 				emptyIndex = i;
 		}
 
+        //TODO(OFG): spawn deposited particle effect
 		stackHealths[ emptyIndex ] = count * ( ( int )type + 1 );
 		stackMeshFilters[ emptyIndex ].mesh = GameSettings.Instance.window_meshes[ ( int )type ];
-
 	}
 
     public void GetDamage( int count )
     {
+		int index = 0;
 
-    }
+        for( var i = 0; i < stackHealths.Length; i++ )
+        {
+            if( stackHealths[ i ] > 0 )
+				index = i;
+		}
+
+        //TODO(OFG): spawn damage particle effect
+		stackHealths[ index ] -= count;
+
+        if( stackHealths[ index ] <= 0 )
+			stackMeshFilters[ index ].mesh = null;
+	}
 
 	public bool IsAlive()
     {
