@@ -80,15 +80,15 @@ public class Window : Entity, IInteractable
         if( stackHealths[ index ] <= 0 )
 			stackMeshFilters[ index ].mesh = null;
 
-		bool isDeath = true;
+		bool isDead = true;
 
 		for( var i = 0; i < stackHealths.Length; i++ )
         {
             if( stackHealths[ i ] > 0 )
-				isDeath = false;
+				isDead = false;
 		}
 
-        if( isDeath )
+        if( isDead )
 			Die();
 	}
 
