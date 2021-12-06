@@ -7,24 +7,17 @@ using Unity.AI.Navigation;
 using FFStudio;
 using NaughtyAttributes;
 
-public class Window : MonoBehaviour, IInteractable
+public class Window : Entity, IInteractable
 {
 #region Fields
     [ BoxGroup( "Setup" ) ] public NavMeshLink navMeshLink;
-    [ BoxGroup( "Setup" ) ] public BoxCollider colliderHealth;
-    [ BoxGroup( "Setup" ) ] public BoxCollider colliderSeek;
-    [ BoxGroup( "Setup" ) ] public ColliderListener_Stay_EventRaiser colliderListener_Seek_Stay;
     [ BoxGroup( "Setup" ) ] public MeshFilter[] stackMeshFilters;
 
 	// Private Fields \\
-	private bool isAlive;
 	private float lastVaultTime;
 
 	// Deposit
 	private int[] stackHealths = { 0, 0 , 0};
-
-	// Delegates \\
-	private event UnityMessage onDeath;
 #endregion
 
 #region Properties
@@ -45,7 +38,7 @@ public class Window : MonoBehaviour, IInteractable
 #region API
     public Collider GiveHealthCollider()
     {
-		return colliderHealth;
+		return colliderListener_Health_Enter.AttachedCollider;
 	}
 
     public Vector3 GiveDepositPoint()
@@ -124,26 +117,26 @@ public class Window : MonoBehaviour, IInteractable
 
 #region Implementation
     [ Button() ]
-    private void Die()
+    protected override void Die()
     {
-        colliderHealth.enabled = false;
-        isAlive                = false;
+		colliderListener_Health_Enter.SetColliderActive( false );
+		isAlive                = false;
 
-		onDeath?.Invoke();
-		onDeath = null;
+		InvokeOnDeath();
+		ClearOnDeath();
 
 		colliderListener_Seek_Stay.triggerEvent += VaultInEnemies;
 	}
 
     [ Button() ]
-    private void Revive()
+    protected override void Revive()
     {
-        // Toggle for re-activating OnTriggerEnter events
-        colliderSeek.enabled = false;
-        colliderSeek.enabled = true;
+		// Toggle for re-activating OnTriggerEnter events
+		colliderListener_Seek_Stay.SetColliderActive( false );
+		colliderListener_Seek_Stay.SetColliderActive( true );
 
         // Enable healt collider since it can dake damage
-        colliderHealth.enabled = true;
+		colliderListener_Health_Enter.SetColliderActive( true );
 		isAlive = true;
 
 		// 

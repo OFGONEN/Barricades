@@ -30,6 +30,11 @@ namespace FFStudio
 		{
 			triggerEvent = null;
 		}
+
+		public void SetColliderActive( bool active )
+		{
+			attachedCollider.enabled = active;
+		}
 #endregion
 
 #region Implementation
