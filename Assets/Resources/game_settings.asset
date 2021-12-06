@@ -29,3 +29,7 @@ MonoBehaviour:
   enemy_death_velocity_range: {x: 75, y: 125}
   enemy_damage: 1
   window_cooldown_vault: 0.25
+  window_meshes:
+  - {fileID: 1759683500688320506, guid: e2ab46ceb8f70422287c115955f380a4, type: 3}
+  - {fileID: -7879486832572969521, guid: 44a62812b21e64bab80de494917a77e4, type: 3}
+  - {fileID: 4910410205004592983, guid: 1b507aeb94e6b4c319aff31f203e4a95, type: 3}

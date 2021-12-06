@@ -14,10 +14,14 @@ public class Window : MonoBehaviour, IInteractable
     [ BoxGroup( "Setup" ) ] public BoxCollider colliderHealth;
     [ BoxGroup( "Setup" ) ] public BoxCollider colliderSeek;
     [ BoxGroup( "Setup" ) ] public ColliderListener_Stay_EventRaiser colliderListener_Seek_Stay;
+    [ BoxGroup( "Setup" ) ] public MeshFilter[] stackMeshFilters;
 
     // Private Fields \\
     private bool isAlive = true;
 	private float lastVaultTime;
+
+	// Deposit
+	private int[] stackHealths = { 0, 0 , 0};
 
 	// Delegates \\
 	private event UnityMessage onDeath;
@@ -46,18 +50,39 @@ public class Window : MonoBehaviour, IInteractable
 
     public void GetDeposit( int count, DepositType type )     
     {
+		int emptyIndex = 0;
 
-    }
+        for( var i = 0; i < stackHealths.Length; i++ )
+        {
+            if( stackHealths[ i ] == 0 )
+				emptyIndex = i;
+		}
+
+		stackHealths[ emptyIndex ] = count * ( ( int )type + 1 );
+		stackMeshFilters[ emptyIndex ].mesh = GameSettings.Instance.window_meshes[ ( int )type ];
+
+	}
 
     public void GetDamage( int count )
     {
-        FFLogger.Log( "Damage: " + count );
+
     }
 
 	public bool IsAlive()
     {
         return isAlive;
     }
+
+    public bool CanDeposit()
+    {
+        for( var i = 0; i < stackHealths.Length; i++ )
+        {
+            if( stackHealths[ i ] == 0 )
+				return true;
+		}
+
+		return false;
+	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )
     {

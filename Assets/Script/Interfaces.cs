@@ -9,5 +9,6 @@ public interface IInteractable
 	public abstract void GetDeposit( int count, DepositType type );
 	public abstract void GetDamage( int count );
 	public abstract bool IsAlive();
+	public abstract bool CanDeposit();
 	public abstract void Subscribe_OnDeath( UnityMessage onDeathDelegate );
 }
