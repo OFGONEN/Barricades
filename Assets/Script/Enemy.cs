@@ -21,12 +21,12 @@ public class Enemy : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_hitbox;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_seek;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_damage;
-    [ BoxGroup( "Setup" ) ] public Collider collider_seek;
 
 	// Editor Hidden \\
 	[ HideInInspector ] public bool isAttacking = false;
 
 	// Private \\
+	private bool isInside = false;
 	private SharedReferenceNotifier currentDestination;
 
 	// Components \\
@@ -38,6 +38,9 @@ public class Enemy : MonoBehaviour
 	private UnityMessage updateMethod;
 	private UnityMessage onInteractableDeath;
 	private Sequence vaultSequence;
+
+	// Properties
+	public bool IsInside => isInside;
 #endregion
 
 #region Properties
@@ -46,16 +49,16 @@ public class Enemy : MonoBehaviour
 #region Unity API
 	private void OnEnable()
 	{
-		event_collide_hitbox.triggerEnter += OnCollision_HitBox;
-		event_collide_seek.triggerEnter += OnCollision_Seek;
-		event_collide_damage.triggerEnter += OnCollision_Damage;
+		event_collide_hitbox.triggerEvent += OnCollision_HitBox;
+		event_collide_seek.triggerEvent   += OnCollision_Seek;
+		event_collide_damage.triggerEvent += OnCollision_Damage;
 	}
 
 	private void OnDisable()
 	{
-		event_collide_hitbox.triggerEnter -= OnCollision_HitBox;
-		event_collide_seek.triggerEnter -= OnCollision_Seek;
-		event_collide_damage.triggerEnter -= OnCollision_Damage;
+		event_collide_hitbox.triggerEvent -= OnCollision_HitBox;
+		event_collide_seek.triggerEvent   -= OnCollision_Seek;
+		event_collide_damage.triggerEvent -= OnCollision_Damage;
 	}
 
     private void Awake()
@@ -89,28 +92,33 @@ public class Enemy : MonoBehaviour
 
 		updateMethod = CheckNavMeshAgent;
 	}
-#endregion
 
-#region Implementation
-    private void Vault( OffMeshLinkData linkData )
+    public void Vault( Vector3 position )
     {
+		isInside = true;
+		event_collide_seek.AttachedCollider.enabled = false;
+
+		animator.SetLayerWeight( 1, 0 );
 		animator.SetTrigger( "vault" );
 
 		vaultSequence = DOTween.Sequence();
-
-		vaultSequence.Append( transform.DOMove( linkData.endPos, GameSettings.Instance.enemy_animation_vault_duration ) );
-		vaultSequence.Join( transform.DOLookAt( linkData.endPos, GameSettings.Instance.enemy_animation_vault_duration ) );
+		vaultSequence.Append( transform.DOMove( position, GameSettings.Instance.enemy_animation_vault_duration ) );
+		vaultSequence.Join( transform.DOLookAt( position, GameSettings.Instance.enemy_animation_vault_duration ) );
 		vaultSequence.OnComplete( OnVaultComplete );
 	}
+#endregion
 
+#region Implementation
     private void OnVaultComplete()
     {
+		updateMethod  = CheckNavMeshAgent;
 		vaultSequence = null;
-		navMeshAgent.CompleteOffMeshLink();
 
+		navMeshAgent.Warp( transform.position );
 		currentDestination       = destinationInside;
 		navMeshAgent.destination = ( currentDestination.SharedValue as Transform ).position;
-		updateMethod             = CheckNavMeshAgent;
+
+		event_collide_seek.AttachedCollider.enabled = true;
 	}
 
     private void CheckNavMeshAgent() 
@@ -180,54 +188,19 @@ public class Enemy : MonoBehaviour
 	private void OnCollision_Damage( Collider other )
 	{
 		var interactable = other.GetComponentInParent< IInteractable >();
-		interactable.Damage( GameSettings.Instance.enemy_damage );
+		interactable.GetDamage( GameSettings.Instance.enemy_damage );
 	}
 
 	private void OnInteractableDeath()
 	{
-		collider_seek.enabled = false;
 		attackCollider = null;
 		navMeshAgent.Warp( transform.position );
 		navMeshAgent.destination = ( currentDestination.SharedValue as Transform ).position;
-		collider_seek.enabled = true;
 	}
 #endregion
 
 #region Editor Only
 #if UNITY_EDITOR
-    [ Button() ]
-    private void Test_Start()
-    {
-        //For Testing
-		Spawn( transform.position );
-    }
-
-    [ Button() ]
-    private void Test_Vault()
-    {
-		Vault( navMeshAgent.currentOffMeshLinkData );
-	}
-
-    [ Button() ]
-    private void Test_Die()
-    {
-		Die( Random.onUnitSphere );
-	}
-
-    [ Button() ]
-    private void LogOffMeshLinkData()
-    {
-		var data = navMeshAgent.currentOffMeshLinkData;
-		FFLogger.Log( "Start Point: " + data.startPos );
-		FFLogger.Log( "End Point: " + data.endPos );
-		FFLogger.Log( "LinkType: " + data.linkType );
-
-        if( data.offMeshLink == null )
-            FFLogger.Log( "Link is NULL" );
-        else
-            FFLogger.Log( "Link", data.offMeshLink.gameObject );
-	}
-
     private void OnDrawGizmos()
     {
         if( !Application.isPlaying )

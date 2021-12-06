@@ -140,8 +140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee06ec1072e44315871410a1fccfac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navMeshLink: {fileID: 1285276524249044588}
   colliderHealth: {fileID: 8049649199486234942}
-  isAlive: 1
+  colliderSeek: {fileID: 2832376275542618816}
+  colliderListener_Seek_Stay: {fileID: 4147096746269852582}
 --- !u!114 &1285276524249044588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 770639418245093371}
   - component: {fileID: 2832376275542618816}
+  - component: {fileID: 4147096746269852582}
   m_Layer: 27
   m_Name: ally_seek
   m_TagString: Untagged
@@ -206,6 +209,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 2.5, z: 0.25}
   m_Center: {x: 0, y: 1.25, z: 0.375}
+--- !u!114 &4147096746269852582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8313262766352380104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a7762e387aa3249a8a65d75a50b921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: -1427151520639970250}
 --- !u!1001 &6923940256778278028
 PrefabInstance:
   m_ObjectHideFlags: 0

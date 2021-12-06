@@ -35,6 +35,9 @@ namespace FFStudio
         [ Foldout( "Enemy" ) ] public float enemy_ragdoll_duration;
         [ Foldout( "Enemy" ) ] public Vector2 enemy_death_velocity_range;
         [ Foldout( "Enemy" ) ] public int enemy_damage = 1;
+
+
+        [ Foldout( "Window" ) ] public float window_cooldown_vault = 0.25f;
 #endregion
 
 #region Implementation
