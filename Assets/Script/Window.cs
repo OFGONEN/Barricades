@@ -78,6 +78,17 @@ public class Window : MonoBehaviour, IInteractable
 
         if( stackHealths[ index ] <= 0 )
 			stackMeshFilters[ index ].mesh = null;
+
+		bool isDeath = true;
+
+		for( var i = 0; i < stackHealths.Length; i++ )
+        {
+            if( stackHealths[ i ] > 0 )
+				isDeath = false;
+		}
+
+        if( isDeath )
+			Die();
 	}
 
 	public bool IsAlive()
