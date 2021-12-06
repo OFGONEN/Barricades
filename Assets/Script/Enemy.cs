@@ -173,7 +173,6 @@ public class Enemy : MonoBehaviour
 
 	private void OnCollision_Seek( Collider other )
 	{
-		FFLogger.Log( "Seek them out", other.gameObject );
 		var interactable = other.GetComponentInParent< IInteractable >();
 
 		if( interactable.IsAlive() ) 

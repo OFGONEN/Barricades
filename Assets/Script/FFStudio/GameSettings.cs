@@ -38,6 +38,7 @@ namespace FFStudio
 
 
         [ Foldout( "Window" ) ] public float window_cooldown_vault = 0.25f;
+        [ Foldout( "Window" ) ] public Mesh[] window_meshes;
 #endregion
 
 #region Implementation

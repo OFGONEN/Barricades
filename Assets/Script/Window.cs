@@ -14,10 +14,14 @@ public class Window : MonoBehaviour, IInteractable
     [ BoxGroup( "Setup" ) ] public BoxCollider colliderHealth;
     [ BoxGroup( "Setup" ) ] public BoxCollider colliderSeek;
     [ BoxGroup( "Setup" ) ] public ColliderListener_Stay_EventRaiser colliderListener_Seek_Stay;
+    [ BoxGroup( "Setup" ) ] public MeshFilter[] stackMeshFilters;
 
-    // Private Fields \\
-    private bool isAlive = true;
+	// Private Fields \\
+	private bool isAlive;
 	private float lastVaultTime;
+
+	// Deposit
+	private int[] stackHealths = { 0, 0 , 0};
 
 	// Delegates \\
 	private event UnityMessage onDeath;
@@ -30,6 +34,11 @@ public class Window : MonoBehaviour, IInteractable
     private void OnDisable()
     {
 		colliderListener_Seek_Stay.ClearEventList();
+	}
+
+    private void Awake()
+    {
+		Die();
 	}
 #endregion
 
@@ -46,18 +55,65 @@ public class Window : MonoBehaviour, IInteractable
 
     public void GetDeposit( int count, DepositType type )     
     {
+		int emptyIndex = 0;
 
-    }
+        for( var i = 0; i < stackHealths.Length; i++ )
+        {
+            if( stackHealths[ i ] <= 0 )
+				emptyIndex = i;
+		}
+
+        //TODO(OFG): spawn deposited particle effect
+		stackHealths[ emptyIndex ] = count * ( ( int )type + 1 );
+		stackMeshFilters[ emptyIndex ].mesh = GameSettings.Instance.window_meshes[ ( int )type ];
+
+        if( !isAlive )
+			Revive();
+	}
 
     public void GetDamage( int count )
     {
-        FFLogger.Log( "Damage: " + count );
-    }
+		int index = 0;
+
+        for( var i = 0; i < stackHealths.Length; i++ )
+        {
+            if( stackHealths[ i ] > 0 )
+				index = i;
+		}
+
+        //TODO(OFG): spawn damage particle effect
+		stackHealths[ index ] -= count;
+
+        if( stackHealths[ index ] <= 0 )
+			stackMeshFilters[ index ].mesh = null;
+
+		bool isDeath = true;
+
+		for( var i = 0; i < stackHealths.Length; i++ )
+        {
+            if( stackHealths[ i ] > 0 )
+				isDeath = false;
+		}
+
+        if( isDeath )
+			Die();
+	}
 
 	public bool IsAlive()
     {
         return isAlive;
     }
+
+    public bool CanDeposit()
+    {
+        for( var i = 0; i < stackHealths.Length; i++ )
+        {
+            if( stackHealths[ i ] == 0 )
+				return true;
+		}
+
+		return false;
+	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )
     {
@@ -73,7 +129,7 @@ public class Window : MonoBehaviour, IInteractable
         colliderHealth.enabled = false;
         isAlive                = false;
 
-		onDeath();
+		onDeath?.Invoke();
 		onDeath = null;
 
 		colliderListener_Seek_Stay.triggerEvent += VaultInEnemies;
