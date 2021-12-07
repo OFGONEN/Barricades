@@ -44,7 +44,7 @@ public class Spike : Entity, IInteractable
     public void GetDeposit( int count, DepositType type )     
     {
 		//TODO(OFG): spawn deposited particle effect
-		health += count * ( ( int )type + 1 );
+		health = Mathf.Min( health + count * ( ( int )type + 1 ), GameSettings.Instance.spike_maxHealth );
 
 		if( !isAlive )
 			Revive();
