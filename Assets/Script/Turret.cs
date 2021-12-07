@@ -10,13 +10,17 @@ public class Turret : Entity, IInteractable
 {
 #region Fields
     [ BoxGroup( "Shared Variables" ) ] public EnemySet enemySet;
+    [ BoxGroup( "Shared Variables" ) ] public BulletPool bulletPool;
 
     [ BoxGroup( "Setup" ) ] public GameObject aliveMesh;
 	[ BoxGroup( "Setup" ) ] public GameObject deadMesh;
 	[ BoxGroup( "Setup" ) ] public Transform rotateObject;
+	[ BoxGroup( "Setup" ) ] public Transform shootOrigin;
 	[ BoxGroup( "Setup" ) ] public bool startDead;
 
-	// Private Delegate \\
+
+	// Private \\
+	private float lastShoot;
 	private UnityMessage updateMethod;
 #endregion
 
@@ -118,8 +122,21 @@ public class Turret : Entity, IInteractable
 		if( closestEnemy != null )
 		{
 			rotateObject.LookAtAxis( enemyPosition, Vector3.up );
-			// Shoot at target
+			Shoot( enemyPosition );
 		}
+	}
+
+	private void Shoot( Vector3 targetPosition )
+	{
+		if( lastShoot > Time.time ) return; // Return if Cooldown is not met
+
+		lastShoot = Time.time + GameSettings.Instance.turret_fireRate; // Add cooldown
+
+		var shootOriginPosition = shootOrigin.position;
+		var direction           = ( targetPosition - shootOriginPosition );
+		var bullet              = bulletPool.GiveEntity();
+
+		bullet.Spawn( shootOriginPosition, direction );
 	}
 
     [ Button() ]
