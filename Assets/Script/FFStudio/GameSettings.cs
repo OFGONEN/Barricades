@@ -42,6 +42,9 @@ namespace FFStudio
 
         // Spike Entity
         [ Foldout( "Spike" ) ] public int spike_maxHealth = 6;
+
+        // Bullet Entity
+        [ Foldout( "Bullet" ) ] public float bullet_speed = 6;
 #endregion
 
 #region Implementation
