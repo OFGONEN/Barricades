@@ -54,6 +54,7 @@ public class Enemy : MonoBehaviour
 		event_collide_hitbox.triggerEvent += OnCollision_HitBox;
 		event_collide_seek.triggerEvent   += OnCollision_Seek;
 		event_collide_damage.triggerEvent += OnCollision_Damage;
+
 	}
 
 	private void OnDisable()
@@ -61,6 +62,13 @@ public class Enemy : MonoBehaviour
 		event_collide_hitbox.triggerEvent -= OnCollision_HitBox;
 		event_collide_seek.triggerEvent   -= OnCollision_Seek;
 		event_collide_damage.triggerEvent -= OnCollision_Damage;
+
+		event_collide_damage.AttachedCollider.enabled = false;
+		event_collide_seek.AttachedCollider.enabled   = false;
+		event_collide_hitbox.AttachedCollider.enabled = false;
+
+		// Remove from enemy set
+		enemySet.RemoveDictionary( GetInstanceID() );
 	}
 
     private void Awake()
@@ -82,6 +90,10 @@ public class Enemy : MonoBehaviour
     public void Spawn( Vector3 position )
     {
 		gameObject.SetActive( true );
+
+		// Enable Colliders
+		event_collide_seek.AttachedCollider.enabled   = true;
+		event_collide_hitbox.AttachedCollider.enabled = true;
 
 		ConfigureRandomValues();
 
@@ -149,7 +161,6 @@ public class Enemy : MonoBehaviour
     {
 		// UnSub 
 		currentInteractable?.UnSubscribe_OnDeath( OnInteractableDeath );
-		enemySet.RemoveDictionary( GetInstanceID() );
 
 		// Default variables
 		isInside              = false;
