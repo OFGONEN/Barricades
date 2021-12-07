@@ -34,6 +34,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb3a388482e0422ba7b9fe2fca1b753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemySet: {fileID: 11400000, guid: ceff7ade49fbd384498d0ebb78cdf2f3, type: 2}
   enemyPool: {fileID: 11400000, guid: 1ae3ceca9a54745c28d429c8c6c991da, type: 2}
   enemyRagdollPool: {fileID: 11400000, guid: 94a0c9647b3f74e21ac06da9190655fe, type: 2}
   destinationInside: {fileID: 11400000, guid: 4f242af9cf58344cf94826a5008e0033, type: 2}
@@ -42,7 +43,6 @@ MonoBehaviour:
   event_collide_hitbox: {fileID: 8690655612547054871}
   event_collide_seek: {fileID: 9172918620784352703}
   event_collide_damage: {fileID: 3194189601817415176}
-  collider_seek: {fileID: 7116682526336891984}
   isAttacking: 0
 --- !u!136 &689313818342083162
 CapsuleCollider:
@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb44bbb6c2755aa45b3c61ef5aeba1eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
 --- !u!1 &4303391966327487310
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb44bbb6c2755aa45b3c61ef5aeba1eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
 --- !u!1 &5400816557770342585
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb44bbb6c2755aa45b3c61ef5aeba1eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
 --- !u!1001 &87265714223837555
 PrefabInstance:
   m_ObjectHideFlags: 0

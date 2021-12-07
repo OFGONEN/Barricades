@@ -13,6 +13,7 @@ using NaughtyAttributes;
 public class Enemy : MonoBehaviour
 {
 #region Fields
+    [ BoxGroup( "Shared Variables" ) ] public EnemySet enemySet;
     [ BoxGroup( "Shared Variables" ) ] public EnemyPool enemyPool;
     [ BoxGroup( "Shared Variables" ) ] public EnemyRagdollPool enemyRagdollPool;
     [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier destinationInside;
@@ -112,6 +113,8 @@ public class Enemy : MonoBehaviour
 #region Implementation
     private void OnVaultComplete()
     {
+		enemySet.AddDictionary( GetInstanceID(), this );
+
 		updateMethod  = CheckNavMeshAgent;
 		vaultSequence = null;
 
@@ -144,8 +147,9 @@ public class Enemy : MonoBehaviour
 
     private void Die( Vector3 direction )
     {
-		// UnSub from event
+		// UnSub 
 		currentInteractable?.UnSubscribe_OnDeath( OnInteractableDeath );
+		enemySet.RemoveDictionary( GetInstanceID() );
 
 		// Default variables
 		isInside              = false;
