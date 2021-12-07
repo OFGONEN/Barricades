@@ -31,14 +31,17 @@ public class Turret : Entity, IInteractable
     private void Awake()
     {
 		updateMethod = ExtensionMethods.EmptyMethod;
+	}
 
+	private void Start()
+	{
 		if( startDead )
 			Die();
         else
         {
 			health = GameSettings.Instance.turret_maxHealth;
 			Revive();
-		}
+		}	
 	}
 
 	private void Update()

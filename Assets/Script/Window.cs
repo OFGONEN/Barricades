@@ -29,7 +29,7 @@ public class Window : Entity, IInteractable
 		colliderListener_Seek_Stay.ClearEventList();
 	}
 
-    private void Awake()
+    private void Start()
     {
 		Die();
 	}

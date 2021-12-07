@@ -18,7 +18,7 @@ public class Spike : Entity, IInteractable
 #endregion
 
 #region Unity API
-	private void Awake()
+	private void Start()
 	{
 		if( startDead )
 			Die();
