@@ -14,12 +14,14 @@ public class AppAssetHolder : MonoBehaviour
 
 	[ BoxGroup( "Pools" ) ] public EnemyRagdollPool enemyRagdollPool;
 	[ BoxGroup( "Pools" ) ] public EnemyPool enemyPool;
+	[ BoxGroup( "Pools" ) ] public BulletPool bulletPool;
 
 	private void Awake()
 	{
 		//Init Pools
 		enemyRagdollPool.InitPool( transform, false );
-		enemyPool.InitPool( transform, false );
+		enemyPool       .InitPool( transform, false );
+		bulletPool      .InitPool( transform, false );
 	}
 #endregion
 }
