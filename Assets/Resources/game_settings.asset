@@ -35,3 +35,5 @@ MonoBehaviour:
   - {fileID: 4910410205004592983, guid: 1b507aeb94e6b4c319aff31f203e4a95, type: 3}
   spike_maxHealth: 6
   bullet_speed: 25
+  turret_maxHealth: 6
+  turret_fireRate: 0.15
