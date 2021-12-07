@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cca01db805d20845b0599e412edc80b, type: 3}
   m_Name: set_enemy
   m_EditorClassIdentifier: 
-  setSize: 0
+  setSize: 15
   itemList: []

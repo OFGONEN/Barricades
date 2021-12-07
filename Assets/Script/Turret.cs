@@ -9,9 +9,15 @@ using NaughtyAttributes;
 public class Turret : Entity, IInteractable
 {
 #region Fields
+    [ BoxGroup( "Shared Variables" ) ] public EnemySet enemySet;
+
     [ BoxGroup( "Setup" ) ] public GameObject aliveMesh;
 	[ BoxGroup( "Setup" ) ] public GameObject deadMesh;
+	[ BoxGroup( "Setup" ) ] public Transform rotateObject;
 	[ BoxGroup( "Setup" ) ] public bool startDead;
+
+	// Private Delegate \\
+	private UnityMessage updateMethod;
 #endregion
 
 #region Properties
@@ -20,13 +26,20 @@ public class Turret : Entity, IInteractable
 #region Unity API
     private void Awake()
     {
-        if( startDead )
+		updateMethod = ExtensionMethods.EmptyMethod;
+
+		if( startDead )
 			Die();
         else
         {
 			health = GameSettings.Instance.turret_maxHealth;
 			Revive();
 		}
+	}
+
+	private void Update()
+	{
+		updateMethod();
 	}
 #endregion
 
@@ -82,6 +95,33 @@ public class Turret : Entity, IInteractable
 #endregion
 
 #region Implementation
+	private void SeekAndShoot()
+	{
+		var   position = transform.position;
+		float distance = float.MaxValue;
+
+		Enemy closestEnemy = null;
+		Vector3 enemyPosition = Vector3.zero;
+
+		foreach( var enemy in enemySet.itemDictionary.Values )
+		{
+			    enemyPosition   = enemy.transform.position;
+			var distanceToEnemy = Vector3.Distance( enemyPosition, position );
+
+			if( distanceToEnemy < distance )
+			{
+				distance     = distanceToEnemy;
+				closestEnemy = enemy;
+			}
+		}
+
+		if( closestEnemy != null )
+		{
+			rotateObject.LookAtAxis( enemyPosition, Vector3.up );
+			// Shoot at target
+		}
+	}
+
     [ Button() ]
     protected override void Die()
     {
@@ -89,6 +129,8 @@ public class Turret : Entity, IInteractable
 		colliderListener_Seek_Stay.SetColliderActive( false );
 		isAlive = false;
 		health  = 0;
+
+		updateMethod = ExtensionMethods.EmptyMethod;
 
 		aliveMesh.SetActive( false );
 		deadMesh.SetActive( true );
@@ -100,10 +142,12 @@ public class Turret : Entity, IInteractable
     [ Button() ]
     protected override void Revive()
     {
-        // Enable healt collider since it can dake damage
+        // Enable healt collider since it can take damage
 		colliderListener_Health_Enter.SetColliderActive( true );
 		colliderListener_Seek_Stay.SetColliderActive( true );
 		isAlive = true;
+
+		updateMethod = SeekAndShoot;
 
 		aliveMesh.SetActive( true );
 		deadMesh.SetActive( false );

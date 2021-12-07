@@ -51,8 +51,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliderListener_Health_Enter: {fileID: 3608165560126685100}
   colliderListener_Seek_Stay: {fileID: 3608165560980630737}
+  enemySet: {fileID: 11400000, guid: ceff7ade49fbd384498d0ebb78cdf2f3, type: 2}
   aliveMesh: {fileID: 3608165560215770153}
   deadMesh: {fileID: 4527154070268034107}
+  rotateObject: {fileID: 3861975257294199637}
   startDead: 0
 --- !u!54 &646191865091557493
 Rigidbody:

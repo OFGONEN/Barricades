@@ -13,6 +13,7 @@ using NaughtyAttributes;
 public class Enemy : MonoBehaviour
 {
 #region Fields
+    [ BoxGroup( "Shared Variables" ) ] public EnemySet enemySet;
     [ BoxGroup( "Shared Variables" ) ] public EnemyPool enemyPool;
     [ BoxGroup( "Shared Variables" ) ] public EnemyRagdollPool enemyRagdollPool;
     [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier destinationInside;
@@ -96,6 +97,8 @@ public class Enemy : MonoBehaviour
 
     public void Vault( Vector3 position )
     {
+		enemySet.AddDictionary( GetInstanceID(), this );
+
 		isInside = true;
 		event_collide_seek.AttachedCollider.enabled = false;
 
@@ -144,8 +147,9 @@ public class Enemy : MonoBehaviour
 
     private void Die( Vector3 direction )
     {
-		// UnSub from event
+		// UnSub 
 		currentInteractable?.UnSubscribe_OnDeath( OnInteractableDeath );
+		enemySet.RemoveDictionary( GetInstanceID() );
 
 		// Default variables
 		isInside              = false;
