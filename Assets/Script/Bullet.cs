@@ -31,7 +31,8 @@ public class Bullet : MonoBehaviour
     {
 		gameObject.SetActive( true );
 
-		bulletRigidbody.position = position;
+		transform.position       = position;
+		transform.forward        = direction;
 		bulletRigidbody.velocity = direction * GameSettings.Instance.bullet_speed;
 
 		colliderListener_AllyDamage_Enter.triggerEvent += OnTrigger;
