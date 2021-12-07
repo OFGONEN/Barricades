@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
 	private Animator animator;
     private NavMeshAgent navMeshAgent;
 	private Collider currentAttackCollider;
+	public IInteractable currentInteractable;
 
 	// Delegates \\
 	private UnityMessage updateMethod;
@@ -134,8 +135,6 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-
-
     private void ConfigureRandomValues()
     {
 		animator.SetInteger( "random_idle", Random.Range( 1, GameSettings.Instance.enemy_animation_idle_count + 1 ) );
@@ -145,11 +144,15 @@ public class Enemy : MonoBehaviour
 
     private void Die( Vector3 direction )
     {
+		// UnSub from event
+		currentInteractable?.UnSubscribe_OnDeath( OnInteractableDeath );
+
 		// Default variables
 		isInside              = false;
 		isAttacking           = false;
 		currentDestination    = destinationOutside;
 		currentAttackCollider = null;
+		currentInteractable   = null;
 		vaultSequence.KillProper(); //Kill if vault sequence is active
 
 		gameObject.SetActive( false ); // Disable the object
@@ -182,7 +185,8 @@ public class Enemy : MonoBehaviour
 
 		if( interactable.IsAlive() ) 
 		{
-			currentAttackCollider           = interactable.GiveHealthCollider();
+			currentInteractable      = interactable;
+			currentAttackCollider    = interactable.GiveHealthCollider();
 			navMeshAgent.destination = currentAttackCollider.transform.position;
 
 			interactable.Subscribe_OnDeath( OnInteractableDeath );
@@ -197,7 +201,9 @@ public class Enemy : MonoBehaviour
 
 	private void OnInteractableDeath()
 	{
+		currentInteractable   = null;
 		currentAttackCollider = null;
+
 		navMeshAgent.Warp( transform.position );
 		navMeshAgent.destination = ( currentDestination.SharedValue as Transform ).position;
 	}
