@@ -190,7 +190,7 @@ public class Enemy : MonoBehaviour
 
 	private void OnCollision_HitBox( Collider other )
 	{
-		var direction = transform.position - other.transform.position;
+		var direction = other.transform.position - transform.position;
 		Die( direction.SetY( 0 ) );
 	}
 

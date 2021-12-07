@@ -26,7 +26,7 @@ MonoBehaviour:
   enemy_animation_vault_duration: 1.12
   enemy_animation_run_speed: 1
   enemy_ragdoll_duration: 3
-  enemy_death_velocity_range: {x: 75, y: 125}
+  enemy_death_velocity_range: {x: 50, y: 100}
   enemy_damage: 1
   window_cooldown_vault: 0.25
   window_meshes:
