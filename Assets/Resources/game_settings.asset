@@ -36,4 +36,4 @@ MonoBehaviour:
   spike_maxHealth: 6
   bullet_speed: 25
   turret_maxHealth: 6
-  turret_fireRate: 0.15
+  turret_fireRate: 0.5

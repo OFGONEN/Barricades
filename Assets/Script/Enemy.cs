@@ -97,8 +97,6 @@ public class Enemy : MonoBehaviour
 
     public void Vault( Vector3 position )
     {
-		enemySet.AddDictionary( GetInstanceID(), this );
-
 		isInside = true;
 		event_collide_seek.AttachedCollider.enabled = false;
 
@@ -115,6 +113,8 @@ public class Enemy : MonoBehaviour
 #region Implementation
     private void OnVaultComplete()
     {
+		enemySet.AddDictionary( GetInstanceID(), this );
+
 		updateMethod  = CheckNavMeshAgent;
 		vaultSequence = null;
 
