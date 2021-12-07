@@ -11,12 +11,23 @@ public class Spike : Entity, IInteractable
 #region Fields
 	[ BoxGroup( "Setup" ) ] public MeshRenderer aliveMesh;
 	[ BoxGroup( "Setup" ) ] public MeshRenderer deadMesh;
+	[ BoxGroup( "Setup" ) ] public bool startDead;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
+	private void Awake()
+	{
+		if( startDead )
+			Die();
+		else
+		{
+			health = GameSettings.Instance.spike_maxHealth;
+			Revive();
+		}
+	}
 #endregion
 
 #region API
