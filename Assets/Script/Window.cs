@@ -113,6 +113,11 @@ public class Window : Entity, IInteractable
         //! DO onDeath = null for clearing the invoke list
 		onDeath += onDeathDelegate;
 	}
+
+	public void UnSubscribe_OnDeath( UnityMessage onDeathDelegate )
+	{
+		onDeath -= onDeathDelegate;
+	}
 #endregion
 
 #region Implementation

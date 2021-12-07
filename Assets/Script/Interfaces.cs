@@ -11,4 +11,5 @@ public interface IInteractable
 	public abstract bool IsAlive();
 	public abstract bool CanDeposit();
 	public abstract void Subscribe_OnDeath( UnityMessage onDeathDelegate );
+	public abstract void UnSubscribe_OnDeath( UnityMessage onDeathDelegate );
 }
