@@ -36,9 +36,12 @@ namespace FFStudio
         [ Foldout( "Enemy" ) ] public Vector2 enemy_death_velocity_range;
         [ Foldout( "Enemy" ) ] public int enemy_damage = 1;
 
-
+        // Window Entity
         [ Foldout( "Window" ) ] public float window_cooldown_vault = 0.25f;
         [ Foldout( "Window" ) ] public Mesh[] window_meshes;
+
+        // Spike Entity
+        [ Foldout( "Spike" ) ] public int spike_maxHealth = 6;
 #endregion
 
 #region Implementation
