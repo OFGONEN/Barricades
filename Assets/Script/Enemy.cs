@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
 
 	// Private \\
 	private bool isInside = false;
+	private Vector3 vaultPosition;
 	private SharedReferenceNotifier currentDestination;
 
 	// Components \\
@@ -109,7 +110,8 @@ public class Enemy : MonoBehaviour
 
     public void Vault( Vector3 position )
     {
-		isInside = true;
+		isInside      = true;
+		vaultPosition = position;
 		event_collide_seek.AttachedCollider.enabled = false;
 
 		animator.SetLayerWeight( 1, 0 );
@@ -128,9 +130,11 @@ public class Enemy : MonoBehaviour
 		enemySet.AddDictionary( GetInstanceID(), this );
 
 		updateMethod  = CheckNavMeshAgent;
-		vaultSequence = null;
+		vaultSequence = vaultSequence.KillProper();
 
-		navMeshAgent.Warp( transform.position );
+		navMeshAgent.CompleteOffMeshLink();
+		navMeshAgent.Warp( vaultPosition );
+
 		currentDestination       = destinationInside;
 		navMeshAgent.destination = ( currentDestination.SharedValue as Transform ).position;
 
@@ -168,7 +172,7 @@ public class Enemy : MonoBehaviour
 		currentDestination    = destinationOutside;
 		currentAttackCollider = null;
 		currentInteractable   = null;
-		vaultSequence.KillProper(); //Kill if vault sequence is active
+		vaultSequence = vaultSequence.KillProper(); //Kill if vault sequence is active
 
 		gameObject.SetActive( false ); // Disable the object
 		enemyPool.ReturnEntity( this ); // Return to pool
@@ -227,7 +231,7 @@ public class Enemy : MonoBehaviour
 #region Editor Only
 #if UNITY_EDITOR
 	[ Button() ]
-	private void Test_Die()
+	public void Test_Die()
 	{
 		Die( Random.onUnitSphere );
 	}

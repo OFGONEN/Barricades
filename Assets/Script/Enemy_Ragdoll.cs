@@ -31,7 +31,7 @@ public class Enemy_Ragdoll : MonoBehaviour
 #region API
     public void Spawn()
     {
-		returnToPoolTween.KillProper();
+		returnToPoolTween = returnToPoolTween.KillProper();
 		returnToPoolTween = DOVirtual.DelayedCall( GameSettings.Instance.enemy_ragdoll_duration, ReturnToPool );
 	}
 #endregion
@@ -39,6 +39,8 @@ public class Enemy_Ragdoll : MonoBehaviour
 #region Implementation
     private void ReturnToPool()
     {
+		returnToPoolTween = null;
+
 		gameObject.SetActive( false );
 		enemyRagdollPool.ReturnEntity( this );
 	}
