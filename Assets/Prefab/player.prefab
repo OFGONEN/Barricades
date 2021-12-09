@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1392604650689601660}
   - component: {fileID: 302816125850817394}
   - component: {fileID: 7661287706935028793}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: ally_seek
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 5497923211410346020}
   - component: {fileID: 5497923211410346023}
   - component: {fileID: 3788054230538390801}
+  - component: {fileID: 6178897639409201200}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -153,10 +154,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e85b47eef60c042b78d42d8205c381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderListener_Health_Enter: {fileID: 0}
-  colliderListener_Seek_Stay: {fileID: 0}
+  colliderListener_Health_Enter: {fileID: 4003372399739101427}
+  colliderListener_Seek_Stay: {fileID: 7661287706935028793}
   input_JoyStick: {fileID: 11400000, guid: 08eb8fdc8d362bf42bdf5b8d62505e59, type: 2}
   levelFailed: {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
+  onDamageCooldown: 0
+--- !u!54 &6178897639409201200
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5497923211410346021}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &9066794233035414084
 GameObject:
   m_ObjectHideFlags: 0

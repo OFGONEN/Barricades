@@ -11,14 +11,18 @@ public class Player : Entity, IInteractable
 {
 #region Fields
 	[ BoxGroup( "Shared Variable" ) ] public SharedInput_JoyStick input_JoyStick;
-
 	[ BoxGroup( "Fired Events" ) ] public GameEvent levelFailed;
 
-	// Component \\
+	[ HideInInspector ] public bool onDamageCooldown;
+
+	// Private \\
+
+
+	// Component 
 	private Animator animator;
 	private NavMeshAgent navMeshAgent;
 
-	// Delegate \\ 
+	// Delegate
 	private UnityMessage updateMethod;
 #endregion
 
@@ -29,6 +33,7 @@ public class Player : Entity, IInteractable
 
 	private void Awake()
     {
+		health = GameSettings.Instance.player_maxHealth;
 
 		updateMethod = ExtensionMethods.EmptyMethod;
 
@@ -52,7 +57,7 @@ public class Player : Entity, IInteractable
 #region API
     public Collider GiveHealthCollider()
     {
-		return null;
+		return colliderListener_Health_Enter.AttachedCollider;
 	}
 
     public Vector3 GiveDepositPoint()
@@ -66,11 +71,14 @@ public class Player : Entity, IInteractable
 
     public void GetDamage( int count )
     {
+		if( onDamageCooldown ) return;
+
+		animator.SetTrigger( "hit" );
 	}
 
 	public bool IsAlive()
     {
-        return isAlive;
+        return true;
     }
 
     public bool CanDeposit()
@@ -93,11 +101,13 @@ public class Player : Entity, IInteractable
 #region Implementation
     protected override void Die()
     {
+		isAlive = false;
 	}
 
     protected override void Revive()
     {
 		updateMethod = Move;
+		isAlive = true;
 	}
 
 	private void Move()

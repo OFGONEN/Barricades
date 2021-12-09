@@ -50,6 +50,9 @@ namespace FFStudio
         // Turret Entity
         [ Foldout( "Turret" ) ] public int turret_maxHealth = 6;
         [ Foldout( "Turret" ) ] public float turret_fireRate = 0.15f;
+
+        // Player Entity
+        [ Foldout( "Player" ) ] public int player_maxHealth = 6;
 #endregion
 
 #region Implementation
