@@ -147,7 +147,12 @@ public class Enemy : MonoBehaviour
 
 		if( currentAttackCollider != null )
 		{
-			transform.LookAtOverTimeAxis( currentAttackCollider.transform.position, Vector3.up, navMeshAgent.angularSpeed );
+			var targetPosition = currentAttackCollider.transform.position;
+			transform.LookAtOverTimeAxis( targetPosition, Vector3.up, navMeshAgent.angularSpeed );
+
+			if(  Vector3.Distance( transform.position, targetPosition ) >= GameSettings.Instance.enemy_distance_targetFollow  )
+				navMeshAgent.destination = targetPosition;
+
 
 			if( !isAttacking )
 				animator.SetTrigger( "attack" );
@@ -190,6 +195,8 @@ public class Enemy : MonoBehaviour
     {
 		var isRunning = navMeshAgent.velocity.magnitude >= GameSettings.Instance.enemy_animation_run_speed;
 		animator.SetBool( "run", isRunning );
+
+
     }
 
 	private void OnCollision_HitBox( Collider other )
