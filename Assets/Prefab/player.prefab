@@ -153,6 +153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e85b47eef60c042b78d42d8205c381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colliderListener_Health_Enter: {fileID: 0}
+  colliderListener_Seek_Stay: {fileID: 0}
+  input_JoyStick: {fileID: 11400000, guid: 08eb8fdc8d362bf42bdf5b8d62505e59, type: 2}
+  levelFailed: {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
 --- !u!1 &9066794233035414084
 GameObject:
   m_ObjectHideFlags: 0
