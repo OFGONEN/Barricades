@@ -15,9 +15,14 @@ namespace FFStudio
 
 		[ Header( "Shared Variables" ) ]
 		public SharedReferenceNotifier mainCamera_ReferenceNotifier;
+		public SharedInput_JoyStick sharedInput_JoyStick;
 
 		// Privat fields
 		private int swipeThreshold;
+
+		// Delegates
+		private LeanFingerDelegate leanFingerUpdate;
+		private LeanFingerDelegate leanFingerUp;
 
 		// Components
 		private Transform mainCamera_Transform;
@@ -42,6 +47,9 @@ namespace FFStudio
 
 			leanTouch         = GetComponent<LeanTouch>();
 			leanTouch.enabled = false;
+
+			leanFingerUpdate = FingerDown;
+			leanFingerUp     = FingerUp;
 		}
 #endregion
 		
@@ -56,6 +64,16 @@ namespace FFStudio
 			tapInputEvent.eventValue = count;
 
 			tapInputEvent.Raise();
+		}
+
+		public void LeanFingerUpdate( LeanFinger finger )
+		{
+			leanFingerUpdate( finger );
+		}
+
+		public void LeanFingerUp( LeanFinger finger )
+		{
+			leanFingerUp( finger );
 		}
 #endregion
 
@@ -75,6 +93,23 @@ namespace FFStudio
 				mainCamera           = mainCamera_Transform.GetComponent< Camera >();
 				leanTouch.enabled    = true;
 			}
+		}
+
+		private void FingerDown( LeanFinger finger )
+		{
+			sharedInput_JoyStick.Enable( finger.ScreenPosition );
+			leanFingerUpdate = FingerUpdate;
+		}
+
+		private void FingerUpdate( LeanFinger finger )
+		{
+			sharedInput_JoyStick.ReceiveInput( finger.ScreenPosition );
+		}
+
+		private void FingerUp( LeanFinger finger )
+		{
+			sharedInput_JoyStick.Disable( finger.ScreenPosition );
+			leanFingerUpdate = FingerDown;
 		}
 #endregion
     }
