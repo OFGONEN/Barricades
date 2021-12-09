@@ -54,7 +54,7 @@ public class SharedInput_JoyStick : SharedVector2Notifier
         if( input_enabled )
         {
 			input_direction = input_received - input_screen_position;
-			SharedValue     = input_direction;
+			SharedValue     = input_direction.normalized;
 		}
 	}
 
