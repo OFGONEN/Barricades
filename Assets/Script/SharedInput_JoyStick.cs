@@ -43,19 +43,16 @@ public class SharedInput_JoyStick : SharedVector2Notifier
     {
 		input_screen_position = screenPosition;
 		input_enabled         = false;
+		SharedValue           = Vector2.zero;
 
 		input_toggle?.Invoke();
     }
 
     public void ReceiveInput( Vector2 input )
     {
-		input_received = input;
-
-        if( input_enabled )
-        {
-			input_direction = input_received - input_screen_position;
-			SharedValue     = input_direction.normalized;
-		}
+		input_received  = input;
+		input_direction = input_received - input_screen_position;
+		SharedValue     = input_direction.normalized;
 	}
 
     public void ClearInvokeList()
