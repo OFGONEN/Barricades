@@ -62,7 +62,7 @@ public class Spike : Entity, IInteractable
 
 	public bool IsAlive()
     {
-        return isAlive;
+        return false; // Since we don't want enemies to attack spike
     }
 
     public bool CanDeposit()
