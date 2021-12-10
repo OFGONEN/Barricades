@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
 	private bool isInside = false;
 	private Vector3 vaultPosition;
 	private SharedReferenceNotifier currentDestination;
+	private Transform currentDestinationTransform;
 
 	// Components \\
 	private Animator animator;
@@ -103,8 +104,9 @@ public class Enemy : MonoBehaviour
 		animator.Play( "idle_" + randomIdle , 1, Random.Range( 0f, 1f ) );
 
 		navMeshAgent.Warp( position );
-		navMeshAgent.destination = ( currentDestination.SharedValue as Transform ).position;
 
+		currentDestinationTransform = currentDestination.SharedValue as Transform;
+		navMeshAgent.destination = currentDestinationTransform.position;
 		updateMethod = CheckNavMeshAgent;
 	}
 
@@ -135,8 +137,9 @@ public class Enemy : MonoBehaviour
 		navMeshAgent.CompleteOffMeshLink();
 		navMeshAgent.Warp( vaultPosition );
 
-		currentDestination       = destinationInside;
-		navMeshAgent.destination = ( currentDestination.SharedValue as Transform ).position;
+		currentDestination          = destinationInside;
+		currentDestinationTransform = currentDestination.SharedValue as Transform;
+		navMeshAgent.destination    = currentDestinationTransform.position;
 
 		event_collide_seek.AttachedCollider.enabled = true;
 	}
@@ -145,14 +148,14 @@ public class Enemy : MonoBehaviour
     {
 		CheckIfRunning();
 
+		var targetPosition = currentDestinationTransform.transform.position;
+
+		if( Vector3.Distance( transform.position, targetPosition ) >= GameSettings.Instance.enemy_distance_targetFollow )
+			navMeshAgent.destination = targetPosition;
+
 		if( currentAttackCollider != null )
 		{
-			var targetPosition = currentAttackCollider.transform.position;
 			transform.LookAtOverTimeAxis( targetPosition, Vector3.up, navMeshAgent.angularSpeed );
-
-			if(  Vector3.Distance( transform.position, targetPosition ) >= GameSettings.Instance.enemy_distance_targetFollow  )
-				navMeshAgent.destination = targetPosition;
-
 
 			if( !isAttacking )
 				animator.SetTrigger( "attack" );
@@ -211,9 +214,10 @@ public class Enemy : MonoBehaviour
 
 		if( interactable.IsAlive() ) 
 		{
-			currentInteractable      = interactable;
-			currentAttackCollider    = interactable.GiveHealthCollider();
-			navMeshAgent.destination = currentAttackCollider.transform.position;
+			currentInteractable         = interactable;
+			currentAttackCollider       = interactable.GiveHealthCollider();
+			currentDestinationTransform = currentAttackCollider.transform;
+			navMeshAgent.destination    = currentDestinationTransform.position;
 
 			interactable.Subscribe_OnDeath( OnInteractableDeath );
 		}
@@ -231,7 +235,8 @@ public class Enemy : MonoBehaviour
 		currentAttackCollider = null;
 
 		navMeshAgent.Warp( transform.position );
-		navMeshAgent.destination = ( currentDestination.SharedValue as Transform ).position;
+		currentDestinationTransform = currentDestination.SharedValue as Transform;
+		navMeshAgent.destination    = currentDestinationTransform.position;
 	}
 #endregion
 
