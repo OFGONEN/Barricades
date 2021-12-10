@@ -55,6 +55,9 @@ namespace FFStudio
         // Player Entity
         [ Foldout( "Player" ) ] public int player_max_health = 6;
         [ Foldout( "Player" ) ] public int player_max_collectable = 12;
+
+        // Collectable Entity
+        [ Foldout( "Collectable" ) ] public int collectable_stack_height = 5;
 #endregion
 
 #region Implementation

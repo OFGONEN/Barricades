@@ -11,6 +11,8 @@ public class CollectablePool : ComponentPool< Collectable >
 	private Transform initialParent;
 	private bool initialActive;
 
+	public Transform InitialParent => initialParent;
+
 #region API
 	public void InitPool( Transform parent, bool active )
 	{
