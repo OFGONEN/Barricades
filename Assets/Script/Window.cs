@@ -155,7 +155,7 @@ public class Window : Entity, IInteractable
 
 		var onCoolDown = lastVaultTime + GameSettings.Instance.window_cooldown_vault > Time.time;
 
-		if( onCoolDown || enemy.IsInside ) return; 
+		if( enemy == null || onCoolDown || enemy.IsInside ) return; 
 
 		//Find vault position
 		var position = new Vector3
