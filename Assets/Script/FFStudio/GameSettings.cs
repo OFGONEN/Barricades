@@ -35,6 +35,7 @@ namespace FFStudio
         [ Foldout( "Enemy" ) ] public float enemy_animation_run_speed;
         [ Foldout( "Enemy" ) ] public float enemy_ragdoll_duration;
         [ Foldout( "Enemy" ) ] public Vector2 enemy_death_velocity_range;
+        [ Foldout( "Enemy" ) ] public float enemy_distance_targetFollow = 0.25f;
         [ Foldout( "Enemy" ) ] public int enemy_damage = 1;
 
         // Window Entity
@@ -50,6 +51,9 @@ namespace FFStudio
         // Turret Entity
         [ Foldout( "Turret" ) ] public int turret_maxHealth = 6;
         [ Foldout( "Turret" ) ] public float turret_fireRate = 0.15f;
+
+        // Player Entity
+        [ Foldout( "Player" ) ] public int player_maxHealth = 6;
 #endregion
 
 #region Implementation
