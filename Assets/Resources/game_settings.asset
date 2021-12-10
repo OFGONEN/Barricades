@@ -39,4 +39,5 @@ MonoBehaviour:
   bullet_speed: 25
   turret_maxHealth: 6
   turret_fireRate: 0.5
-  player_maxHealth: 6
+  player_max_health: 6
+  player_max_collectable: 12
