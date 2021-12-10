@@ -67,7 +67,7 @@ public class Player : Entity, IInteractable
 
     public void GetDeposit( int count, DepositType type, Collectable collectable = null )     
     {
-
+		collectables.Add( collectable );
 	}
 
     public void GetDamage( int count )
