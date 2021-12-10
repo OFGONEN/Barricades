@@ -73,7 +73,15 @@ public class Player : Entity, IInteractable
     {
 		if( onDamageCooldown ) return;
 
-		animator.SetTrigger( "hit" );
+		health -= count;
+
+		if( health <= 0 )
+		{
+			Die();
+		}
+		else
+			animator.SetTrigger( "hit" );
+
 	}
 
 	public bool IsAlive()
@@ -102,6 +110,14 @@ public class Player : Entity, IInteractable
     protected override void Die()
     {
 		isAlive = false;
+
+		InvokeOnDeath();
+		ClearOnDeath();
+
+		animator.SetTrigger( "death" );
+
+		//! Raise Level Fail Event
+		levelFailed.Raise();
 	}
 
     protected override void Revive()
