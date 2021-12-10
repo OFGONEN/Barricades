@@ -212,7 +212,7 @@ public class Enemy : MonoBehaviour
 	{
 		var interactable = other.GetComponentInParent< IInteractable >();
 
-		if( interactable.IsAlive() ) 
+		if( interactable != null && interactable.IsAlive() ) 
 		{
 			currentInteractable         = interactable;
 			currentAttackCollider       = interactable.GiveHealthCollider();
