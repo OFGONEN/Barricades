@@ -9,6 +9,7 @@ using NaughtyAttributes;
 public abstract class Entity : MonoBehaviour
 {
 #region Fields
+    [ BoxGroup( "Setup" ) ] public Transform origin_deposit;
     [ BoxGroup( "Setup" ) ] public ColliderListener colliderListener_Health_Enter;
     [ BoxGroup( "Setup" ) ] public ColliderListener colliderListener_Seek_Stay;
 

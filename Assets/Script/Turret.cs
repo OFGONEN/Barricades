@@ -56,12 +56,12 @@ public class Turret : Entity, IInteractable
 		return colliderListener_Health_Enter.AttachedCollider;
 	}
 
-	public Vector3 GiveDepositPoint()
+	public Transform GiveDepositOrigin()
     {
-		return Vector3.zero;
+		return origin_deposit;
 	}
 
-    public void GetDeposit( int count, DepositType type )     
+    public void GetDeposit( int count, DepositType type, Collectable collectable = null )     
     {
 		//TODO(OFG): spawn deposited particle effect
 		health = Mathf.Min( health + count * ( ( int )type + 1 ), GameSettings.Instance.spike_maxHealth );

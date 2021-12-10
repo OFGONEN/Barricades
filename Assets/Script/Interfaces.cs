@@ -5,8 +5,8 @@ using FFStudio;
 public interface IInteractable
 {
 	public abstract Collider GiveHealthCollider();
-	public abstract Vector3 GiveDepositPoint();
-	public abstract void GetDeposit( int count, DepositType type );
+	public abstract Transform GiveDepositOrigin();
+	public abstract void GetDeposit( int count, DepositType type, Collectable collectable );
 	public abstract void GetDamage( int count );
 	public abstract bool IsAlive();
 	public abstract bool CanDeposit();

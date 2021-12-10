@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0876dbb8935f33a4a8eeff863864f929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  origin_deposit: {fileID: 3861975257294199637}
   colliderListener_Health_Enter: {fileID: 3608165560126685100}
   colliderListener_Seek_Stay: {fileID: 3608165560980630737}
   enemySet: {fileID: 11400000, guid: ceff7ade49fbd384498d0ebb78cdf2f3, type: 2}
