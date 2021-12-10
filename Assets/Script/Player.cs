@@ -67,6 +67,7 @@ public class Player : Entity, IInteractable
 
     public void GetDeposit( int count, DepositType type )     
     {
+
 	}
 
     public void GetDamage( int count )
@@ -86,7 +87,7 @@ public class Player : Entity, IInteractable
 
 	public bool IsAlive()
     {
-        return true;
+        return isAlive;
     }
 
     public bool CanDeposit()
@@ -138,7 +139,6 @@ public class Player : Entity, IInteractable
 		}
 		else
 			animator.SetBool( "running", false );
-
 	}
 #endregion
 
