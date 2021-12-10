@@ -16,7 +16,7 @@ public class Player : Entity, IInteractable
 	[ HideInInspector ] public bool onDamageCooldown;
 
 	// Private \\
-
+	private List< Collectable > collectables;
 
 	// Component 
 	private Animator animator;
@@ -33,14 +33,14 @@ public class Player : Entity, IInteractable
 
 	private void Awake()
     {
-		health = GameSettings.Instance.player_maxHealth;
-
 		updateMethod = ExtensionMethods.EmptyMethod;
-
 		navMeshAgent = GetComponent< NavMeshAgent >();
 		animator     = GetComponentInChildren< Animator >();
 
+		health                      = GameSettings.Instance.player_max_health;
+		collectables                = new List< Collectable >( GameSettings.Instance.player_max_collectable );
 		navMeshAgent.updateRotation = false;
+
 	}
 
 	private void Start()
@@ -92,7 +92,7 @@ public class Player : Entity, IInteractable
 
     public bool CanDeposit()
     {
-		return false;
+		return collectables.Count < GameSettings.Instance.player_max_collectable;
 	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )
