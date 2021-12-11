@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
+using DG.Tweening;
 using NaughtyAttributes;
 
 public class Collectable : MonoBehaviour
@@ -13,6 +14,9 @@ public class Collectable : MonoBehaviour
 
     [ BoxGroup( "Setup" ) ] public DepositType depositType;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser colliderListener_Seek_Enter;
+
+	// Private \\
+	private Sequence depositSequence;
 #endregion
 
 #region Properties
@@ -39,22 +43,28 @@ public class Collectable : MonoBehaviour
 #endregion
 
 #region Implementation
-    public void OnAllySeekEnter( Collider other )
+    private void OnAllySeekEnter( Collider other ) // Only works with player
     {
-        var interactable = other.GetComponentInParent< IInteractable >();
+		var interactable = ( other.GetComponent< ColliderListener >() ).AttachedComponent as Player;
         
         if( interactable == null || !( interactable.CanDeposit() > 0 ) ) return;
+		
+		transform.SetParent( interactable.GiveDepositOrigin() );
 
-		var origin_deposit = interactable.GiveDepositOrigin();
+		depositSequence = DOTween.Sequence();
 
-		interactable.GetDeposit( 1, depositType, this );
-
-		transform.SetParent( origin_deposit );
-		transform.localPosition    = Vector3.up * transform.GetSiblingIndex() * GameSettings.Instance.collectable_stack_height;
-		transform.localEulerAngles = Vector3.zero;
+		depositSequence.Append( transform.DOLocalMove( Vector3.up * transform.GetSiblingIndex() * GameSettings.Instance.collectable_stack_height, GameSettings.Instance.collectable_duration_deposit ) );
+		depositSequence.Join( transform.DOLocalRotate( Vector3.zero, GameSettings.Instance.collectable_duration_deposit ) );
+		depositSequence.OnComplete( () => OnPlayerDeposit( interactable ) );
 
 		colliderListener_Seek_Enter.AttachedCollider.enabled = false;
 		colliderListener_Seek_Enter.triggerEvent -= OnAllySeekEnter;
+	}
+
+	private void OnPlayerDeposit( IInteractable interactable )
+	{
+		depositSequence = depositSequence.KillProper();
+		interactable.GetDeposit( 1, depositType, this );
 	}
 #endregion
 

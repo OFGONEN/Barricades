@@ -59,6 +59,7 @@ namespace FFStudio
 
         // Collectable Entity
         [ Foldout( "Collectable" ) ] public int collectable_stack_height = 5;
+        [ Foldout( "Collectable" ) ] public float collectable_duration_deposit = 0.25f;
 #endregion
 
 #region Implementation
