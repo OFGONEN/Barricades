@@ -9,7 +9,7 @@ public interface IInteractable
 	public abstract void GetDeposit( int count, DepositType type, Collectable collectable );
 	public abstract void GetDamage( int count );
 	public abstract bool IsAlive();
-	public abstract bool CanDeposit();
+	public abstract int CanDeposit();
 	public abstract void Subscribe_OnDeath( UnityMessage onDeathDelegate );
 	public abstract void UnSubscribe_OnDeath( UnityMessage onDeathDelegate );
 }

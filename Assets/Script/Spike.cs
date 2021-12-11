@@ -64,9 +64,9 @@ public class Spike : Entity, IInteractable
         return false; // Since we don't want enemies to attack spike
     }
 
-    public bool CanDeposit()
+    public int CanDeposit()
     {
-		return health < GameSettings.Instance.spike_maxHealth;
+		return GameSettings.Instance.turret_maxHealth - health;
 	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )

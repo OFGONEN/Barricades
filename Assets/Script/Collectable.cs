@@ -43,7 +43,7 @@ public class Collectable : MonoBehaviour
     {
         var interactable = other.GetComponentInParent< IInteractable >();
         
-        if( interactable == null || !interactable.CanDeposit() ) return;
+        if( interactable == null || !( interactable.CanDeposit() > 0 ) ) return;
 
 		var origin_deposit = interactable.GiveDepositOrigin();
 

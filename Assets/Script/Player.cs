@@ -17,6 +17,7 @@ public class Player : Entity, IInteractable
 
 	// Private \\
 	private Stack< Collectable > collectables;
+	private IInteractable lastInteractable;
 
 	// Component 
 	private Animator animator;
@@ -89,9 +90,9 @@ public class Player : Entity, IInteractable
         return isAlive;
     }
 
-    public bool CanDeposit()
+    public int CanDeposit()
     {
-		return collectables.Count < GameSettings.Instance.player_max_collectable;
+		return GameSettings.Instance.player_max_collectable - collectables.Count;
 	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )
@@ -149,7 +150,7 @@ public class Player : Entity, IInteractable
 	{
 		var interactable = ( other.GetComponent< ColliderListener >() ).AttachedComponent as IInteractable;
 
-		if( interactable == null || !interactable.CanDeposit() || collectables.Count <= 0 ) return;
+		if( interactable == null || !( interactable.CanDeposit() > 0 ) || collectables.Count <= 0 ) return;
 
 		var collectable = collectables.Pop();
 

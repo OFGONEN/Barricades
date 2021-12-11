@@ -84,9 +84,9 @@ public class Turret : Entity, IInteractable
 		return isAlive;
 	}
 
-	public bool CanDeposit()
+	public int CanDeposit()
     {
-		return health < GameSettings.Instance.turret_maxHealth;
+		return GameSettings.Instance.turret_maxHealth - health;
 	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )
