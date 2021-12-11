@@ -55,8 +55,8 @@ public class Collectable : MonoBehaviour
 		depositSequence.KillProper();
 		depositSequence = DOTween.Sequence();
 
-		depositSequence.Append( transform.DOLocalMove( 
-			Vector3.up * transform.GetSiblingIndex() * GameSettings.Instance.collectable_stack_height, 
+		depositSequence.Append( transform.DOLocalMoveY( 
+			transform.GetSiblingIndex() * GameSettings.Instance.collectable_stack_height, 
 			GameSettings.Instance.collectable_duration_deposit )
 			.SetEase( GameSettings.Instance.collectable_ease ) );
 
