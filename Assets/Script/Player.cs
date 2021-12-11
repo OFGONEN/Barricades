@@ -73,7 +73,7 @@ public class Player : Entity, IInteractable
     {
 		if( onDamageCooldown ) return;
 
-		health -= count;
+		health = Mathf.Max( health - 1, 0 );
 
 		if( health <= 0 )
 		{
@@ -158,6 +158,7 @@ public class Player : Entity, IInteractable
 		collectable.gameObject.SetActive( false );
 
 		interactable.GetDeposit( 1, collectable.depositType, collectable );
+		FFLogger.Log( "Interactable:" + Time.frameCount , interactable.GiveDepositOrigin() );
 	}
 #endregion
 

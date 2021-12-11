@@ -53,10 +53,9 @@ public class Spike : Entity, IInteractable
     public void GetDamage( int count )
     {
 		//TODO(OFG): spawn damage particle effect
-		health -= count;
-		bool isDead = health <= 0;
+		health = Mathf.Max( health - 1, 0 );
 
-		if( isDead )
+		if( health <= 0 )
 			Die();
 	}
 
