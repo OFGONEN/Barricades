@@ -16,7 +16,7 @@ public class Player : Entity, IInteractable
 	[ HideInInspector ] public bool onDamageCooldown;
 
 	// Private \\
-	private List< Collectable > collectables;
+	private Stack< Collectable > collectables;
 
 	// Component 
 	private Animator animator;
@@ -38,9 +38,8 @@ public class Player : Entity, IInteractable
 		animator     = GetComponentInChildren< Animator >();
 
 		health                      = GameSettings.Instance.player_max_health;
-		collectables                = new List< Collectable >( GameSettings.Instance.player_max_collectable );
+		collectables                = new Stack< Collectable >( GameSettings.Instance.player_max_collectable );
 		navMeshAgent.updateRotation = false;
-
 	}
 
 	private void Start()
@@ -67,7 +66,7 @@ public class Player : Entity, IInteractable
 
     public void GetDeposit( int count, DepositType type, Collectable collectable = null )     
     {
-		collectables.Add( collectable );
+		collectables.Push( collectable );
 	}
 
     public void GetDamage( int count )
@@ -110,10 +109,13 @@ public class Player : Entity, IInteractable
 #region Implementation
     protected override void Die()
     {
-		isAlive = false;
+		updateMethod = ExtensionMethods.EmptyMethod;
+		isAlive      = false;
 
 		InvokeOnDeath();
 		ClearOnDeath();
+
+		colliderListener_Seek_Stay.triggerEvent -= OnAllySeekEnter;
 
 		animator.SetTrigger( "death" );
 
@@ -124,7 +126,9 @@ public class Player : Entity, IInteractable
     protected override void Revive()
     {
 		updateMethod = Move;
-		isAlive = true;
+		isAlive      = true;
+
+		colliderListener_Seek_Stay.triggerEvent += OnAllySeekEnter;
 	}
 
 	private void Move()
@@ -139,6 +143,21 @@ public class Player : Entity, IInteractable
 		}
 		else
 			animator.SetBool( "running", false );
+	}
+
+	private void OnAllySeekEnter( Collider other )
+	{
+		var interactable = ( other.GetComponent< ColliderListener >() ).AttachedComponent as IInteractable;
+
+		if( interactable == null || !interactable.CanDeposit() || collectables.Count <= 0 ) return;
+
+		var collectable = collectables.Pop();
+
+		//TODO make this work with collectable pool
+		collectable.transform.SetParent( transform );
+		collectable.gameObject.SetActive( false );
+
+		interactable.GetDeposit( 1, collectable.depositType, collectable );
 	}
 #endregion
 
