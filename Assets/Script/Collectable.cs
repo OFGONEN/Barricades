@@ -50,7 +50,9 @@ public class Collectable : MonoBehaviour
         if( interactable == null || !( interactable.CanDeposit() > 0 ) ) return;
 		
 		transform.SetParent( interactable.GiveDepositOrigin() );
+		interactable.GetDeposit( 1, depositType, this );
 
+		depositSequence.KillProper();
 		depositSequence = DOTween.Sequence();
 
 		depositSequence.Append( transform.DOLocalMove( 
@@ -61,16 +63,15 @@ public class Collectable : MonoBehaviour
 		depositSequence.Join( transform.DOLocalMoveX( 0, GameSettings.Instance.collectable_duration_deposit ) );
 		depositSequence.Join( transform.DOLocalMoveZ( 0, GameSettings.Instance.collectable_duration_deposit ) );
 		depositSequence.Join( transform.DOLocalRotate( Vector3.zero, GameSettings.Instance.collectable_duration_deposit ) );
-		depositSequence.OnComplete( () => OnPlayerDeposit( interactable ) );
+		depositSequence.OnComplete( OnPlayerDeposit );
 
 		colliderListener_Seek_Enter.AttachedCollider.enabled = false;
 		colliderListener_Seek_Enter.triggerEvent -= OnAllySeekEnter;
 	}
 
-	private void OnPlayerDeposit( IInteractable interactable )
+	private void OnPlayerDeposit()
 	{
 		depositSequence = depositSequence.KillProper();
-		interactable.GetDeposit( 1, depositType, this );
 	}
 #endregion
 

@@ -163,7 +163,6 @@ public class Player : Entity, IInteractable
 		collectable.gameObject.SetActive( false );
 
 		interactable.GetDeposit( 1, collectable.depositType, collectable );
-		FFLogger.Log( "Interactable:" + Time.frameCount , interactable.GiveDepositOrigin() );
 	}
 #endregion
 
