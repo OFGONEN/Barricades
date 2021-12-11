@@ -112,7 +112,8 @@ public class Spike : Entity, IInteractable
 	private void DamageEnemy( Collider other )
 	{
 		//Enemy will kill itself after colliding with spike
-		GetDamage( 1 );
+		if( other.gameObject.layer != 28 )
+			GetDamage( 1 );
 	}
 #endregion
 
