@@ -146,7 +146,6 @@ public class Turret : Entity, IInteractable
     protected override void Die()
     {
 		colliderListener_Health_Enter.SetColliderActive( false );
-		colliderListener_Seek_Stay.SetColliderActive( false );
 		isAlive = false;
 		health  = 0;
 
@@ -164,7 +163,6 @@ public class Turret : Entity, IInteractable
     {
         // Enable healt collider since it can take damage
 		colliderListener_Health_Enter.SetColliderActive( true );
-		colliderListener_Seek_Stay.SetColliderActive( true );
 		isAlive = true;
 
 		updateMethod = SeekAndShoot;
