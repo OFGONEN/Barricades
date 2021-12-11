@@ -58,6 +58,7 @@ namespace FFStudio
         [ Foldout( "Player" ) ] public float player_duration_deposit = 0.1f;
 
         // Collectable Entity
+        [ Foldout( "Collectable" ) ] public AnimationCurve collectable_ease;
         [ Foldout( "Collectable" ) ] public int collectable_stack_height = 5;
         [ Foldout( "Collectable" ) ] public float collectable_duration_deposit = 0.25f;
 #endregion
