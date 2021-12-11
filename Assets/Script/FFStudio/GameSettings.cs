@@ -55,6 +55,7 @@ namespace FFStudio
         // Player Entity
         [ Foldout( "Player" ) ] public int player_max_health = 6;
         [ Foldout( "Player" ) ] public int player_max_collectable = 12;
+        [ Foldout( "Player" ) ] public float player_duration_deposit = 0.1f;
 
         // Collectable Entity
         [ Foldout( "Collectable" ) ] public int collectable_stack_height = 5;

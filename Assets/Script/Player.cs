@@ -17,7 +17,7 @@ public class Player : Entity, IInteractable
 
 	// Private \\
 	private Stack< Collectable > collectables;
-	private IInteractable lastInteractable;
+	private float lastDeposit;
 
 	// Component 
 	private Animator animator;
@@ -25,6 +25,9 @@ public class Player : Entity, IInteractable
 
 	// Delegate
 	private UnityMessage updateMethod;
+
+	// Properties
+	private bool DepositCooldown => lastDeposit > Time.time;
 #endregion
 
 #region Properties
@@ -150,8 +153,9 @@ public class Player : Entity, IInteractable
 	{
 		var interactable = ( other.GetComponent< ColliderListener >() ).AttachedComponent as IInteractable;
 
-		if( interactable == null || !( interactable.CanDeposit() > 0 ) || collectables.Count <= 0 ) return;
+		if( DepositCooldown || interactable == null || !( interactable.CanDeposit() > 0 ) || collectables.Count <= 0 ) return;
 
+		lastDeposit = Time.time + GameSettings.Instance.player_duration_deposit;
 		var collectable = collectables.Pop();
 
 		//TODO make this work with collectable pool

@@ -41,4 +41,5 @@ MonoBehaviour:
   turret_fireRate: 0.5
   player_max_health: 6
   player_max_collectable: 12
+  player_duration_deposit: 0.1
   collectable_stack_height: 5
