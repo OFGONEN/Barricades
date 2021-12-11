@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1392604650689601660}
   - component: {fileID: 302816125850817394}
-  - component: {fileID: 7661287706935028793}
+  - component: {fileID: 247026860081262301}
   m_Layer: 27
   m_Name: ally_seek
   m_TagString: Untagged
@@ -45,7 +45,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &7661287706935028793
+--- !u!114 &247026860081262301
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,10 +54,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 788732599566508662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85a7762e387aa3249a8a65d75a50b921, type: 3}
+  m_Script: {fileID: 11500000, guid: fb44bbb6c2755aa45b3c61ef5aeba1eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachedComponent: {fileID: 0}
+  attachedComponent: {fileID: 3788054230538390801}
 --- !u!136 &5406750024212142813
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb44bbb6c2755aa45b3c61ef5aeba1eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachedComponent: {fileID: 0}
+  attachedComponent: {fileID: 3788054230538390801}
 --- !u!1 &5497923211410346021
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origin_deposit: {fileID: 5596442012154051046}
   colliderListener_Health_Enter: {fileID: 4003372399739101427}
-  colliderListener_Seek_Stay: {fileID: 7661287706935028793}
+  colliderListener_Seek_Stay: {fileID: 247026860081262301}
   input_JoyStick: {fileID: 11400000, guid: 08eb8fdc8d362bf42bdf5b8d62505e59, type: 2}
   levelFailed: {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
   onDamageCooldown: 0
