@@ -132,13 +132,13 @@ public class Turret : Entity, IInteractable
 	{
 		if( lastShoot > Time.time ) return; // Return if Cooldown is not met
 
-		lastShoot = Time.time + GameSettings.Instance.turret_fireRate; // Add cooldown
+		lastShoot = Time.time + GameSettings.Instance.turret_bullet_fireRate; // Add cooldown
 
 		var shootOriginPosition = shootOrigin.position;
 		var direction           = ( targetPosition - shootOriginPosition );
 		var bullet              = bulletPool.GiveEntity();
 
-		bullet.Spawn( shootOriginPosition, direction );
+		bullet.Spawn( shootOriginPosition, direction, GameSettings.Instance.turret_bullet_speed );
 	}
 
     [ Button() ]

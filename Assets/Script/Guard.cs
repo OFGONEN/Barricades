@@ -189,7 +189,7 @@ public class Guard : MonoBehaviour
 		var origin_shoot_position = origin_shoot.position;
 		var direction = current_look_position + Vector3.up * GameSettings.Instance.guard_shoot_height - origin_shoot_position;
 
-		bullet.Spawn( origin_shoot_position, direction.normalized );
+		bullet.Spawn( origin_shoot_position, direction.normalized, GameSettings.Instance.guard_bullet_speed );
 	}
 #endregion
 

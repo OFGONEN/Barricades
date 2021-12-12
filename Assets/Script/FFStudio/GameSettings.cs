@@ -46,11 +46,11 @@ namespace FFStudio
         [ Foldout( "Spike" ) ] public int spike_maxHealth = 6;
 
         // Bullet Entity
-        [ Foldout( "Bullet" ) ] public float bullet_speed = 6;
 
         // Turret Entity
         [ Foldout( "Turret" ) ] public int turret_maxHealth = 6;
-        [ Foldout( "Turret" ) ] public float turret_fireRate = 0.15f;
+        [ Foldout( "Turret" ) ] public float turret_bullet_fireRate = 0.15f;
+        [ Foldout( "Turret" ) ] public float turret_bullet_speed = 6;
 
         // Player Entity
         [ Foldout( "Player" ) ] public int player_max_health = 6;
@@ -68,6 +68,7 @@ namespace FFStudio
         // Guard
         [ Foldout( "Guard" ) ] public float guard_shoot_height = 1;
         [ Foldout( "Guard" ) ] public float guard_shoot_rate = 0.25f;
+        [ Foldout( "Guard" ) ] public float guard_bullet_speed = 6;
 #endregion
 
 #region Implementation
