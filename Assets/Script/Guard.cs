@@ -84,7 +84,7 @@ public class Guard : MonoBehaviour
 #region Implementation
     private void OnEntityEnter( Collider other )
     {
-		var enemy = other.GetComponent<ColliderListener>().AttachedComponent as Enemy;
+		var enemy = other.GetComponent< ColliderListener >().AttachedComponent as Enemy;
 		var enemy_instanceID = enemy.GetInstanceID();
 		var enemy_is_new = !enemy_dictionary.ContainsKey( enemy_instanceID );
 
@@ -97,7 +97,7 @@ public class Guard : MonoBehaviour
 
     private void OnEntityExit( Collider other )
     {
-		var enemy = other.GetComponent<ColliderListener>().AttachedComponent as Enemy;
+		var enemy = other.GetComponent< ColliderListener >().AttachedComponent as Enemy;
 		var enemy_instanceID = enemy.GetInstanceID();
 		var enemy_is_shootTarget = enemy_instanceID == current_target_instanceID;
 
@@ -129,6 +129,8 @@ public class Guard : MonoBehaviour
 
 	private void OnEnemyDeath()
 	{
+		enemy_dictionary.Remove( current_target_instanceID );
+
 		current_target.onDeath -= OnEnemyDeath;
 		current_target = null;
 
