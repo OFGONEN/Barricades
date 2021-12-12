@@ -10,6 +10,7 @@ using NaughtyAttributes;
 public class Player : Entity, IInteractable
 {
 #region Fields
+	[ BoxGroup( "Shared Variable" ) ] public SharedReferenceNotifier notifier_shared_camera;
 	[ BoxGroup( "Shared Variable" ) ] public SharedInput_JoyStick input_JoyStick;
 	[ BoxGroup( "Setup" ) ] public Transform origin_deposit_wait;
 	[ BoxGroup( "Fired Events" ) ] public GameEvent levelFailed;
@@ -23,6 +24,7 @@ public class Player : Entity, IInteractable
 	// Component 
 	private Animator animator;
 	private NavMeshAgent navMeshAgent;
+	private Transform transform_camera;
 
 	// Delegate
 	private UnityMessage updateMethod;
@@ -134,11 +136,16 @@ public class Player : Entity, IInteractable
 		isAlive      = true;
 
 		colliderListener_Seek_Stay.triggerEvent += OnAllySeekEnter;
+
+		transform_camera = notifier_shared_camera.SharedValue as Transform;
 	}
 
 	private void Move()
 	{
 		var direction = input_JoyStick.SharedValue.ConvertV3();
+
+		// direction = ( transform_camera.TransformPoint( direction ) - transform_camera.position ).normalized.SetY( 0 );
+		direction = transform_camera.TransformVector( direction ).SetY( 0 ).normalized;
 		navMeshAgent.Move( direction * navMeshAgent.speed * Time.deltaTime );
 
 		if( direction != Vector3.zero )

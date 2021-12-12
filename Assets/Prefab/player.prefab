@@ -158,6 +158,7 @@ MonoBehaviour:
   origin_deposit: {fileID: 5596442012154051046}
   colliderListener_Health_Enter: {fileID: 4003372399739101427}
   colliderListener_Seek_Stay: {fileID: 247026860081262301}
+  notifier_shared_camera: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
   input_JoyStick: {fileID: 11400000, guid: 08eb8fdc8d362bf42bdf5b8d62505e59, type: 2}
   origin_deposit_wait: {fileID: 3292290709649658066}
   levelFailed: {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
