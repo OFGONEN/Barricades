@@ -64,6 +64,10 @@ namespace FFStudio
         [ Foldout( "Collectable" ) ] public float collectable_duration_deposit = 0.25f;
         [ Foldout( "Collectable" ) ] public float collectable_delay_deposit = 0.2f;
         [ Foldout( "Collectable" ) ] public float collectable_random_deposit = 1f;
+
+        // Guard
+        [ Foldout( "Guard" ) ] public float guard_shoot_height = 1;
+        [ Foldout( "Guard" ) ] public float guard_shoot_rate = 0.25f;
 #endregion
 
 #region Implementation

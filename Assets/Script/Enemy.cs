@@ -42,6 +42,7 @@ public class Enemy : MonoBehaviour
 	private UnityMessage updateMethod;
 	private UnityMessage onInteractableDeath;
 	private Sequence vaultSequence;
+	public event UnityMessage onDeath;
 
 	// Properties
 	public bool IsInside => isInside;
@@ -173,6 +174,8 @@ public class Enemy : MonoBehaviour
     {
 		// UnSub 
 		currentInteractable?.UnSubscribe_OnDeath( OnInteractableDeath );
+
+		onDeath?.Invoke();
 
 		// Default variables
 		isInside              = false;
