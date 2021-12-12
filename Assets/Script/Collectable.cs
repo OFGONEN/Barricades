@@ -37,6 +37,24 @@ public class Collectable : MonoBehaviour
 		colliderListener_Seek_Enter.AttachedCollider.enabled = true;
 	}
 
+	public void Spawn( Vector3 position, float rotation_y )
+	{
+		gameObject.SetActive( true );
+
+		depositSequence.KillProper();
+		depositSequence = DOTween.Sequence();
+		depositSequence.Append( transform.DOMoveY( 
+			position.y, 
+			GameSettings.Instance.collectable_duration_deposit )
+			.SetEase( GameSettings.Instance.collectable_ease_reverse ) );
+
+		depositSequence.Join( transform.DOLocalMoveX( position.x, GameSettings.Instance.collectable_duration_deposit ) );
+		depositSequence.Join( transform.DOLocalMoveZ( position.z, GameSettings.Instance.collectable_duration_deposit ) );
+		depositSequence.Join( transform.DOLocalRotate( Vector3.up * rotation_y, GameSettings.Instance.collectable_duration_deposit ) );
+		depositSequence.OnComplete( OnGroundDeposit );
+
+	}
+
 	public void DepositToInteractable( IInteractable interactable, float delay )
 	{
 		var deposit_position = interactable.GiveDepositOrigin().position;
@@ -98,6 +116,14 @@ public class Collectable : MonoBehaviour
 		interactable.GetDeposit( 1, depositType );
 
 		collectablePool.ReturnEntity( this );
+	}
+
+	private void OnGroundDeposit()
+	{
+		depositSequence = depositSequence.KillProper();
+
+		colliderListener_Seek_Enter.triggerEvent += OnAllySeekEnter;
+		colliderListener_Seek_Enter.AttachedCollider.enabled = true;
 	}
 
 	private void SetInitialParent()

@@ -59,9 +59,11 @@ namespace FFStudio
 
         // Collectable Entity
         [ Foldout( "Collectable" ) ] public AnimationCurve collectable_ease;
+        [ Foldout( "Collectable" ) ] public AnimationCurve collectable_ease_reverse;
         [ Foldout( "Collectable" ) ] public int collectable_stack_height = 5;
         [ Foldout( "Collectable" ) ] public float collectable_duration_deposit = 0.25f;
         [ Foldout( "Collectable" ) ] public float collectable_delay_deposit = 0.2f;
+        [ Foldout( "Collectable" ) ] public float collectable_random_deposit = 1f;
 #endregion
 
 #region Implementation
