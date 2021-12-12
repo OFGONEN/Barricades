@@ -4,10 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
+using NaughtyAttributes;
 
 public class Table : Entity, IInteractable
 {
 #region Fields
+    [ BoxGroup( "Setup" ) ] public Transform[] origin_deposit_array;
+    [ BoxGroup( "Setup" ) ] public CollectablePool[] collectable_pool_array;
+
 #endregion
 
 #region Properties
@@ -19,7 +23,7 @@ public class Table : Entity, IInteractable
 #region API
     public Collider GiveHealthCollider()
     {
-		return colliderListener_Health_Enter.AttachedCollider;
+		return null;
 	}
 
     public Transform GiveDepositOrigin()
@@ -30,19 +34,19 @@ public class Table : Entity, IInteractable
     public void GetDeposit( int count, DepositType type, Collectable collectable = null )     
     {
 		//TODO(OFG): spawn deposited particle effect
-		health = Mathf.Min( health + count * ( ( int )type + 1 ), GameSettings.Instance.spike_maxHealth );
 
-		if( !isAlive )
-			Revive();
+		var origin_deposit_random = origin_deposit_array[ Random.Range( 0, origin_deposit_array.Length ) ];
+		var pool = collectable_pool_array[ Mathf.Min( collectable_pool_array.Length - 1, (int)type + 1 ) ];
+
+		var collectable_upgraded = pool.GiveEntity();
+		var deposit_position     = origin_deposit_random.position + Random.insideUnitCircle.ConvertV3() * GameSettings.Instance.collectable_random_deposit;
+
+		collectable_upgraded.transform.position = origin_deposit.position;
+		collectable_upgraded.Spawn( deposit_position, Random.Range( 0, 360 ) );
 	}
 
     public void GetDamage( int count )
     {
-		//TODO(OFG): spawn damage particle effect
-		health = Mathf.Max( health - 1, 0 );
-
-		if( health <= 0 )
-			Die();
 	}
 
 	public bool IsAlive()
@@ -52,7 +56,7 @@ public class Table : Entity, IInteractable
 
     public int CanDeposit()
     {
-		return GameSettings.Instance.turret_maxHealth - health;
+		return GameSettings.Instance.player_max_collectable;
 	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )
