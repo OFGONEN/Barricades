@@ -23,10 +23,6 @@ public class Collectable : MonoBehaviour
 #endregion
 
 #region Unity API
-    private void Start()
-    {
-		Spawn( transform.position );
-	}
 #endregion
 
 #region API
