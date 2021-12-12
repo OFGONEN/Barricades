@@ -66,7 +66,7 @@ namespace FFStudio
         [ Foldout( "Collectable" ) ] public float collectable_random_deposit = 1f;
 
         // Guard
-        [ Foldout( "Guard" ) ] public float guard_shoot_height = 1;
+        [ Foldout( "Guard" ) ] public Vector3 guard_shoot_offset;
         [ Foldout( "Guard" ) ] public float guard_shoot_rate = 0.25f;
         [ Foldout( "Guard" ) ] public float guard_bullet_speed = 6;
 #endregion

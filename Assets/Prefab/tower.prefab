@@ -85,9 +85,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8385903895693320134}
-  - component: {fileID: 7766051051764501503}
-  - component: {fileID: 8561604398151516069}
   - component: {fileID: 7265812861223686683}
+  - component: {fileID: 397759097520089161}
+  - component: {fileID: 1506758983746984815}
   m_Layer: 27
   m_Name: tower_sensor
   m_TagString: Untagged
@@ -109,32 +109,6 @@ Transform:
   m_Father: {fileID: 3500529694680293783}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7766051051764501503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5566487580620667604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb44bbb6c2755aa45b3c61ef5aeba1eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attachedComponent: {fileID: 0}
---- !u!114 &8561604398151516069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5566487580620667604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d0a03393c44ce49bc666fee43c8fbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attachedComponent: {fileID: 0}
 --- !u!65 &7265812861223686683
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -148,6 +122,32 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 1, z: 5}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &397759097520089161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5566487580620667604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a7762e387aa3249a8a65d75a50b921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
+--- !u!114 &1506758983746984815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5566487580620667604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d0a03393c44ce49bc666fee43c8fbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 0}
 --- !u!1001 &3971849727546050172
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -223,7 +223,15 @@ PrefabInstance:
     m_TransformParent: {fileID: 3500529694680293783}
     m_Modifications:
     - target: {fileID: 1683684015, guid: 11acbbf0e01086d4ab6e60a3b38a9e3f, type: 3}
+      propertyPath: colliderListener_Exit_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683684015, guid: 11acbbf0e01086d4ab6e60a3b38a9e3f, type: 3}
       propertyPath: colliderListener_Exit_array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683684015, guid: 11acbbf0e01086d4ab6e60a3b38a9e3f, type: 3}
+      propertyPath: colliderListener_Stay_Array.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1683684015, guid: 11acbbf0e01086d4ab6e60a3b38a9e3f, type: 3}
@@ -231,13 +239,21 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1683684015, guid: 11acbbf0e01086d4ab6e60a3b38a9e3f, type: 3}
+      propertyPath: colliderListener_Exit_Array.Array.data[0]
+      value: 
+      objectReference: {fileID: 1506758983746984815}
+    - target: {fileID: 1683684015, guid: 11acbbf0e01086d4ab6e60a3b38a9e3f, type: 3}
       propertyPath: colliderListener_Exit_array.Array.data[0]
       value: 
-      objectReference: {fileID: 8561604398151516069}
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683684015, guid: 11acbbf0e01086d4ab6e60a3b38a9e3f, type: 3}
+      propertyPath: colliderListener_Stay_Array.Array.data[0]
+      value: 
+      objectReference: {fileID: 397759097520089161}
     - target: {fileID: 1683684015, guid: 11acbbf0e01086d4ab6e60a3b38a9e3f, type: 3}
       propertyPath: colliderListener_Enter_array.Array.data[0]
       value: 
-      objectReference: {fileID: 7766051051764501503}
+      objectReference: {fileID: 0}
     - target: {fileID: 311166431123876817, guid: 11acbbf0e01086d4ab6e60a3b38a9e3f, type: 3}
       propertyPath: m_Name
       value: guard

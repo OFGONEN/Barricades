@@ -11,15 +11,13 @@ public class Guard : MonoBehaviour
 #region Fields
     [ BoxGroup( "Shared Variables" ) ] public BulletPool bulletPool;
 
-    [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser[] colliderListener_Enter_array;
-    [ BoxGroup( "Setup" ) ] public ColliderListener_Exit_EventRaiser[] colliderListener_Exit_array;
+    [ BoxGroup( "Setup" ) ] public ColliderListener_Stay_EventRaiser[] colliderListener_Stay_Array;
+    [ BoxGroup( "Setup" ) ] public ColliderListener_Exit_EventRaiser[] colliderListener_Exit_Array;
     [ BoxGroup( "Setup" ) ] public Animator animator;
     [ BoxGroup( "Setup" ) ] public Transform origin_shoot;
 
 	// Private \\
-	private Dictionary<int, Enemy> enemy_dictionary = new Dictionary<int, Enemy>( 64 );
 	private Enemy current_target;
-	private int current_target_instanceID;
 	private float current_target_lastShoot;
 
 	private float current_look_weight;
@@ -35,28 +33,28 @@ public class Guard : MonoBehaviour
 #region Unity API
     private void OnEnable()
     {
-        for( var i = 0; i < colliderListener_Enter_array.Length; i++ )
+        for( var i = 0; i < colliderListener_Stay_Array.Length; i++ )
         {
-			colliderListener_Enter_array[ i ].triggerEvent += OnEntityEnter;
+			colliderListener_Stay_Array[ i ].triggerEvent += OnEntity_Stay;
 		}
 
-        for( var i = 0; i < colliderListener_Exit_array.Length; i++ )
+        for( var i = 0; i < colliderListener_Exit_Array.Length; i++ )
         {
-			colliderListener_Exit_array[ i ].triggerEvent += OnEntityExit;
-        }
+			colliderListener_Exit_Array[ i ].triggerEvent += OnEntity_Exit;
+		}
     }
 
     private void OnDisable()
     {
-        for( var i = 0; i < colliderListener_Enter_array.Length; i++ )
+        for( var i = 0; i < colliderListener_Exit_Array.Length; i++ )
         {
-			colliderListener_Enter_array[ i ].triggerEvent -= OnEntityEnter;
+			colliderListener_Exit_Array[ i ].triggerEvent -= OnEntity_Exit;
 		}
 
-        for( var i = 0; i < colliderListener_Exit_array.Length; i++ )
+        for( var i = 0; i < colliderListener_Exit_Array.Length; i++ )
         {
-			colliderListener_Exit_array[ i ].triggerEvent -= OnEntityExit;
-        }       
+			colliderListener_Exit_Array[ i ].triggerEvent -= OnEntity_Exit;
+		}
     }
 
     private void Awake()
@@ -82,96 +80,38 @@ public class Guard : MonoBehaviour
 #endregion
 
 #region Implementation
-    private void OnEntityEnter( Collider other )
+    private void OnEntity_Stay( Collider other )
     {
+		// Has current target and it is alive
+		if( current_target != null && current_target.IsAlive ) return;
+
 		var enemy = other.GetComponent< ColliderListener >().AttachedComponent as Enemy;
-		var enemy_instanceID = enemy.GetInstanceID();
-		var enemy_is_new = !enemy_dictionary.ContainsKey( enemy_instanceID );
 
-		if( enemy_is_new )
-		{
-			enemy_dictionary.Add( enemy_instanceID, enemy );
-			SetShootTarget( enemy, enemy_instanceID );
-		}
+		current_target = enemy;
+		updateMethod   = OnUpdate_Shoot;
+		ShootAtCurrentTarget();
 	}
 
-    private void OnEntityExit( Collider other )
-    {
+	private void OnEntity_Exit( Collider other )
+	{
 		var enemy = other.GetComponent< ColliderListener >().AttachedComponent as Enemy;
-		var enemy_instanceID = enemy.GetInstanceID();
-		var enemy_is_shootTarget = enemy_instanceID == current_target_instanceID;
 
-		enemy_dictionary.Remove( enemy_instanceID );
-
-		if( enemy_is_shootTarget )
-		{
-			current_target.onDeath -= OnEnemyDeath;
-			current_target = null;
-
-			SetShootTarget_Random();
-		}
+		if( current_target == enemy )
+			StopShooting();
 	}
-
-	private void SetShootTarget( Enemy target, int instanceID )
-	{
-		if( current_target == null )
-		{
-			current_target = target;
-			current_target_instanceID = instanceID;
-
-			current_target.onDeath += OnEnemyDeath;
-		}
-
-		updateMethod = OnUpdate_Shoot;
-		current_look_weight = 1f;
-		animator.SetBool( "fire", true );
-	}
-
-	private void OnEnemyDeath()
-	{
-		enemy_dictionary.Remove( current_target_instanceID );
-
-		current_target.onDeath -= OnEnemyDeath;
-		current_target = null;
-
-		SetShootTarget_Random();
-	}
-
-	private Enemy GiveRandomEnemy()
-	{
-		Enemy enemy = null;
-
-		int index_random = Random.Range( 0, enemy_dictionary.Keys.Count );
-		int counter      = 0;
-
-		foreach( var pair in enemy_dictionary )
-		{
-			if( counter == index_random )
-			{
-				enemy = pair.Value;
-				break;
-			}
-		}
-
-		return enemy;
-	}
-
-	private void SetShootTarget_Random()
-	{
-		var enemy_random = GiveRandomEnemy();
-
-		if( enemy_random == null )
-        {
-			animator.SetBool( "fire", false );
-			updateMethod = ExtensionMethods.EmptyMethod;
-			current_look_weight = 0;
-		}
-		else
-			SetShootTarget( enemy_random, enemy_random.GetInstanceID() );
-    }
 
     private void OnUpdate_Shoot()
     {
+		if( current_target.IsAlive )
+			ShootAtCurrentTarget();
+		else
+			StopShooting();
+	}
+
+	private void ShootAtCurrentTarget()
+	{
+		animator.SetBool( "fire", true );
+
 		current_look_position = current_target.transform.position;
 		transform.LookAtAxis( current_look_position, Vector3.up );
 
@@ -182,12 +122,19 @@ public class Guard : MonoBehaviour
 		}
 	}
 
+	private void StopShooting()
+	{
+		current_target = null;
+		updateMethod = ExtensionMethods.EmptyMethod;
+		animator.SetBool( "fire", false );
+	}
+
 	private void Shoot()
 	{
 		var bullet = bulletPool.GiveEntity();
 
 		var origin_shoot_position = origin_shoot.position;
-		var direction = current_look_position + Vector3.up * GameSettings.Instance.guard_shoot_height - origin_shoot_position;
+		var direction = current_target.ShootOffSet - origin_shoot_position;
 
 		bullet.Spawn( origin_shoot_position, direction.normalized, GameSettings.Instance.guard_bullet_speed );
 	}

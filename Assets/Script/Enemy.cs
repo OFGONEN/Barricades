@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
 
 	// Private \\
 	private bool isInside = false;
+	private bool isAlive = false;
 	private Vector3 vaultPosition;
 	private SharedReferenceNotifier currentDestination;
 	private Transform currentDestinationTransform;
@@ -42,10 +43,11 @@ public class Enemy : MonoBehaviour
 	private UnityMessage updateMethod;
 	private UnityMessage onInteractableDeath;
 	private Sequence vaultSequence;
-	public event UnityMessage onDeath;
 
 	// Properties
 	public bool IsInside => isInside;
+	public bool IsAlive => isAlive;
+	public Vector3 ShootOffSet => transform.TransformPoint( GameSettings.Instance.guard_shoot_offset );
 #endregion
 
 #region Properties
@@ -93,6 +95,7 @@ public class Enemy : MonoBehaviour
     public void Spawn( Vector3 position )
     {
 		gameObject.SetActive( true );
+		isAlive = true;
 
 		// Enable Colliders
 		event_collide_seek.AttachedCollider.enabled   = true;
@@ -175,10 +178,9 @@ public class Enemy : MonoBehaviour
 		// UnSub 
 		currentInteractable?.UnSubscribe_OnDeath( OnInteractableDeath );
 
-		onDeath?.Invoke();
-
 		// Default variables
 		isInside              = false;
+		isAlive               = false;
 		isAttacking           = false;
 		currentDestination    = destinationOutside;
 		currentAttackCollider = null;
@@ -201,9 +203,7 @@ public class Enemy : MonoBehaviour
     {
 		var isRunning = navMeshAgent.velocity.magnitude >= GameSettings.Instance.enemy_animation_run_speed;
 		animator.SetBool( "run", isRunning );
-
-
-    }
+	}
 
 	private void OnCollision_HitBox( Collider other )
 	{

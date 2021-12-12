@@ -36,9 +36,9 @@ MonoBehaviour:
   - {fileID: -7879486832572969521, guid: 44a62812b21e64bab80de494917a77e4, type: 3}
   - {fileID: 4910410205004592983, guid: 1b507aeb94e6b4c319aff31f203e4a95, type: 3}
   spike_maxHealth: 6
-  bullet_speed: 25
   turret_maxHealth: 6
-  turret_fireRate: 0.5
+  turret_bullet_fireRate: 0.15
+  turret_bullet_speed: 6
   player_max_health: 6
   player_max_collectable: 12
   player_duration_deposit: 0.5
@@ -112,5 +112,6 @@ MonoBehaviour:
   collectable_duration_deposit: 0.25
   collectable_delay_deposit: 0.2
   collectable_random_deposit: 1
-  guard_shoot_height: 1
-  guard_shoot_rate: 0.25
+  guard_shoot_offset: {x: 0, y: 1, z: 0.5}
+  guard_shoot_rate: 1
+  guard_bullet_speed: 96
