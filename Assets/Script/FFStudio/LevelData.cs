@@ -9,8 +9,10 @@ namespace FFStudio
 	public class LevelData : ScriptableObject
     {
 		[ BoxGroup( "Setup" ), Scene() ] public int sceneIndex;
-
         [ BoxGroup( "Setup" ) ] public bool overrideAsActiveScene;
 
+
+        [ BoxGroup( "Level Data" ), Tooltip( "Spawn rate of collectable" ) ] public float collectable_spawn_rate;
+        [ BoxGroup( "Level Data" ), Tooltip( "Max spawn count of collectable" ) ] public int collectable_spawn_max;
     }
 }

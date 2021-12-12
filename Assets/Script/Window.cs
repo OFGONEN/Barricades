@@ -41,12 +41,12 @@ public class Window : Entity, IInteractable
 		return colliderListener_Health_Enter.AttachedCollider;
 	}
 
-    public Vector3 GiveDepositPoint()
+    public Transform GiveDepositOrigin()
     {
-		return Vector3.zero;
+		return origin_deposit;
 	}
 
-    public void GetDeposit( int count, DepositType type )     
+    public void GetDeposit( int count, DepositType type, Collectable collectable = null )     
     {
 		int emptyIndex = 0;
 
@@ -97,15 +97,16 @@ public class Window : Entity, IInteractable
         return isAlive;
     }
 
-    public bool CanDeposit()
+    public int CanDeposit()
     {
-        for( var i = 0; i < stackHealths.Length; i++ )
+		int depositCount = 0;
+		for( var i = 0; i < stackHealths.Length; i++ )
         {
             if( stackHealths[ i ] == 0 )
-				return true;
+				depositCount++;
 		}
 
-		return false;
+		return depositCount;
 	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )

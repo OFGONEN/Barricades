@@ -48,3 +48,6 @@ MonoBehaviour:
   enemyRagdollPool: {fileID: 11400000, guid: 94a0c9647b3f74e21ac06da9190655fe, type: 2}
   enemyPool: {fileID: 11400000, guid: 1ae3ceca9a54745c28d429c8c6c991da, type: 2}
   bulletPool: {fileID: 11400000, guid: 5da516fbbdccde5408f4b77d1e1d6f49, type: 2}
+  collectable_wood_Pool: {fileID: 11400000, guid: 901606788b431914d8bc662b92f59f4f, type: 2}
+  collectable_metal_Pool: {fileID: 11400000, guid: 9b416073dd9ae0e409bb89ef7e01a0d1, type: 2}
+  collectable_gold_Pool: {fileID: 11400000, guid: 3b23abdac9ad7b9418dbd8365d2c369b, type: 2}

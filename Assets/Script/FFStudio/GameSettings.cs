@@ -53,7 +53,15 @@ namespace FFStudio
         [ Foldout( "Turret" ) ] public float turret_fireRate = 0.15f;
 
         // Player Entity
-        [ Foldout( "Player" ) ] public int player_maxHealth = 6;
+        [ Foldout( "Player" ) ] public int player_max_health = 6;
+        [ Foldout( "Player" ) ] public int player_max_collectable = 12;
+        [ Foldout( "Player" ) ] public float player_duration_deposit = 0.1f;
+
+        // Collectable Entity
+        [ Foldout( "Collectable" ) ] public AnimationCurve collectable_ease;
+        [ Foldout( "Collectable" ) ] public int collectable_stack_height = 5;
+        [ Foldout( "Collectable" ) ] public float collectable_duration_deposit = 0.25f;
+        [ Foldout( "Collectable" ) ] public float collectable_delay_deposit = 0.2f;
 #endregion
 
 #region Implementation

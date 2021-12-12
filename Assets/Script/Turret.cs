@@ -56,12 +56,12 @@ public class Turret : Entity, IInteractable
 		return colliderListener_Health_Enter.AttachedCollider;
 	}
 
-	public Vector3 GiveDepositPoint()
+	public Transform GiveDepositOrigin()
     {
-		return Vector3.zero;
+		return origin_deposit;
 	}
 
-    public void GetDeposit( int count, DepositType type )     
+    public void GetDeposit( int count, DepositType type, Collectable collectable = null )     
     {
 		//TODO(OFG): spawn deposited particle effect
 		health = Mathf.Min( health + count * ( ( int )type + 1 ), GameSettings.Instance.spike_maxHealth );
@@ -73,10 +73,9 @@ public class Turret : Entity, IInteractable
     public void GetDamage( int count )
     {
 		//TODO(OFG): spawn damage particle effect
-		health -= count;
-		bool isDead = health <= 0;
+		health = Mathf.Max( health - 1, 0 );
 
-		if( isDead )
+		if( health <= 0 )
 			Die();
 	}
 
@@ -85,9 +84,9 @@ public class Turret : Entity, IInteractable
 		return isAlive;
 	}
 
-	public bool CanDeposit()
+	public int CanDeposit()
     {
-		return health < GameSettings.Instance.turret_maxHealth;
+		return GameSettings.Instance.turret_maxHealth - health;
 	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )
@@ -146,7 +145,6 @@ public class Turret : Entity, IInteractable
     protected override void Die()
     {
 		colliderListener_Health_Enter.SetColliderActive( false );
-		colliderListener_Seek_Stay.SetColliderActive( false );
 		isAlive = false;
 		health  = 0;
 
@@ -164,7 +162,6 @@ public class Turret : Entity, IInteractable
     {
         // Enable healt collider since it can take damage
 		colliderListener_Health_Enter.SetColliderActive( true );
-		colliderListener_Seek_Stay.SetColliderActive( true );
 		isAlive = true;
 
 		updateMethod = SeekAndShoot;

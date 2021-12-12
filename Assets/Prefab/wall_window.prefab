@@ -434,6 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee06ec1072e44315871410a1fccfac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  origin_deposit: {fileID: 2548840679368854488}
   colliderListener_Health_Enter: {fileID: 3721230343595210801}
   colliderListener_Seek_Stay: {fileID: 4147096746269852582}
   navMeshLink: {fileID: 1285276524249044588}
@@ -504,8 +505,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 2.5, z: 0.7464339}
-  m_Center: {x: 0, y: 1.25, z: 0.6232165}
+  m_Size: {x: 3, y: 2.5, z: 1.7464342}
+  m_Center: {x: 0, y: 1.25, z: 0.12321663}
 --- !u!114 &4147096746269852582
 MonoBehaviour:
   m_ObjectHideFlags: 0

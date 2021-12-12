@@ -39,4 +39,42 @@ MonoBehaviour:
   bullet_speed: 25
   turret_maxHealth: 6
   turret_fireRate: 0.5
-  player_maxHealth: 6
+  player_max_health: 6
+  player_max_collectable: 12
+  player_duration_deposit: 0.5
+  collectable_ease:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 6
+      outSlope: 6
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 3
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -4
+      outSlope: -4
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  collectable_stack_height: 5
+  collectable_duration_deposit: 0.25
+  collectable_delay_deposit: 0.2

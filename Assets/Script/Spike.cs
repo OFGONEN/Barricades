@@ -36,12 +36,12 @@ public class Spike : Entity, IInteractable
 		return colliderListener_Health_Enter.AttachedCollider;
 	}
 
-    public Vector3 GiveDepositPoint()
+    public Transform GiveDepositOrigin()
     {
-		return Vector3.zero;
+		return origin_deposit;
 	}
 
-    public void GetDeposit( int count, DepositType type )     
+    public void GetDeposit( int count, DepositType type, Collectable collectable = null )     
     {
 		//TODO(OFG): spawn deposited particle effect
 		health = Mathf.Min( health + count * ( ( int )type + 1 ), GameSettings.Instance.spike_maxHealth );
@@ -53,10 +53,9 @@ public class Spike : Entity, IInteractable
     public void GetDamage( int count )
     {
 		//TODO(OFG): spawn damage particle effect
-		health -= count;
-		bool isDead = health <= 0;
+		health = Mathf.Max( health - 1, 0 );
 
-		if( isDead )
+		if( health <= 0 )
 			Die();
 	}
 
@@ -65,9 +64,9 @@ public class Spike : Entity, IInteractable
         return false; // Since we don't want enemies to attack spike
     }
 
-    public bool CanDeposit()
+    public int CanDeposit()
     {
-		return health < GameSettings.Instance.spike_maxHealth;
+		return GameSettings.Instance.turret_maxHealth - health;
 	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )
@@ -113,7 +112,8 @@ public class Spike : Entity, IInteractable
 	private void DamageEnemy( Collider other )
 	{
 		//Enemy will kill itself after colliding with spike
-		GetDamage( 1 );
+		if( other.gameObject.layer != 28 )
+			GetDamage( 1 );
 	}
 #endregion
 

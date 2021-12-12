@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ea3c0b9fd00fd441b6cebc5941ee13b, type: 3}
-  m_Name: level_data_1
+  m_Script: {fileID: 11500000, guid: f96c4b2b3cf2fee40ab0276f9446b8dc, type: 3}
+  m_Name: pool_collectable_metal
   m_EditorClassIdentifier: 
-  sceneIndex: 1
-  overrideAsActiveScene: 0
-  collectable_spawn_rate: 1
-  collectable_spawn_max: 15
+  stackSize: 20
+  poolEntity: {fileID: 391791397, guid: 5db72d719ae0b604d9d325c4785420da, type: 3}
