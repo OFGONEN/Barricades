@@ -4,20 +4,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
+using NaughtyAttributes;
 
 [CreateAssetMenu( fileName = "pool_collectable", menuName = "FF/Data/Pool/Collectable_Pool" )]
 public class CollectablePool : ComponentPool< Collectable >
 {
 	private Transform initialParent;
 	private bool initialActive;
+	[ SerializeField, ReadOnly] private int activeCount;
 
 	public Transform InitialParent => initialParent;
+	public int ActiveCount => activeCount;
 
 #region API
 	public void InitPool( Transform parent, bool active )
 	{
 		initialParent = parent;
 		initialActive = active;
+
+		activeCount = 0;
 
 		InitPool();
 
@@ -41,6 +46,7 @@ public class CollectablePool : ComponentPool< Collectable >
 			entity.gameObject.SetActive( initialActive );
 		}
 
+		activeCount++;
 		return entity;
 	}
 
@@ -48,6 +54,7 @@ public class CollectablePool : ComponentPool< Collectable >
 	{
 		entity.transform.parent = initialParent;
 		stack.Push( entity );
+		activeCount--;
 	}
 #endregion
 }

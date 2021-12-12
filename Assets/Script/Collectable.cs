@@ -96,6 +96,8 @@ public class Collectable : MonoBehaviour
 
 		gameObject.SetActive( false );
 		interactable.GetDeposit( 1, depositType );
+
+		collectablePool.ReturnEntity( this );
 	}
 
 	private void SetInitialParent()

@@ -12,6 +12,7 @@ namespace FFStudio
         [ BoxGroup( "Setup" ) ] public bool overrideAsActiveScene;
 
 
-        [ BoxGroup( "Level Data" ), Tooltip( "Spawn rate of collectable" ) ] public float collectable_rate_spawn;
+        [ BoxGroup( "Level Data" ), Tooltip( "Spawn rate of collectable" ) ] public float collectable_spawn_rate;
+        [ BoxGroup( "Level Data" ), Tooltip( "Max spawn count of collectable" ) ] public int collectable_spawn_max;
     }
 }

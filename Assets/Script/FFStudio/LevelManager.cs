@@ -14,8 +14,9 @@ namespace FFStudio
         public EventListenerDelegateResponse levelLoadedListener;
         public EventListenerDelegateResponse levelRevealedListener;
         public EventListenerDelegateResponse levelStartedListener;
+		public MultipleEventListenerDelegateResponse listener_level_finished;
 
-        [ Header( "Fired Events" ) ]
+		[ Header( "Fired Events" ) ]
         public GameEvent levelFailedEvent;
         public GameEvent levelCompleted;
 
@@ -31,7 +32,8 @@ namespace FFStudio
 
 		private LevelVolume level_volume;
 		private float collectable_spawn_cooldown;
-        private int collectable_spawn_area = 1 << 3;
+		private int collectable_spawn_max;
+		private int collectable_spawn_area = 1 << 3;
 #endregion
 
 #region UnityAPI
@@ -40,20 +42,23 @@ namespace FFStudio
             levelLoadedListener.OnEnable();
             levelRevealedListener.OnEnable();
             levelStartedListener.OnEnable();
-        }
+			listener_level_finished.OnEnable();
+		}
 
         private void OnDisable()
         {
             levelLoadedListener.OnDisable();
             levelRevealedListener.OnDisable();
             levelStartedListener.OnDisable();
+			listener_level_finished.OnDisable();
         }
 
         private void Awake()
         {
-            levelLoadedListener.response   = LevelLoadedResponse;
-            levelRevealedListener.response = LevelRevealedResponse;
-            levelStartedListener.response  = LevelStartedResponse;
+            levelLoadedListener.response     = LevelLoadedResponse;
+            levelRevealedListener.response   = LevelRevealedResponse;
+            levelStartedListener.response    = LevelStartedResponse;
+            listener_level_finished.response = LevelFinishedResponse;
 
 			updateMethod = ExtensionMethods.EmptyMethod;
 		}
@@ -86,12 +91,18 @@ namespace FFStudio
         private void LevelStartedResponse()
         {
 			level_volume = ( level_destination_outside.SharedValue as Transform ).GetComponent< LevelVolume >();
+			collectable_spawn_max = CurrentLevelData.Instance.levelData.collectable_spawn_max;
 			updateMethod = SpawnCollectable;
+		}
+        
+        private void LevelFinishedResponse()
+        {
+			updateMethod = ExtensionMethods.EmptyMethod;
 		}
 
         private void SpawnCollectable()
         {
-            if( collectable_spawn_cooldown > Time.time ) return;
+            if( collectable_spawn_cooldown > Time.time || collectable_pool.ActiveCount >= collectable_spawn_max ) return;
 
 			NavMeshHit navMeshHit;
 			Vector3 position = Vector3.zero;
@@ -105,7 +116,7 @@ namespace FFStudio
 				position = navMeshHit.position;
 			}
 
-			collectable_spawn_cooldown = Time.time + CurrentLevelData.Instance.levelData.collectable_rate_spawn;
+			collectable_spawn_cooldown = Time.time + CurrentLevelData.Instance.levelData.collectable_spawn_rate;
 			var collectable = collectable_pool.GiveEntity();
 			collectable.Spawn( position );
 		}
