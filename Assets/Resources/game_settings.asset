@@ -77,3 +77,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   collectable_stack_height: 5
   collectable_duration_deposit: 0.25
+  collectable_delay_deposit: 0.2

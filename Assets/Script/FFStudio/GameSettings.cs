@@ -61,6 +61,7 @@ namespace FFStudio
         [ Foldout( "Collectable" ) ] public AnimationCurve collectable_ease;
         [ Foldout( "Collectable" ) ] public int collectable_stack_height = 5;
         [ Foldout( "Collectable" ) ] public float collectable_duration_deposit = 0.25f;
+        [ Foldout( "Collectable" ) ] public float collectable_delay_deposit = 0.2f;
 #endregion
 
 #region Implementation

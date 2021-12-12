@@ -40,6 +40,26 @@ public class Collectable : MonoBehaviour
 		colliderListener_Seek_Enter.triggerEvent += OnAllySeekEnter;
 		colliderListener_Seek_Enter.AttachedCollider.enabled = true;
 	}
+
+	public void DepositToInteractable( IInteractable interactable, float delay )
+	{
+		var deposit_position = interactable.GiveDepositOrigin().position;
+
+		depositSequence.KillProper();
+		depositSequence = DOTween.Sequence();
+
+		depositSequence.AppendCallback( SetInitialParent );
+		depositSequence.Append( transform.DOMoveY( 
+			deposit_position.y, 
+			GameSettings.Instance.collectable_duration_deposit )
+			.SetEase( GameSettings.Instance.collectable_ease ) );
+
+		depositSequence.Join( transform.DOLocalMoveX( deposit_position.x, GameSettings.Instance.collectable_duration_deposit ) );
+		depositSequence.Join( transform.DOLocalMoveZ( deposit_position.z, GameSettings.Instance.collectable_duration_deposit ) );
+		// depositSequence.Join( transform.DOLocalRotate( Vector3.zero, GameSettings.Instance.collectable_duration_deposit ) );
+		depositSequence.SetDelay( delay );
+		depositSequence.OnComplete( () => OnInteractableDeposit( interactable ) );
+	}
 #endregion
 
 #region Implementation
@@ -72,6 +92,19 @@ public class Collectable : MonoBehaviour
 	private void OnPlayerDeposit()
 	{
 		depositSequence = depositSequence.KillProper();
+	}
+
+	private void OnInteractableDeposit( IInteractable interactable )
+	{
+		depositSequence = depositSequence.KillProper();
+
+		gameObject.SetActive( false );
+		interactable.GetDeposit( 1, depositType );
+	}
+
+	private void SetInitialParent()
+	{
+		transform.SetParent( collectablePool.InitialParent );
 	}
 #endregion
 

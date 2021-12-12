@@ -6,7 +6,7 @@ public interface IInteractable
 {
 	public abstract Collider GiveHealthCollider();
 	public abstract Transform GiveDepositOrigin();
-	public abstract void GetDeposit( int count, DepositType type, Collectable collectable );
+	public abstract void GetDeposit( int count, DepositType type, Collectable collectable = null );
 	public abstract void GetDamage( int count );
 	public abstract bool IsAlive();
 	public abstract int CanDeposit();

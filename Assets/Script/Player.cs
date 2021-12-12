@@ -11,6 +11,7 @@ public class Player : Entity, IInteractable
 {
 #region Fields
 	[ BoxGroup( "Shared Variable" ) ] public SharedInput_JoyStick input_JoyStick;
+	[ BoxGroup( "Setup" ) ] public Transform origin_deposit_wait;
 	[ BoxGroup( "Fired Events" ) ] public GameEvent levelFailed;
 
 	[ HideInInspector ] public bool onDamageCooldown;
@@ -155,14 +156,16 @@ public class Player : Entity, IInteractable
 
 		if( DepositCooldown || interactable == null || !( interactable.CanDeposit() > 0 ) || collectables.Count <= 0 ) return;
 
+		var deposit_count = Mathf.Min( interactable.CanDeposit(), collectables.Count );
+
 		lastDeposit = Time.time + GameSettings.Instance.player_duration_deposit;
-		var collectable = collectables.Pop();
 
-		//TODO make this work with collectable pool
-		collectable.transform.SetParent( transform );
-		collectable.gameObject.SetActive( false );
-
-		interactable.GetDeposit( 1, collectable.depositType, collectable );
+		for( var i = 0; i < deposit_count; i++ )
+		{
+			var collectable = collectables.Pop();
+			collectable.transform.SetParent( origin_deposit_wait );
+			collectable.DepositToInteractable( interactable, i * GameSettings.Instance.collectable_delay_deposit );
+		}	
 	}
 #endregion
 
