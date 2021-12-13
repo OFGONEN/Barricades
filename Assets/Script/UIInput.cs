@@ -47,7 +47,10 @@ public class UIInput : UIEntity
 		if( enabled )
 		{
 			input_JoyStick.changeEvent += InputChange;
-			uiTransform.position = input_JoyStick.Input_Screen_Position;
+
+			var position             = input_JoyStick.Input_Screen_Position;
+			    position.y           = uiTransform.position.y;
+			    uiTransform.position = position;
 		}
         else
 			input_JoyStick.changeEvent -= InputChange;
