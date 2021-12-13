@@ -22,6 +22,7 @@ public class Turret : Entity, IInteractable
 	// Private \\
 	private float lastShoot;
 	private UnityMessage updateMethod;
+	private Vector3 shootOffSet;
 #endregion
 
 #region Properties
@@ -31,6 +32,8 @@ public class Turret : Entity, IInteractable
     private void Awake()
     {
 		updateMethod = ExtensionMethods.EmptyMethod;
+
+		shootOffSet = Vector3.up * GameSettings.Instance.guard_shoot_offset.y;
 	}
 
 	private void Start()
@@ -135,7 +138,7 @@ public class Turret : Entity, IInteractable
 		lastShoot = Time.time + GameSettings.Instance.turret_bullet_fireRate; // Add cooldown
 
 		var shootOriginPosition = shootOrigin.position;
-		var direction           = ( targetPosition - shootOriginPosition );
+		var direction           = ( targetPosition + shootOffSet - shootOriginPosition );
 		var bullet              = bulletPool.GiveEntity();
 
 		bullet.Spawn( shootOriginPosition, direction, GameSettings.Instance.turret_bullet_speed );
