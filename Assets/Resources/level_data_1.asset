@@ -16,3 +16,7 @@ MonoBehaviour:
   overrideAsActiveScene: 0
   collectable_spawn_rate: 1
   collectable_spawn_max: 15
+  spawn_point_data_array:
+  - spawn_data_array:
+    - spawn_time: 0.016666668
+      spawn_count: 10
