@@ -42,7 +42,7 @@ public class Test_Bullet : MonoBehaviour
 
 		time = cooldown + Time.time;
 		var bullet = bulletPool.GiveEntity();
-		bullet.Spawn( transform.position, transform.forward );
+		bullet.Spawn( transform.position, transform.forward, GameSettings.Instance.turret_bullet_speed );
 	}
 
     [ Button() ]

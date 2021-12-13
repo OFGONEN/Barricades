@@ -27,13 +27,13 @@ public class Bullet : MonoBehaviour
 #endregion
 
 #region API
-    public void Spawn( Vector3 position, Vector3 direction )
+    public void Spawn( Vector3 position, Vector3 direction, float speed )
     {
 		gameObject.SetActive( true );
 
 		transform.position       = position;
 		transform.forward        = direction;
-		bulletRigidbody.velocity = direction * GameSettings.Instance.bullet_speed;
+		bulletRigidbody.velocity = direction * speed;
 
 		colliderListener_AllyDamage_Enter.triggerEvent += OnTrigger;
 	}
