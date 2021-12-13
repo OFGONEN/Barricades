@@ -50,7 +50,7 @@ public class SpawnPoint : MonoBehaviour
 #else
 		spawn_point_data = CurrentLevelData.Instance.levelData.spawn_point_data_array[ spawn_point_index ];
 #endif
-		StartSpawnTween( spawn_tween_index );
+		StartSpawnTween( 0 );
 	}
 #endregion
 
@@ -67,9 +67,7 @@ public class SpawnPoint : MonoBehaviour
 		}
 
 		if( spawn_tween_index < spawn_point_data.spawn_data_array.Length - 1 )
-		{
-			StartSpawnTween( spawn_point_index + 1 );
-		}
+			StartSpawnTween( spawn_tween_index + 1 );
 		else
 			spawn_tween = spawn_tween.KillProper();
 	}
