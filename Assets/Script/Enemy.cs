@@ -228,6 +228,7 @@ public class Enemy : MonoBehaviour
 
 		if( interactable != null && interactable.IsAlive() && ( isInside != ( interactable is Window ) ) ) 
 		{
+			currentInteractable?.UnSubscribe_OnDeath( OnInteractableDeath );
 			currentInteractable         = interactable;
 			currentAttackCollider       = interactable.GiveHealthCollider();
 			currentDestinationTransform = currentAttackCollider.transform;
