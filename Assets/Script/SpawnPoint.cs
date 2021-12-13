@@ -10,7 +10,8 @@ using NaughtyAttributes;
 public class SpawnPoint : MonoBehaviour
 {
 #region Fields
-    [ BoxGroup( "Event Listener" ) ] public EventListenerDelegateResponse listener_level_started;
+    [ BoxGroup( "Event Listeners" ) ] public EventListenerDelegateResponse listener_level_started;
+    [ BoxGroup( "Event Listeners" ) ] public MultipleEventListenerDelegateResponse listener_level_finished;
     [ BoxGroup( "Shared Variables" ) ] public SpawnPointSet spawn_point_set;
     [ BoxGroup( "Shared Variables" ) ] public EnemyPool enemyPool;
     [ BoxGroup( "Shared Variables" ) ] public SharedInt shared_TotalEnemyCount;
@@ -30,12 +31,14 @@ public class SpawnPoint : MonoBehaviour
     {
 		spawn_point_set.AddDictionary( spawn_point_index, this );
 		listener_level_started.OnEnable();
+		listener_level_finished.OnEnable();
 	}
 
     private void OnDisable()
     {
 		spawn_point_set.RemoveDictionary( spawn_point_index );
 		listener_level_started.OnDisable();
+		listener_level_finished.OnDisable();
 
 		spawn_tween = spawn_tween.KillProper();
 	}
@@ -43,6 +46,7 @@ public class SpawnPoint : MonoBehaviour
 	private void Awake()
 	{
 		listener_level_started.response = LevelStartedResponse;
+		listener_level_finished.response = LevelFinishResponse;
 
 #if UNITY_EDITOR
 		try
@@ -95,6 +99,11 @@ public class SpawnPoint : MonoBehaviour
 	private void LevelStartedResponse()
 	{
 		StartSpawnTween( 0 );
+	}
+
+	private void LevelFinishResponse()
+	{
+		spawn_tween = spawn_tween.KillProper();
 	}
 #endregion
 
