@@ -10,6 +10,7 @@ using NaughtyAttributes;
 public class SpawnPoint : MonoBehaviour
 {
 #region Fields
+    [ BoxGroup( "Event Listener" ) ] public EventListenerDelegateResponse listener_level_started;
     [ BoxGroup( "Shared Variables" ) ] public SpawnPointSet spawn_point_set;
     [ BoxGroup( "Shared Variables" ) ] public EnemyPool enemyPool;
     [ BoxGroup( "Shared Variables" ) ] public SharedInt shared_TotalEnemyCount;
@@ -28,17 +29,21 @@ public class SpawnPoint : MonoBehaviour
     private void OnEnable()
     {
 		spawn_point_set.AddDictionary( spawn_point_index, this );
+		listener_level_started.OnEnable();
 	}
 
     private void OnDisable()
     {
 		spawn_point_set.RemoveDictionary( spawn_point_index );
+		listener_level_started.OnDisable();
 
 		spawn_tween = spawn_tween.KillProper();
 	}
 
 	private void Awake()
 	{
+		listener_level_started.response = LevelStartedResponse;
+
 #if UNITY_EDITOR
 		try
 		{
@@ -59,7 +64,6 @@ public class SpawnPoint : MonoBehaviour
 
 		shared_TotalEnemyCount.sharedValue += enemyCount;
 
-		StartSpawnTween( 0 ); //TODO Start spawning after level starts
 	}
 #endregion
 
@@ -86,6 +90,11 @@ public class SpawnPoint : MonoBehaviour
 		spawn_tween_index = index;
 		spawn_tween_data  = spawn_point_data.spawn_data_array[ spawn_tween_index ];
 		spawn_tween       = DOVirtual.DelayedCall( spawn_tween_data.spawn_time * 60, ExecuteSpawnData );
+	}
+
+	private void LevelStartedResponse()
+	{
+		StartSpawnTween( 0 );
 	}
 #endregion
 

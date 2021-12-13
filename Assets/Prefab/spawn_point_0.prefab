@@ -43,6 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250d32b20c7415f48a4f1f4a03dc929b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listener_level_started:
+    gameEvent: {fileID: 11400000, guid: efef06bf257ee27438d6c2aab4936226, type: 2}
   spawn_point_set: {fileID: 11400000, guid: 3ec036ff70d3f4d468886275c122bca9, type: 2}
   enemyPool: {fileID: 11400000, guid: 1ae3ceca9a54745c28d429c8c6c991da, type: 2}
   shared_TotalEnemyCount: {fileID: 11400000, guid: 369c899bc27af994c8c950c7c7f89cb0, type: 2}
