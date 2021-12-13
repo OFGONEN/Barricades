@@ -12,7 +12,7 @@ public class SpawnPoint : MonoBehaviour
 #region Fields
     [ BoxGroup( "Shared Variables" ) ] public SpawnPointSet spawn_point_set;
     [ BoxGroup( "Shared Variables" ) ] public EnemyPool enemyPool;
-    [ BoxGroup( "Shared Variables" ) ] public SharedFloat shared_TotalEnemyCount;
+    [ BoxGroup( "Shared Variables" ) ] public SharedInt shared_TotalEnemyCount;
     [ BoxGroup( "Setup" ) ] public int spawn_point_index;
 
 	private SpawnPointData spawn_point_data;
@@ -59,7 +59,7 @@ public class SpawnPoint : MonoBehaviour
 
 		shared_TotalEnemyCount.sharedValue += enemyCount;
 
-		StartSpawnTween( 0 );
+		StartSpawnTween( 0 ); //TODO Start spawning after level starts
 	}
 #endregion
 
