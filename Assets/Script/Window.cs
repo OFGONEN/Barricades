@@ -12,6 +12,7 @@ public class Window : Entity, IInteractable
 #region Fields
     [ BoxGroup( "Setup" ) ] public NavMeshLink navMeshLink;
     [ BoxGroup( "Setup" ) ] public MeshFilter[] stackMeshFilters;
+    [ BoxGroup( "Setup" ) ] public GameObject deadMesh;
 
 	// Private Fields \\
 	private float lastVaultTime;
@@ -127,6 +128,7 @@ public class Window : Entity, IInteractable
     {
 		colliderListener_Health_Enter.SetColliderActive( false );
 		isAlive                = false;
+		deadMesh.SetActive( true );
 
 		InvokeOnDeath();
 		ClearOnDeath();
@@ -144,6 +146,7 @@ public class Window : Entity, IInteractable
         // Enable healt collider since it can dake damage
 		colliderListener_Health_Enter.SetColliderActive( true );
 		isAlive = true;
+		deadMesh.SetActive( false );
 
 		// 
 		colliderListener_Seek_Stay.triggerEvent -= VaultInEnemies;

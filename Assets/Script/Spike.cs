@@ -10,7 +10,7 @@ public class Spike : Entity, IInteractable
 {
 #region Fields
 	[ BoxGroup( "Setup" ) ] public MeshRenderer aliveMesh;
-	[ BoxGroup( "Setup" ) ] public MeshRenderer deadMesh;
+	[ BoxGroup( "Setup" ) ] public GameObject deadMesh;
 	[ BoxGroup( "Setup" ) ] public bool startDead;
 #endregion
 
@@ -91,7 +91,7 @@ public class Spike : Entity, IInteractable
 		health  = 0;
 
 		aliveMesh.enabled = false;
-		deadMesh.enabled  = true;
+		deadMesh.SetActive( true );
 
 		InvokeOnDeath();
 		ClearOnDeath();
@@ -106,7 +106,7 @@ public class Spike : Entity, IInteractable
 		isAlive = true;
 
 		aliveMesh.enabled = true;
-		deadMesh.enabled  = false;
+		deadMesh.SetActive( false );
 	}
 
 	private void DamageEnemy( Collider other )
