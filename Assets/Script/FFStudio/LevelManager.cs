@@ -112,6 +112,8 @@ namespace FFStudio
         
         private void LevelFinishedResponse()
         {
+			enemy_count.sharedValue           = 0;
+
 			updateMethod = ExtensionMethods.EmptyMethod;
 		}
 
