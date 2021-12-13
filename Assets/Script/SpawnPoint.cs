@@ -12,6 +12,7 @@ public class SpawnPoint : MonoBehaviour
 #region Fields
     [ BoxGroup( "Shared Variables" ) ] public SpawnPointSet spawn_point_set;
     [ BoxGroup( "Shared Variables" ) ] public EnemyPool enemyPool;
+    [ BoxGroup( "Shared Variables" ) ] public SharedFloat shared_TotalEnemyCount;
     [ BoxGroup( "Setup" ) ] public int spawn_point_index;
 
 	private SpawnPointData spawn_point_data;
@@ -36,7 +37,7 @@ public class SpawnPoint : MonoBehaviour
 		spawn_tween = spawn_tween.KillProper();
 	}
 
-	private void Start()
+	private void Awake()
 	{
 #if UNITY_EDITOR
 		try
@@ -50,6 +51,14 @@ public class SpawnPoint : MonoBehaviour
 #else
 		spawn_point_data = CurrentLevelData.Instance.levelData.spawn_point_data_array[ spawn_point_index ];
 #endif
+		int enemyCount = 0;
+		for( var i = 0; i < spawn_point_data.spawn_data_array.Length; i++ )
+		{
+			enemyCount += spawn_point_data.spawn_data_array[ i ].spawn_count;
+		}
+
+		shared_TotalEnemyCount.sharedValue += enemyCount;
+
 		StartSpawnTween( 0 );
 	}
 #endregion
