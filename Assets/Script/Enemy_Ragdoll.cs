@@ -10,6 +10,7 @@ using NaughtyAttributes;
 public class Enemy_Ragdoll : MonoBehaviour
 {
 #region Fields
+    [ BoxGroup( "Event Listeners" ) ] public MultipleEventListenerDelegateResponse listener_level_finished;
     [ BoxGroup( "Shared Variables" ), SerializeField ] private EnemyRagdollPool enemyRagdollPool;
     [ BoxGroup( "Setup" ), SerializeField ] private Transform rootBone;
     [ BoxGroup( "Setup" ), SerializeField ] private Rigidbody rootRigidbody;
@@ -26,6 +27,20 @@ public class Enemy_Ragdoll : MonoBehaviour
 #endregion
 
 #region Unity API
+	private void OnEnable()
+	{
+		listener_level_finished.OnEnable();
+	}
+
+	private void OnDisable()
+	{
+		listener_level_finished.OnDisable();
+	}
+
+	private void Awake()
+	{
+		listener_level_finished.response = ReturnToPool;
+	}
 #endregion
 
 #region API
