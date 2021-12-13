@@ -25,6 +25,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634969316650c3d49bbc53df9b14d937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listener_level_finished:
+    gameEvent: {fileID: 0}
+    gameEvents:
+    - {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
+    - {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
   collectablePool: {fileID: 11400000, guid: 901606788b431914d8bc662b92f59f4f, type: 2}
   depositType: 0
   colliderListener_Seek_Enter: {fileID: 8982039162079889195}

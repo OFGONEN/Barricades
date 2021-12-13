@@ -10,6 +10,7 @@ using NaughtyAttributes;
 public class Collectable : MonoBehaviour
 {
 #region Fields
+    [ BoxGroup( "Event Listeners" ) ] public MultipleEventListenerDelegateResponse listener_level_finished;
     [ BoxGroup( "Shared Variables" ) ] public CollectablePool collectablePool;
 
     [ BoxGroup( "Setup" ) ] public DepositType depositType;
@@ -23,6 +24,20 @@ public class Collectable : MonoBehaviour
 #endregion
 
 #region Unity API
+	private void OnEnable()
+	{
+		listener_level_finished.OnEnable();
+	}
+
+	private void OnDisable()
+	{
+		listener_level_finished.OnDisable();
+	}
+
+    private void Awake()
+    {
+		listener_level_finished.response = ReturnToPool;
+    }
 #endregion
 
 #region API
@@ -129,6 +144,13 @@ public class Collectable : MonoBehaviour
 	private void SetInitialParent()
 	{
 		transform.SetParent( collectablePool.InitialParent );
+	}
+
+	private void ReturnToPool()
+	{
+		depositSequence = depositSequence.KillProper();
+		gameObject.SetActive( false );
+		collectablePool.ReturnEntity( this );
 	}
 #endregion
 
