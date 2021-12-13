@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier destinationInside;
     [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier destinationOutside;
 
+    [ BoxGroup( "Event Listeners" ) ] public MultipleEventListenerDelegateResponse listener_level_complete;
     [ BoxGroup( "Fired Events" ) ] public GameEvent enemyDiedEvent;
 
     [ BoxGroup( "Setup" ) ] public Transform rootBone;
@@ -63,6 +64,7 @@ public class Enemy : MonoBehaviour
 		event_collide_seek.triggerEvent   += OnCollision_Seek;
 		event_collide_damage.triggerEvent += OnCollision_Damage;
 
+		listener_level_complete.OnEnable();
 	}
 
 	private void OnDisable()
@@ -75,6 +77,8 @@ public class Enemy : MonoBehaviour
 		event_collide_seek.AttachedCollider.enabled   = false;
 		event_collide_hitbox.AttachedCollider.enabled = false;
 
+		listener_level_complete.OnDisable();
+
 		// Remove from enemy set
 		enemySet.RemoveDictionary( GetInstanceID() );
 	}
@@ -86,6 +90,8 @@ public class Enemy : MonoBehaviour
 		updateMethod = ExtensionMethods.EmptyMethod;
 
 		currentDestination = destinationOutside;
+
+		listener_level_complete.response = LevelFinishedResponse;
 	}
 
     private void Update()
@@ -245,6 +251,24 @@ public class Enemy : MonoBehaviour
 		navMeshAgent.Warp( transform.position );
 		currentDestinationTransform = currentDestination.SharedValue as Transform;
 		navMeshAgent.destination    = currentDestinationTransform.position;
+	}
+
+	private void LevelFinishedResponse()
+	{
+		// UnSub 
+		currentInteractable?.UnSubscribe_OnDeath( OnInteractableDeath );
+
+		// Default variables
+		isInside              = false;
+		isAlive               = false;
+		isAttacking           = false;
+		currentDestination    = destinationOutside;
+		currentAttackCollider = null;
+		currentInteractable   = null;
+		vaultSequence = vaultSequence.KillProper(); //Kill if vault sequence is active
+
+		gameObject.SetActive( false ); // Disable the object
+		enemyPool.ReturnEntity( this ); // Return to pool
 	}
 #endregion
 
