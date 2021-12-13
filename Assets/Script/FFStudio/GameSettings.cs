@@ -69,6 +69,11 @@ namespace FFStudio
         [ Foldout( "Guard" ) ] public Vector3 guard_shoot_offset;
         [ Foldout( "Guard" ) ] public float guard_shoot_rate = 0.25f;
         [ Foldout( "Guard" ) ] public float guard_bullet_speed = 6;
+
+        // AppAssetHolder
+        [ Foldout( "Asset" ) ] public float asset_material_transparent_start = 0.3f;
+        [ Foldout( "Asset" ) ] public float asset_material_transparent_end   = 0.6f;
+        [ Foldout( "Asset" ) ] public float asset_material_transparent_duration = 0.75f;
 #endregion
 
 #region Implementation
