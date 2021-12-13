@@ -55,7 +55,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
     - {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
   listener_enemy_death:
-    gameEvent: {fileID: 0}
+    gameEvent: {fileID: 11400000, guid: 81a80505853af7b42a7c181fd3b84ad6, type: 2}
   levelFailedEvent: {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
   levelCompleted: {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
   levelProgress: {fileID: 11400000, guid: 43438d720c16f2e4aa5a19d520e1e15f, type: 2}
