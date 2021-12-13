@@ -82,10 +82,10 @@ public class Guard : MonoBehaviour
 #region Implementation
     private void OnEntity_Stay( Collider other )
     {
-		// Has current target and it is alive
-		if( current_target != null && current_target.IsAlive ) return;
-
 		var enemy = other.GetComponent< ColliderListener >().AttachedComponent as Enemy;
+
+		// Has current target and it is alive
+		if( ( current_target != null && current_target.IsAlive ) || enemy == null ) return;
 
 		current_target = enemy;
 		updateMethod   = OnUpdate_Shoot;
