@@ -14,5 +14,7 @@ namespace FFStudio
 
         [ BoxGroup( "Level Data" ), Tooltip( "Spawn rate of collectable" ) ] public float collectable_spawn_rate;
         [ BoxGroup( "Level Data" ), Tooltip( "Max spawn count of collectable" ) ] public int collectable_spawn_max;
+
+        [ BoxGroup( "Level Data" ), Tooltip( "Spawn Data" ) ] public SpawnPointData[] spawn_point_data_array;
     }
 }

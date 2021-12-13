@@ -16,14 +16,13 @@ namespace FFStudio
 	[ Serializable ]
 	public struct SpawnData
 	{
-		public float spawn_time;
+		[ Tooltip( "Time in minutes" ) ] public float spawn_time;
 		public int spawn_count;
 	}
 
 	[ Serializable ]
 	public struct SpawnPointData
 	{
-		public int spawn_index;
 		public SpawnData[] spawn_data_array;
 	}
 }
