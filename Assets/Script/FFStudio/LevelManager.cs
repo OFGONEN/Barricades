@@ -69,7 +69,7 @@ namespace FFStudio
 			updateMethod = ExtensionMethods.EmptyMethod;
 
 			enemy_count.sharedValue           = 0;
-			enemy_count_remaining.SharedValue = 0;
+			enemy_count_remaining.SetValue_DontNotify( 0 );
 		}
 
         private void Update()
@@ -100,7 +100,7 @@ namespace FFStudio
         private void LevelStartedResponse()
         {
 			// Enemy Count
-			enemy_count_remaining.SharedValue = enemy_count.sharedValue;
+			enemy_count_remaining.SetValue_NotifyAlways( enemy_count.sharedValue );
 			levelProgress.SharedValue         = 1;
 
 
@@ -119,7 +119,7 @@ namespace FFStudio
 
         private void EnemyDeathResponse()
         {
-			enemy_count_remaining.SharedValue -= 1;
+			enemy_count_remaining.SetValue_NotifyAlways( enemy_count_remaining.SharedValue - 1);
 			levelProgress.SharedValue = enemy_count_remaining.SharedValue / (float)enemy_count.sharedValue;
 
 			if( enemy_count_remaining.SharedValue <= 0 )

@@ -187,8 +187,6 @@ public class Enemy : MonoBehaviour
 		// UnSub 
 		currentInteractable?.UnSubscribe_OnDeath( OnInteractableDeath );
 
-		enemyDiedEvent.Raise();
-
 		// Default variables
 		isInside              = false;
 		isAlive               = false;
@@ -208,6 +206,8 @@ public class Enemy : MonoBehaviour
 		ragdoll.gameObject.SetActive( true );
 		ragdoll.RootRigidbody.AddForce( direction * GameSettings.Instance.enemy_death_velocity_range.RandomRange(), ForceMode.Impulse );
 		ragdoll.Spawn();
+
+		enemyDiedEvent.Raise();
 	}
 
     private void CheckIfRunning()
