@@ -9,6 +9,7 @@ using NaughtyAttributes;
 public class Bullet : MonoBehaviour
 {
 #region Fields
+    [ BoxGroup( "Event Listeners" ) ] public MultipleEventListenerDelegateResponse listener_level_finished;
     [ BoxGroup( "Shared Variables" ) ] public BulletPool bulletPool;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser colliderListener_AllyDamage_Enter;
 
@@ -20,8 +21,19 @@ public class Bullet : MonoBehaviour
 #endregion
 
 #region Unity API
+	private void OnEnable()
+	{
+		listener_level_finished.OnEnable();
+	}
+
+	private void OnDisable()
+	{
+		listener_level_finished.OnDisable();
+	}
+
     private void Awake()
     {
+		listener_level_finished.response = ReturnToPool;
         bulletRigidbody = GetComponent< Rigidbody >();
     }
 #endregion
@@ -42,8 +54,12 @@ public class Bullet : MonoBehaviour
 #region Implementation
     private void OnTrigger( Collider other )
     {
-        //TODO(OFG): Spawn hit particle effect
-
+		//TODO(OFG): Spawn hit particle effect
+		ReturnToPool();
+	}
+    
+    private void ReturnToPool()
+    {
 		gameObject.SetActive( false );
 		bulletPool.ReturnEntity( this );
 

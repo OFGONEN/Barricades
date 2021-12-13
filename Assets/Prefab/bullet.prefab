@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb2badd4e9df9a438a0ac064ff0bf7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listener_level_finished:
+    gameEvent: {fileID: 0}
+    gameEvents:
+    - {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
+    - {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
   bulletPool: {fileID: 11400000, guid: 5da516fbbdccde5408f4b77d1e1d6f49, type: 2}
   colliderListener_AllyDamage_Enter: {fileID: 6806074320282537755}
 --- !u!54 &3844900536498108826
