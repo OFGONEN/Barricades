@@ -67,6 +67,9 @@ namespace FFStudio
             listener_enemy_death.response    = EnemyDeathResponse;
 
 			updateMethod = ExtensionMethods.EmptyMethod;
+
+			enemy_count.sharedValue           = 0;
+			enemy_count_remaining.SharedValue = 0;
 		}
 
         private void Update()
@@ -91,7 +94,8 @@ namespace FFStudio
 
         private void LevelRevealedResponse()
         {
-        }
+			levelStartedListener.gameEvent.Raise();
+		}
 
         private void LevelStartedResponse()
         {

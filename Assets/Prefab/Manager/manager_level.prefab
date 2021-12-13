@@ -60,6 +60,6 @@ MonoBehaviour:
   levelCompleted: {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
   levelProgress: {fileID: 11400000, guid: 43438d720c16f2e4aa5a19d520e1e15f, type: 2}
   level_destination_outside: {fileID: 11400000, guid: d1c657993c5124a679418b8a98df6cf3, type: 2}
-  enemy_count: {fileID: 11400000, guid: bcbbff4546e99744480a1ce7e954a63f, type: 2}
+  enemy_count: {fileID: 11400000, guid: 369c899bc27af994c8c950c7c7f89cb0, type: 2}
   enemy_count_remaining: {fileID: 11400000, guid: 525bc4e8fed1fd34fb1c2c984fcff4e0, type: 2}
   collectable_pool: {fileID: 11400000, guid: 901606788b431914d8bc662b92f59f4f, type: 2}
