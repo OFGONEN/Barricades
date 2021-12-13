@@ -15,6 +15,7 @@ namespace FFStudio
         public EventListenerDelegateResponse levelRevealedListener;
         public EventListenerDelegateResponse levelStartedListener;
 		public MultipleEventListenerDelegateResponse listener_level_finished;
+		public EventListenerDelegateResponse listener_enemy_death;
 
 		[ Header( "Fired Events" ) ]
         public GameEvent levelFailedEvent;
@@ -23,8 +24,10 @@ namespace FFStudio
         [ Header( "Level Releated" ) ]
         public SharedFloatNotifier levelProgress;
         public SharedReferenceNotifier level_destination_outside;
+		public SharedInt enemy_count;
+		public SharedIntNotifier enemy_count_remaining;
 
-        [ BoxGroup( "Pool" ) ] public CollectablePool collectable_pool;
+		[ BoxGroup( "Pool" ) ] public CollectablePool collectable_pool;
 
 
         // Private \\
@@ -43,6 +46,7 @@ namespace FFStudio
             levelRevealedListener.OnEnable();
             levelStartedListener.OnEnable();
 			listener_level_finished.OnEnable();
+			listener_enemy_death.OnEnable();
 		}
 
         private void OnDisable()
@@ -51,6 +55,7 @@ namespace FFStudio
             levelRevealedListener.OnDisable();
             levelStartedListener.OnDisable();
 			listener_level_finished.OnDisable();
+			listener_enemy_death.OnDisable();
         }
 
         private void Awake()
@@ -59,8 +64,12 @@ namespace FFStudio
             levelRevealedListener.response   = LevelRevealedResponse;
             levelStartedListener.response    = LevelStartedResponse;
             listener_level_finished.response = LevelFinishedResponse;
+            listener_enemy_death.response    = EnemyDeathResponse;
 
 			updateMethod = ExtensionMethods.EmptyMethod;
+
+			enemy_count.sharedValue           = 0;
+			enemy_count_remaining.SharedValue = 0;
 		}
 
         private void Update()
@@ -85,19 +94,34 @@ namespace FFStudio
 
         private void LevelRevealedResponse()
         {
-
-        }
+			levelStartedListener.gameEvent.Raise();
+		}
 
         private void LevelStartedResponse()
         {
-			level_volume = ( level_destination_outside.SharedValue as Transform ).GetComponent< LevelVolume >();
+			// Enemy Count
+			enemy_count_remaining.SharedValue = enemy_count.sharedValue;
+			levelProgress.SharedValue         = 1;
+
+
+			// Configure Spawning Collectable
+			level_volume          = ( level_destination_outside.SharedValue as Transform ).GetComponent< LevelVolume >();
 			collectable_spawn_max = CurrentLevelData.Instance.levelData.collectable_spawn_max;
-			updateMethod = SpawnCollectable;
+			updateMethod          = SpawnCollectable;
 		}
         
         private void LevelFinishedResponse()
         {
 			updateMethod = ExtensionMethods.EmptyMethod;
+		}
+
+        private void EnemyDeathResponse()
+        {
+			enemy_count_remaining.SharedValue -= 1;
+			levelProgress.SharedValue = enemy_count_remaining.SharedValue / (float)enemy_count.sharedValue;
+
+			if( enemy_count_remaining.SharedValue <= 0 )
+				levelCompleted.Raise();
 		}
 
         private void SpawnCollectable()

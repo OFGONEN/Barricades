@@ -18,6 +18,9 @@ public class Enemy : MonoBehaviour
     [ BoxGroup( "Shared Variables" ) ] public EnemyRagdollPool enemyRagdollPool;
     [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier destinationInside;
     [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier destinationOutside;
+
+    [ BoxGroup( "Fired Events" ) ] public GameEvent enemyDiedEvent;
+
     [ BoxGroup( "Setup" ) ] public Transform rootBone;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_hitbox;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_seek;
@@ -177,6 +180,8 @@ public class Enemy : MonoBehaviour
     {
 		// UnSub 
 		currentInteractable?.UnSubscribe_OnDeath( OnInteractableDeath );
+
+		enemyDiedEvent.Raise();
 
 		// Default variables
 		isInside              = false;
