@@ -12,7 +12,9 @@ public class Player : Entity, IInteractable
 #region Fields
 	[ BoxGroup( "Shared Variable" ) ] public SharedReferenceNotifier notifier_shared_camera;
 	[ BoxGroup( "Shared Variable" ) ] public SharedInput_JoyStick input_JoyStick;
+
 	[ BoxGroup( "Setup" ) ] public Transform origin_deposit_wait;
+
 	[ BoxGroup( "Fired Events" ) ] public GameEvent levelFailed;
 
 	[ HideInInspector ] public bool onDamageCooldown;

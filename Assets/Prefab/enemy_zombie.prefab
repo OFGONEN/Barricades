@@ -39,6 +39,7 @@ MonoBehaviour:
   enemyRagdollPool: {fileID: 11400000, guid: 94a0c9647b3f74e21ac06da9190655fe, type: 2}
   destinationInside: {fileID: 11400000, guid: 4f242af9cf58344cf94826a5008e0033, type: 2}
   destinationOutside: {fileID: 11400000, guid: d1c657993c5124a679418b8a98df6cf3, type: 2}
+  enemyDiedEvent: {fileID: 11400000, guid: 81a80505853af7b42a7c181fd3b84ad6, type: 2}
   rootBone: {fileID: 8794522489594529286}
   event_collide_hitbox: {fileID: 8690655612547054871}
   event_collide_seek: {fileID: 9172918620784352703}
