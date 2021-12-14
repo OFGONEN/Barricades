@@ -108,7 +108,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  collectable_stack_height: 5
+  collectable_stack_height: 20
+  collectable_stack_size: {x: 1.5, y: 4, z: 1}
   collectable_duration_deposit: 0.25
   collectable_delay_deposit: 0.2
   collectable_random_deposit: 1

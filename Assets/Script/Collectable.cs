@@ -44,7 +44,7 @@ public class Collectable : MonoBehaviour
     public void Spawn( Vector3 position )
     {
 		gameObject.SetActive( true );
-		//TODO transform.SetParent( collectablePool.InitialParent );
+		transform.SetParent( collectablePool.InitialParent );
 		transform.position = position;
 		transform.localEulerAngles = Vector3.forward;
 
@@ -52,7 +52,7 @@ public class Collectable : MonoBehaviour
 		colliderListener_Seek_Enter.AttachedCollider.enabled = true;
 	}
 
-	public void Spawn( Vector3 position, float rotation_y )
+	public void DepositToGround( Vector3 position, float rotation_y )
 	{
 		gameObject.SetActive( true );
 
@@ -121,6 +121,7 @@ public class Collectable : MonoBehaviour
 	private void OnPlayerDeposit()
 	{
 		depositSequence = depositSequence.KillProper();
+		transform.localScale = Vector3.Scale( transform.localScale , GameSettings.Instance.collectable_stack_size );
 	}
 
 	private void OnInteractableDeposit( IInteractable interactable )
@@ -144,11 +145,14 @@ public class Collectable : MonoBehaviour
 	private void SetInitialParent()
 	{
 		transform.SetParent( collectablePool.InitialParent );
+		transform.localScale = Vector3.one;
 	}
 
 	private void ReturnToPool()
 	{
 		depositSequence = depositSequence.KillProper();
+
+		transform.localScale = Vector3.one;
 		gameObject.SetActive( false );
 		collectablePool.ReturnEntity( this );
 	}
