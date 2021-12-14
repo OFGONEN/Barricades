@@ -299,5 +299,13 @@ namespace FFStudio
 		{
 			return Random.Range( range.x, range.y );
 		}
+
+		public static Color SetAlpha( this Color color, float alpha )
+		{
+			Color newColor = color;
+			newColor.a = alpha;
+
+			return newColor;
+		}
 	}
 }

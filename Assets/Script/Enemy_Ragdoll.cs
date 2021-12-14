@@ -29,17 +29,17 @@ public class Enemy_Ragdoll : MonoBehaviour
 #region Unity API
 	private void OnEnable()
 	{
-		listener_level_finished.OnEnable();
+		// listener_level_finished.OnEnable();
 	}
 
 	private void OnDisable()
 	{
-		listener_level_finished.OnDisable();
+		// listener_level_finished.OnDisable();
 	}
 
 	private void Awake()
 	{
-		listener_level_finished.response = ReturnToPool;
+		// listener_level_finished.response = ReturnToPool;
 	}
 #endregion
 
