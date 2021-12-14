@@ -307,5 +307,17 @@ namespace FFStudio
 
 			return newColor;
 		}
+
+		public static float RoundTo( this float number, float step )
+		{
+			int   quotient = Mathf.FloorToInt( number / step );
+			var   reminder = number % step;
+			float rounded  = quotient * step;
+
+			if( reminder >= step / 2f )
+				rounded += step;
+
+			return rounded;
+		}
 	}
 }
