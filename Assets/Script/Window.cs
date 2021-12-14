@@ -54,9 +54,12 @@ public class Window : Entity, IInteractable
         for( var i = 0; i < stackHealths.Length; i++ )
         {
             if( stackHealths[ i ] <= 0 )
+			{
 				emptyIndex = i;
+			}
 		}
 
+		incomingDeposit--;
         //TODO(OFG): spawn deposited particle effect
 		stackHealths[ emptyIndex ] = count * ( ( int )type + 1 );
 		stackMeshFilters[ emptyIndex ].mesh = GameSettings.Instance.window_meshes[ ( int )type ];
@@ -107,7 +110,12 @@ public class Window : Entity, IInteractable
 				depositCount++;
 		}
 
-		return depositCount;
+		return depositCount - incomingDeposit;
+	}
+
+    public void IncomingDeposit()
+    {
+		incomingDeposit++;
 	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )

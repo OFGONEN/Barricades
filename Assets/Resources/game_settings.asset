@@ -41,7 +41,7 @@ MonoBehaviour:
   turret_bullet_speed: 6
   player_max_health: 6
   player_max_collectable: 12
-  player_duration_deposit: 0.5
+  player_cooldown_deposit: 0.1
   collectable_ease:
     serializedVersion: 2
     m_Curve:

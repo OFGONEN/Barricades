@@ -59,6 +59,11 @@ public class Table : Entity, IInteractable
 		return GameSettings.Instance.player_max_collectable;
 	}
 
+    public void IncomingDeposit()
+    {
+
+    }
+
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )
     {
         //! DO onDeath = null for clearing the invoke list

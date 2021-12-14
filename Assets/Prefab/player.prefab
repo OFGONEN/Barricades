@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1392604650689601660}
   - component: {fileID: 302816125850817394}
-  - component: {fileID: 247026860081262301}
+  - component: {fileID: 4561229113790810670}
   m_Layer: 27
   m_Name: ally_seek
   m_TagString: Untagged
@@ -45,7 +45,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &247026860081262301
+--- !u!114 &4561229113790810670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,7 +54,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 788732599566508662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb44bbb6c2755aa45b3c61ef5aeba1eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 85a7762e387aa3249a8a65d75a50b921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attachedComponent: {fileID: 3788054230538390801}
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origin_deposit: {fileID: 5596442012154051046}
   colliderListener_Health_Enter: {fileID: 4003372399739101427}
-  colliderListener_Seek_Stay: {fileID: 247026860081262301}
+  colliderListener_Seek_Stay: {fileID: 4561229113790810670}
   notifier_shared_camera: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
   input_JoyStick: {fileID: 11400000, guid: 08eb8fdc8d362bf42bdf5b8d62505e59, type: 2}
   origin_deposit_wait: {fileID: 3292290709649658066}

@@ -103,6 +103,10 @@ public class Player : Entity, IInteractable
 		return GameSettings.Instance.player_max_collectable - collectables.Count;
 	}
 
+    public void IncomingDeposit()
+    {
+	}
+
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )
     {
         //! DO onDeath = null for clearing the invoke list
@@ -165,16 +169,12 @@ public class Player : Entity, IInteractable
 
 		if( DepositCooldown || interactable == null || !( interactable.CanDeposit() > 0 ) || collectables.Count <= 0 ) return;
 
-		var deposit_count = Mathf.Min( interactable.CanDeposit(), collectables.Count );
+		lastDeposit = Time.time + GameSettings.Instance.player_cooldown_deposit;
 
-		lastDeposit = Time.time + GameSettings.Instance.player_duration_deposit;
-
-		for( var i = 0; i < deposit_count; i++ )
-		{
-			var collectable = collectables.Pop();
-			collectable.transform.SetParent( origin_deposit_wait );
-			collectable.DepositToInteractable( interactable, i * GameSettings.Instance.collectable_delay_deposit );
-		}	
+		var collectable = collectables.Pop();
+		collectable.transform.SetParent( origin_deposit_wait );
+		interactable.IncomingDeposit();
+		collectable.DepositToInteractable( interactable, GameSettings.Instance.collectable_delay_deposit );
 	}
 #endregion
 
