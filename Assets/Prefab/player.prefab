@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1392604650689601660}
   - component: {fileID: 302816125850817394}
-  - component: {fileID: 4561229113790810670}
+  - component: {fileID: 5996534179803825821}
   m_Layer: 27
   m_Name: ally_seek
   m_TagString: Untagged
@@ -45,7 +45,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &4561229113790810670
+--- !u!114 &5996534179803825821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,10 +54,69 @@ MonoBehaviour:
   m_GameObject: {fileID: 788732599566508662}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb44bbb6c2755aa45b3c61ef5aeba1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 3788054230538390801}
+--- !u!1 &4640649186623064704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4937798560560569571}
+  - component: {fileID: 2170953821735610401}
+  - component: {fileID: 8078653154418567510}
+  m_Layer: 24
+  m_Name: ally_deposit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4937798560560569571
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4640649186623064704}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5497923211410346020}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2170953821735610401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4640649186623064704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85a7762e387aa3249a8a65d75a50b921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attachedComponent: {fileID: 3788054230538390801}
+--- !u!136 &8078653154418567510
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4640649186623064704}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!136 &5406750024212142813
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -118,6 +177,7 @@ Transform:
   m_Children:
   - {fileID: 5460110375681633287}
   - {fileID: 1392604650689601660}
+  - {fileID: 4937798560560569571}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -157,7 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origin_deposit: {fileID: 5596442012154051046}
   colliderListener_Health_Enter: {fileID: 4003372399739101427}
-  colliderListener_Seek_Stay: {fileID: 4561229113790810670}
+  colliderListener_Seek_Stay: {fileID: 2170953821735610401}
   notifier_shared_camera: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
   input_JoyStick: {fileID: 11400000, guid: 08eb8fdc8d362bf42bdf5b8d62505e59, type: 2}
   origin_deposit_wait: {fileID: 3292290709649658066}
