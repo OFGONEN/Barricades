@@ -74,6 +74,13 @@ public class Collectable : MonoBehaviour
 	{
 		var deposit_position = interactable.GiveDepositOrigin().position;
 
+		AnimationCurve collectable_ease;
+
+		if( transform.position.y < deposit_position.y )
+			collectable_ease = GameSettings.Instance.collectable_ease;
+		else
+			collectable_ease = GameSettings.Instance.collectable_ease_reverse;
+
 		depositSequence.KillProper();
 		depositSequence = DOTween.Sequence();
 
@@ -81,7 +88,7 @@ public class Collectable : MonoBehaviour
 		depositSequence.Append( transform.DOMoveY( 
 			deposit_position.y, 
 			GameSettings.Instance.collectable_duration_deposit )
-			.SetEase( GameSettings.Instance.collectable_ease ) );
+			.SetEase( collectable_ease ) );
 
 		depositSequence.Join( transform.DOLocalMoveX( deposit_position.x, GameSettings.Instance.collectable_duration_deposit ) );
 		depositSequence.Join( transform.DOLocalMoveZ( deposit_position.z, GameSettings.Instance.collectable_duration_deposit ) );
