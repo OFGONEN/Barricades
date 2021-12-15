@@ -18,6 +18,10 @@ public class Table : Entity, IInteractable
 #endregion
 
 #region Unity API
+    private void Start()
+    {
+		UpdateHealthRatio();
+	}
 #endregion
 
 #region API
@@ -47,6 +51,12 @@ public class Table : Entity, IInteractable
 
     public void GetDamage( int count )
     {
+	}
+
+    public void UpdateHealthRatio()
+    {
+		health_ratio = 1;
+        //TODO Set Image or Mesh field
 	}
 
 	public bool IsAlive()

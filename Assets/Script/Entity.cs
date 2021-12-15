@@ -15,6 +15,7 @@ public abstract class Entity : MonoBehaviour
 
     // Private Fields \\
     protected int health;
+    protected float health_ratio; 
     protected int incomingDeposit;
     protected bool isAlive;
 

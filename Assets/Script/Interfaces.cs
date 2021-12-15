@@ -8,6 +8,7 @@ public interface IInteractable
 	public abstract Transform GiveDepositOrigin();
 	public abstract void GetDeposit( int count, DepositType type, Collectable collectable = null );
 	public abstract void GetDamage( int count );
+	public abstract void UpdateHealthRatio();
 	public abstract bool IsAlive();
 	public abstract void IncomingDeposit();
 	public abstract int CanDeposit();

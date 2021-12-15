@@ -91,6 +91,13 @@ public class Player : Entity, IInteractable
 		else
 			animator.SetTrigger( "hit" );
 
+		UpdateHealthRatio();
+	}
+
+	public void UpdateHealthRatio()
+	{
+		health_ratio = health / ( float ) GameSettings.Instance.player_max_health;
+		//TODO Update Health Bar
 	}
 
 	public bool IsAlive()
