@@ -27,6 +27,8 @@ public class Spike : Entity, IInteractable
 			health = GameSettings.Instance.spike_maxHealth;
 			Revive();
 		}
+
+		UpdateHealthRatio();
 	}
 #endregion
 
@@ -67,7 +69,7 @@ public class Spike : Entity, IInteractable
 	public void UpdateHealthRatio()
 	{
 		health_ratio = health / ( float ) GameSettings.Instance.turret_maxHealth;
-		//TODO Update Mesh or Image
+		health_ratio_image.fillAmount = health_ratio;
 	}
 
 	public bool IsAlive()

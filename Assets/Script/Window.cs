@@ -109,12 +109,12 @@ public class Window : Entity, IInteractable
 
 		for( var i = 0; i < stackHealths.Length; i++ )
 		{
-			if( stackHealths[ i ] == 0 )
+			if( stackHealths[ i ] != 0 )
 				health++;
 		}
 
 		health_ratio = health / ( float ) stackHealths.Length;
-		//TODO Updatae renderer
+		health_ratio_image.fillAmount = health_ratio;
 	}
 
 	public bool IsAlive()

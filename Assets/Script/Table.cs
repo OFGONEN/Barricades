@@ -56,7 +56,7 @@ public class Table : Entity, IInteractable
     public void UpdateHealthRatio()
     {
 		health_ratio = 1;
-        //TODO Set Image or Mesh field
+		health_ratio_image.fillAmount = 1;
 	}
 
 	public bool IsAlive()

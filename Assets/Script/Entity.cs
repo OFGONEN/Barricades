@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using FFStudio;
 using NaughtyAttributes;
 
@@ -12,6 +13,7 @@ public abstract class Entity : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public Transform origin_deposit;
     [ BoxGroup( "Setup" ) ] public ColliderListener colliderListener_Health_Enter;
     [ BoxGroup( "Setup" ) ] public ColliderListener colliderListener_Seek_Stay;
+    [ BoxGroup( "Setup" ) ] public Image health_ratio_image;
 
     // Private Fields \\
     protected int health;
