@@ -18,6 +18,7 @@ public class Collectable : MonoBehaviour
 
 	// Private \\
 	private Sequence depositSequence;
+	private TrailRenderer[] renderer_trail_array;
 #endregion
 
 #region Properties
@@ -37,7 +38,10 @@ public class Collectable : MonoBehaviour
     private void Awake()
     {
 		listener_level_finished.response = ReturnToPool;
-    }
+		renderer_trail_array = GetComponentsInChildren< TrailRenderer >();
+
+		ToggleTrailRenderer( false );
+	}
 #endregion
 
 #region API
@@ -55,6 +59,8 @@ public class Collectable : MonoBehaviour
 	public void DepositToGround( Vector3 position, float rotation_y )
 	{
 		gameObject.SetActive( true );
+
+		ToggleTrailRenderer( true );
 
 		depositSequence.KillProper();
 		depositSequence = DOTween.Sequence();
@@ -81,6 +87,7 @@ public class Collectable : MonoBehaviour
 		else
 			collectable_ease = GameSettings.Instance.collectable_ease_reverse;
 
+		ToggleTrailRenderer( true );
 		depositSequence.KillProper();
 		depositSequence = DOTween.Sequence();
 
@@ -108,6 +115,8 @@ public class Collectable : MonoBehaviour
 		transform.SetParent( interactable.GiveDepositOrigin() );
 		interactable.GetDeposit( 1, depositType, this );
 
+		ToggleTrailRenderer( true );
+
 		depositSequence.KillProper();
 		depositSequence = DOTween.Sequence();
 
@@ -129,11 +138,15 @@ public class Collectable : MonoBehaviour
 	{
 		depositSequence = depositSequence.KillProper();
 		transform.localScale = Vector3.Scale( transform.localScale , GameSettings.Instance.collectable_stack_size );
+
+		ToggleTrailRenderer( false );
 	}
 
 	private void OnInteractableDeposit( IInteractable interactable )
 	{
 		depositSequence = depositSequence.KillProper();
+
+		ToggleTrailRenderer( false );
 
 		gameObject.SetActive( false );
 		interactable.GetDeposit( 1, depositType );
@@ -144,6 +157,8 @@ public class Collectable : MonoBehaviour
 	private void OnGroundDeposit()
 	{
 		depositSequence = depositSequence.KillProper();
+
+		ToggleTrailRenderer( false );
 
 		colliderListener_Seek_Enter.triggerEvent += OnAllySeekEnter;
 		colliderListener_Seek_Enter.AttachedCollider.enabled = true;
@@ -162,6 +177,14 @@ public class Collectable : MonoBehaviour
 		transform.localScale = Vector3.one;
 		gameObject.SetActive( false );
 		collectablePool.ReturnEntity( this );
+	}
+
+	private void ToggleTrailRenderer( bool active )
+	{
+		foreach( var renderer in renderer_trail_array )
+		{
+			renderer.emitting = active;
+		}
 	}
 #endregion
 
