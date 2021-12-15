@@ -14,7 +14,7 @@ public class Player : Entity, IInteractable
 	[ BoxGroup( "Shared Variable" ) ] public SharedInput_JoyStick input_JoyStick;
 
 	[ BoxGroup( "Setup" ) ] public Transform origin_deposit_wait;
-
+	[ BoxGroup( "Setup" ) ] public Animator animator_dog;
 	[ BoxGroup( "Fired Events" ) ] public GameEvent levelFailed;
 
 	[ HideInInspector ] public bool onDamageCooldown;
@@ -158,9 +158,13 @@ public class Player : Entity, IInteractable
 		{
 			transform.forward = direction;
 			animator.SetBool( "running", true );
+			animator_dog.SetBool( "run", true );
 		}
 		else
+		{
 			animator.SetBool( "running", false );
+			animator_dog.SetBool( "run", false );
+		}
 	}
 
 	private void OnAllySeekEnter( Collider other )
