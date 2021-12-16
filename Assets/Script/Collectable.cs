@@ -187,7 +187,7 @@ public class Collectable : MonoBehaviour
 	{
 		foreach( var renderer in renderer_trail_array )
 		{
-			renderer.emitting = active;
+			renderer.enabled = active;
 		}
 	}
 #endregion
