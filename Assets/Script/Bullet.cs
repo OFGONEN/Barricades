@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
 {
 #region Fields
     [ BoxGroup( "Event Listeners" ) ] public MultipleEventListenerDelegateResponse listener_level_finished;
+    [ BoxGroup( "Fired Events" ) ] public ParticleSpawnEvent particle_spawn;
     [ BoxGroup( "Shared Variables" ) ] public BulletPool bulletPool;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser colliderListener_AllyDamage_Enter;
 
@@ -54,7 +55,7 @@ public class Bullet : MonoBehaviour
 #region Implementation
     private void OnTrigger( Collider other )
     {
-		//TODO(OFG): Spawn hit particle effect
+		particle_spawn.Raise( "bullet", transform.position );
 		ReturnToPool();
 	}
     
