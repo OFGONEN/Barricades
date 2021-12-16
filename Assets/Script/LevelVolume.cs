@@ -50,6 +50,9 @@ public class LevelVolume : MonoBehaviour
 		Handles.DrawWireCube( transform.TransformPoint( volume_position_local ), volume_size);
 		Handles.color = Color.yellow;
 		Handles.DrawWireCube( position_random, Vector3.one * 0.5f );
+
+		Handles.color = Color.blue;
+		Handles.DrawWireCube( transform.GetChild( 0 ).position, Vector3.one * 0.5f );
 	}
 
     [ Button() ]
