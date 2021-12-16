@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
 
     [ BoxGroup( "Event Listeners" ) ] public MultipleEventListenerDelegateResponse listener_level_complete;
     [ BoxGroup( "Fired Events" ) ] public GameEvent enemyDiedEvent;
+    [ BoxGroup( "Fired Events" ) ] public ParticleSpawnEvent particle_spawn;
 
     [ BoxGroup( "Setup" ) ] public Transform rootBone;
     [ BoxGroup( "Setup" ) ] public ColliderListener_EventRaiser event_collide_hitbox;
@@ -242,6 +243,8 @@ public class Enemy : MonoBehaviour
 	{
 		var interactable = other.GetComponentInParent< IInteractable >();
 		interactable.GetDamage( GameSettings.Instance.enemy_damage );
+
+		particle_spawn.Raise( "enemy_damage", ShootOffSet );
 	}
 
 	private void OnInteractableDeath()
