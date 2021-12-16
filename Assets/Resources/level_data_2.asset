@@ -18,9 +18,5 @@ MonoBehaviour:
   collectable_spawn_max: 5
   spawn_point_data_array:
   - spawn_data_array:
-    - spawn_time: 0.016666668
-      spawn_count: 10
-    - spawn_time: 0.016666668
-      spawn_count: 10
-    - spawn_time: 0.016666668
-      spawn_count: 10
+    - spawn_time: 0.1
+      spawn_count: 20
