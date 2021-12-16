@@ -15,6 +15,7 @@ public class Player : Entity, IInteractable
 
 	[ BoxGroup( "Setup" ) ] public Transform origin_deposit_wait;
 	[ BoxGroup( "Setup" ) ] public Animator animator_dog;
+	[ BoxGroup( "Setup" ) ] public ParticleSystem particle_hit;
 	[ BoxGroup( "Fired Events" ) ] public GameEvent levelFailed;
 
 	[ HideInInspector ] public bool onDamageCooldown;
@@ -83,6 +84,9 @@ public class Player : Entity, IInteractable
 		if( onDamageCooldown ) return;
 
 		health = Mathf.Max( health - 1, 0 );
+
+		particle_hit.transform.forward = Random.onUnitSphere;
+		particle_hit.Play(); // Particle to play when get it 
 
 		if( health <= 0 )
 		{
