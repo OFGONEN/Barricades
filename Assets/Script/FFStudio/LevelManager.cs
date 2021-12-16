@@ -105,7 +105,7 @@ namespace FFStudio
 
 
 			// Configure Spawning Collectable
-			level_volume          = ( level_destination_outside.SharedValue as Transform ).GetComponent< LevelVolume >();
+			level_volume          = ( level_destination_outside.SharedValue as Transform ).GetComponentInParent< LevelVolume >();
 			collectable_spawn_max = CurrentLevelData.Instance.levelData.collectable_spawn_max;
 			updateMethod          = SpawnCollectable;
 		}
