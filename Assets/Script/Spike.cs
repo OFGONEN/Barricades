@@ -52,7 +52,10 @@ public class Spike : Entity, IInteractable
 		UpdateHealthRatio();
 
 		if( !isAlive )
+		{
 			Revive();
+			particle_spawn.Raise( "explosion_green", origin_deposit.position );
+		}
 	}
 
     public void GetDamage( int count )
@@ -63,7 +66,10 @@ public class Spike : Entity, IInteractable
 		UpdateHealthRatio();
 
 		if( health <= 0 )
+		{
 			Die();
+			particle_spawn.Raise( "explosion_red", origin_deposit.position );
+		}
 	}
 
 	public void UpdateHealthRatio()
@@ -108,6 +114,7 @@ public class Spike : Entity, IInteractable
 		isAlive = false;
 		health  = 0;
 
+
 		aliveMesh.enabled = false;
 		deadMesh.SetActive( true );
 
@@ -122,6 +129,7 @@ public class Spike : Entity, IInteractable
 		colliderListener_Health_Enter.SetColliderActive( true );
 		colliderListener_Health_Enter.triggerEvent += DamageEnemy;
 		isAlive = true;
+
 
 		aliveMesh.enabled = true;
 		deadMesh.SetActive( false );

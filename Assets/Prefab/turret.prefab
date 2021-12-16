@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0876dbb8935f33a4a8eeff863864f929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particle_spawn: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
   origin_deposit: {fileID: 3861975257294199637}
   colliderListener_Health_Enter: {fileID: 3608165560126685100}
   colliderListener_Seek_Stay: {fileID: 3608165560980630737}

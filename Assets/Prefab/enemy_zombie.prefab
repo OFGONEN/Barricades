@@ -1,32 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!136 &689313818342083162
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 464472042422061259}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 1.7923288
-  m_Direction: 1
-  m_Center: {x: 1.4158439e-13, y: 0.21275666, z: -0.0022926035}
---- !u!114 &8690655612547054871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 464472042422061259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb44bbb6c2755aa45b3c61ef5aeba1eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attachedComponent: {fileID: 4061762061695063864}
 --- !u!195 &-6247318270753795341
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -72,11 +45,39 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
     - {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
   enemyDiedEvent: {fileID: 11400000, guid: 81a80505853af7b42a7c181fd3b84ad6, type: 2}
+  particle_spawn: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
   rootBone: {fileID: 8794522489594529286}
   event_collide_hitbox: {fileID: 8690655612547054871}
   event_collide_seek: {fileID: 9172918620784352703}
   event_collide_damage: {fileID: 3194189601817415176}
   isAttacking: 0
+--- !u!136 &689313818342083162
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464472042422061259}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.25
+  m_Height: 1.7923288
+  m_Direction: 1
+  m_Center: {x: 1.4158439e-13, y: 0.21275666, z: -0.0022926035}
+--- !u!114 &8690655612547054871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464472042422061259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb44bbb6c2755aa45b3c61ef5aeba1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedComponent: {fileID: 4061762061695063864}
 --- !u!1 &4303391966327487310
 GameObject:
   m_ObjectHideFlags: 0

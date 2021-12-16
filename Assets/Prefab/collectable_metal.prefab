@@ -30,6 +30,7 @@ MonoBehaviour:
     gameEvents:
     - {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
     - {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
+  particle_spawn: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
   collectablePool: {fileID: 11400000, guid: 9b416073dd9ae0e409bb89ef7e01a0d1, type: 2}
   depositType: 1
   colliderListener_Seek_Enter: {fileID: 103658501345137280}

@@ -10,6 +10,7 @@ using NaughtyAttributes;
 public abstract class Entity : MonoBehaviour
 {
 #region Fields
+    [ BoxGroup( "Fired Events" ) ] public ParticleSpawnEvent particle_spawn;
     [ BoxGroup( "Setup" ) ] public Transform origin_deposit;
     [ BoxGroup( "Setup" ) ] public ColliderListener colliderListener_Health_Enter;
     [ BoxGroup( "Setup" ) ] public ColliderListener colliderListener_Seek_Stay;
