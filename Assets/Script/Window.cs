@@ -127,7 +127,7 @@ public class Window : Entity, IInteractable
 		int depositCount = 0;
 		for( var i = 0; i < stackHealths.Length; i++ )
         {
-            if( stackHealths[ i ] == 0 )
+            if( stackHealths[ i ] <= 0 )
 				depositCount++;
 		}
 
