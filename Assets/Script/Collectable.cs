@@ -47,6 +47,8 @@ public class Collectable : MonoBehaviour
 #region API
     public void Spawn( Vector3 position )
     {
+		ToggleTrailRenderer( false );
+
 		gameObject.SetActive( true );
 		transform.SetParent( collectablePool.InitialParent );
 		transform.position = position;
@@ -173,6 +175,8 @@ public class Collectable : MonoBehaviour
 	private void ReturnToPool()
 	{
 		depositSequence = depositSequence.KillProper();
+
+		ToggleTrailRenderer( false );
 
 		transform.localScale = Vector3.one;
 		gameObject.SetActive( false );
