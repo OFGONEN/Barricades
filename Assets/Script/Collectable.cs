@@ -11,6 +11,7 @@ public class Collectable : MonoBehaviour
 {
 #region Fields
     [ BoxGroup( "Event Listeners" ) ] public MultipleEventListenerDelegateResponse listener_level_finished;
+    [ BoxGroup( "Fired Events" ) ] public ParticleSpawnEvent particle_spawn;
     [ BoxGroup( "Shared Variables" ) ] public CollectablePool collectablePool;
 
     [ BoxGroup( "Setup" ) ] public DepositType depositType;
@@ -152,6 +153,8 @@ public class Collectable : MonoBehaviour
 
 		gameObject.SetActive( false );
 		interactable.GetDeposit( 1, depositType );
+
+		particle_spawn.Raise( "deposit", transform.position );
 
 		collectablePool.ReturnEntity( this );
 	}
