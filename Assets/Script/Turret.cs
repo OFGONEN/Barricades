@@ -75,7 +75,10 @@ public class Turret : Entity, IInteractable
 		UpdateHealthRatio();
 
 		if( !isAlive )
+		{
 			Revive();
+			particle_spawn.Raise( "explosion_green", origin_deposit.position );
+		}
 	}
 
     public void GetDamage( int count )
@@ -86,7 +89,10 @@ public class Turret : Entity, IInteractable
 		UpdateHealthRatio();
 
 		if( health <= 0 )
+		{
 			Die();
+			particle_spawn.Raise( "explosion_red", origin_deposit.position );
+		}
 	}
 
 	public void UpdateHealthRatio()
