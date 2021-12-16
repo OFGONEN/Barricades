@@ -7,13 +7,15 @@ namespace FFStudio
 	[ CreateAssetMenu( fileName = "ParticlePool", menuName = "FF/Data/Pool/ParticlePool" ) ]
 	public class ParticleEffectPool : ComponentPool< ParticleEffect >
 	{
-		private Transform initialParent;
-		private bool initialActive;
+		private Transform initial_Parent;
+		private bool initial_Active;
+		private ParticleEffectStopped initial_Delegate;
 #region API
 		public void InitPool( Transform parent, bool active, ParticleEffectStopped effectStoppedDelegate )
 		{
-			initialParent = parent;
-			initialActive = active;
+			initial_Parent   = parent;
+			initial_Active   = active;
+			initial_Delegate = effectStoppedDelegate;
 
 			InitPool();
 
@@ -32,8 +34,7 @@ namespace FFStudio
 			else
 			{
 				entity = GameObject.Instantiate( poolEntity );
-				entity.transform.parent = initialParent;
-				entity.gameObject.SetActive( initialActive );
+				entity.InitIntoPool( initial_Parent, initial_Active, initial_Delegate );
 			}
 
 			return entity;
@@ -41,7 +42,7 @@ namespace FFStudio
 
 		public override void ReturnEntity( ParticleEffect entity )
 		{
-			entity.transform.parent = initialParent;
+			entity.transform.parent = initial_Parent;
 			stack.Push( entity );
 		}
 #endregion
