@@ -33,6 +33,8 @@ public class Window : Entity, IInteractable
     private void Start()
     {
 		Die();
+
+		UpdateHealthRatio();
 	}
 #endregion
 
@@ -54,14 +56,19 @@ public class Window : Entity, IInteractable
         for( var i = 0; i < stackHealths.Length; i++ )
         {
             if( stackHealths[ i ] <= 0 )
+			{
 				emptyIndex = i;
+			}
 		}
 
+		incomingDeposit--;
         //TODO(OFG): spawn deposited particle effect
 		stackHealths[ emptyIndex ] = count * ( ( int )type + 1 );
 		stackMeshFilters[ emptyIndex ].mesh = GameSettings.Instance.window_meshes[ ( int )type ];
 
-        if( !isAlive )
+		UpdateHealthRatio();
+
+		if( !isAlive )
 			Revive();
 	}
 
@@ -89,8 +96,25 @@ public class Window : Entity, IInteractable
 				isDead = false;
 		}
 
+
+		UpdateHealthRatio();
+
         if( isDead )
 			Die();
+	}
+
+	public void UpdateHealthRatio()
+	{
+		int health = 0;
+
+		for( var i = 0; i < stackHealths.Length; i++ )
+		{
+			if( stackHealths[ i ] != 0 )
+				health++;
+		}
+
+		health_ratio = health / ( float ) stackHealths.Length;
+		health_ratio_image.fillAmount = health_ratio;
 	}
 
 	public bool IsAlive()
@@ -107,7 +131,12 @@ public class Window : Entity, IInteractable
 				depositCount++;
 		}
 
-		return depositCount;
+		return depositCount - incomingDeposit;
+	}
+
+    public void IncomingDeposit()
+    {
+		incomingDeposit++;
 	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )

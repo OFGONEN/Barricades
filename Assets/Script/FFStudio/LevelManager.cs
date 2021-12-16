@@ -144,6 +144,8 @@ namespace FFStudio
 
 			collectable_spawn_cooldown = Time.time + CurrentLevelData.Instance.levelData.collectable_spawn_rate;
 			var collectable = collectable_pool.GiveEntity();
+			position.x = position.x.RoundTo( GameSettings.Instance.collectable_spawn_grid );
+			position.z = position.z.RoundTo( GameSettings.Instance.collectable_spawn_grid );
 			collectable.Spawn( position );
 		}
 #endregion

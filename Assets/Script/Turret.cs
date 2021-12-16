@@ -44,7 +44,9 @@ public class Turret : Entity, IInteractable
         {
 			health = GameSettings.Instance.turret_maxHealth;
 			Revive();
-		}	
+		}
+
+		UpdateHealthRatio();
 	}
 
 	private void Update()
@@ -68,6 +70,9 @@ public class Turret : Entity, IInteractable
     {
 		//TODO(OFG): spawn deposited particle effect
 		health = Mathf.Min( health + count * ( ( int )type + 1 ), GameSettings.Instance.spike_maxHealth );
+		incomingDeposit--;
+
+		UpdateHealthRatio();
 
 		if( !isAlive )
 			Revive();
@@ -78,8 +83,16 @@ public class Turret : Entity, IInteractable
 		//TODO(OFG): spawn damage particle effect
 		health = Mathf.Max( health - 1, 0 );
 
+		UpdateHealthRatio();
+
 		if( health <= 0 )
 			Die();
+	}
+
+	public void UpdateHealthRatio()
+	{
+		health_ratio = health / ( float ) GameSettings.Instance.turret_maxHealth;
+		health_ratio_image.fillAmount = health_ratio;
 	}
 
 	public bool IsAlive()
@@ -89,7 +102,12 @@ public class Turret : Entity, IInteractable
 
 	public int CanDeposit()
     {
-		return GameSettings.Instance.turret_maxHealth - health;
+		return GameSettings.Instance.turret_maxHealth - health - incomingDeposit;
+	}
+
+    public void IncomingDeposit()
+    {
+		incomingDeposit++;
 	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )

@@ -18,6 +18,10 @@ public class Table : Entity, IInteractable
 #endregion
 
 #region Unity API
+    private void Start()
+    {
+		UpdateHealthRatio();
+	}
 #endregion
 
 #region API
@@ -42,11 +46,17 @@ public class Table : Entity, IInteractable
 		var deposit_position     = origin_deposit_random.position + Random.insideUnitCircle.ConvertV3() * GameSettings.Instance.collectable_random_deposit;
 
 		collectable_upgraded.transform.position = origin_deposit.position;
-		collectable_upgraded.Spawn( deposit_position, Random.Range( 0, 360 ) );
+		collectable_upgraded.DepositToGround( deposit_position, Random.Range( 0, 360 ) );
 	}
 
     public void GetDamage( int count )
     {
+	}
+
+    public void UpdateHealthRatio()
+    {
+		health_ratio = 1;
+		health_ratio_image.fillAmount = 1;
 	}
 
 	public bool IsAlive()
@@ -58,6 +68,11 @@ public class Table : Entity, IInteractable
     {
 		return GameSettings.Instance.player_max_collectable;
 	}
+
+    public void IncomingDeposit()
+    {
+
+    }
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )
     {

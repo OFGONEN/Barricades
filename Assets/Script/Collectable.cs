@@ -18,6 +18,7 @@ public class Collectable : MonoBehaviour
 
 	// Private \\
 	private Sequence depositSequence;
+	private TrailRenderer[] renderer_trail_array;
 #endregion
 
 #region Properties
@@ -37,14 +38,17 @@ public class Collectable : MonoBehaviour
     private void Awake()
     {
 		listener_level_finished.response = ReturnToPool;
-    }
+		renderer_trail_array = GetComponentsInChildren< TrailRenderer >();
+
+		ToggleTrailRenderer( false );
+	}
 #endregion
 
 #region API
     public void Spawn( Vector3 position )
     {
 		gameObject.SetActive( true );
-		//TODO transform.SetParent( collectablePool.InitialParent );
+		transform.SetParent( collectablePool.InitialParent );
 		transform.position = position;
 		transform.localEulerAngles = Vector3.forward;
 
@@ -52,9 +56,11 @@ public class Collectable : MonoBehaviour
 		colliderListener_Seek_Enter.AttachedCollider.enabled = true;
 	}
 
-	public void Spawn( Vector3 position, float rotation_y )
+	public void DepositToGround( Vector3 position, float rotation_y )
 	{
 		gameObject.SetActive( true );
+
+		ToggleTrailRenderer( true );
 
 		depositSequence.KillProper();
 		depositSequence = DOTween.Sequence();
@@ -74,6 +80,14 @@ public class Collectable : MonoBehaviour
 	{
 		var deposit_position = interactable.GiveDepositOrigin().position;
 
+		AnimationCurve collectable_ease;
+
+		if( transform.position.y < deposit_position.y )
+			collectable_ease = GameSettings.Instance.collectable_ease;
+		else
+			collectable_ease = GameSettings.Instance.collectable_ease_reverse;
+
+		ToggleTrailRenderer( true );
 		depositSequence.KillProper();
 		depositSequence = DOTween.Sequence();
 
@@ -81,7 +95,7 @@ public class Collectable : MonoBehaviour
 		depositSequence.Append( transform.DOMoveY( 
 			deposit_position.y, 
 			GameSettings.Instance.collectable_duration_deposit )
-			.SetEase( GameSettings.Instance.collectable_ease ) );
+			.SetEase( collectable_ease ) );
 
 		depositSequence.Join( transform.DOLocalMoveX( deposit_position.x, GameSettings.Instance.collectable_duration_deposit ) );
 		depositSequence.Join( transform.DOLocalMoveZ( deposit_position.z, GameSettings.Instance.collectable_duration_deposit ) );
@@ -100,6 +114,8 @@ public class Collectable : MonoBehaviour
 		
 		transform.SetParent( interactable.GiveDepositOrigin() );
 		interactable.GetDeposit( 1, depositType, this );
+
+		ToggleTrailRenderer( true );
 
 		depositSequence.KillProper();
 		depositSequence = DOTween.Sequence();
@@ -121,11 +137,16 @@ public class Collectable : MonoBehaviour
 	private void OnPlayerDeposit()
 	{
 		depositSequence = depositSequence.KillProper();
+		transform.localScale = Vector3.Scale( transform.localScale , GameSettings.Instance.collectable_stack_size );
+
+		ToggleTrailRenderer( false );
 	}
 
 	private void OnInteractableDeposit( IInteractable interactable )
 	{
 		depositSequence = depositSequence.KillProper();
+
+		ToggleTrailRenderer( false );
 
 		gameObject.SetActive( false );
 		interactable.GetDeposit( 1, depositType );
@@ -137,6 +158,8 @@ public class Collectable : MonoBehaviour
 	{
 		depositSequence = depositSequence.KillProper();
 
+		ToggleTrailRenderer( false );
+
 		colliderListener_Seek_Enter.triggerEvent += OnAllySeekEnter;
 		colliderListener_Seek_Enter.AttachedCollider.enabled = true;
 	}
@@ -144,13 +167,24 @@ public class Collectable : MonoBehaviour
 	private void SetInitialParent()
 	{
 		transform.SetParent( collectablePool.InitialParent );
+		transform.localScale = Vector3.one;
 	}
 
 	private void ReturnToPool()
 	{
 		depositSequence = depositSequence.KillProper();
+
+		transform.localScale = Vector3.one;
 		gameObject.SetActive( false );
 		collectablePool.ReturnEntity( this );
+	}
+
+	private void ToggleTrailRenderer( bool active )
+	{
+		foreach( var renderer in renderer_trail_array )
+		{
+			renderer.emitting = active;
+		}
 	}
 #endregion
 

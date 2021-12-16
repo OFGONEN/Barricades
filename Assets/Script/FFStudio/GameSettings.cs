@@ -55,15 +55,17 @@ namespace FFStudio
         // Player Entity
         [ Foldout( "Player" ) ] public int player_max_health = 6;
         [ Foldout( "Player" ) ] public int player_max_collectable = 12;
-        [ Foldout( "Player" ) ] public float player_duration_deposit = 0.1f;
+        [ Foldout( "Player" ) ] public float player_cooldown_deposit = 0.1f;
 
         // Collectable Entity
         [ Foldout( "Collectable" ) ] public AnimationCurve collectable_ease;
         [ Foldout( "Collectable" ) ] public AnimationCurve collectable_ease_reverse;
         [ Foldout( "Collectable" ) ] public int collectable_stack_height = 5;
+        [ Foldout( "Collectable" ) ] public Vector3 collectable_stack_size = Vector3.one;
         [ Foldout( "Collectable" ) ] public float collectable_duration_deposit = 0.25f;
         [ Foldout( "Collectable" ) ] public float collectable_delay_deposit = 0.2f;
         [ Foldout( "Collectable" ) ] public float collectable_random_deposit = 1f;
+        [ Foldout( "Collectable" ) ] public float collectable_spawn_grid = 0.5f;
 
         // Guard
         [ Foldout( "Guard" ) ] public Vector3 guard_shoot_offset;

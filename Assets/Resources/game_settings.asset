@@ -41,7 +41,7 @@ MonoBehaviour:
   turret_bullet_speed: 6
   player_max_health: 6
   player_max_collectable: 12
-  player_duration_deposit: 0.5
+  player_cooldown_deposit: 0.1
   collectable_ease:
     serializedVersion: 2
     m_Curve:
@@ -108,10 +108,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  collectable_stack_height: 5
+  collectable_stack_height: 20
+  collectable_stack_size: {x: 1.5, y: 4, z: 1}
   collectable_duration_deposit: 0.25
   collectable_delay_deposit: 0.2
   collectable_random_deposit: 1
+  collectable_spawn_grid: 1
   guard_shoot_offset: {x: 0, y: 1, z: 0.5}
   guard_shoot_rate: 1
   guard_bullet_speed: 96

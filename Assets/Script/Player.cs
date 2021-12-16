@@ -14,7 +14,7 @@ public class Player : Entity, IInteractable
 	[ BoxGroup( "Shared Variable" ) ] public SharedInput_JoyStick input_JoyStick;
 
 	[ BoxGroup( "Setup" ) ] public Transform origin_deposit_wait;
-
+	[ BoxGroup( "Setup" ) ] public Animator animator_dog;
 	[ BoxGroup( "Fired Events" ) ] public GameEvent levelFailed;
 
 	[ HideInInspector ] public bool onDamageCooldown;
@@ -91,6 +91,13 @@ public class Player : Entity, IInteractable
 		else
 			animator.SetTrigger( "hit" );
 
+		UpdateHealthRatio();
+	}
+
+	public void UpdateHealthRatio()
+	{
+		health_ratio = health / ( float ) GameSettings.Instance.player_max_health;
+		//TODO Update Health Bar
 	}
 
 	public bool IsAlive()
@@ -101,6 +108,10 @@ public class Player : Entity, IInteractable
     public int CanDeposit()
     {
 		return GameSettings.Instance.player_max_collectable - collectables.Count;
+	}
+
+    public void IncomingDeposit()
+    {
 	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )
@@ -154,9 +165,13 @@ public class Player : Entity, IInteractable
 		{
 			transform.forward = direction;
 			animator.SetBool( "running", true );
+			animator_dog.SetBool( "run", true );
 		}
 		else
+		{
 			animator.SetBool( "running", false );
+			animator_dog.SetBool( "run", false );
+		}
 	}
 
 	private void OnAllySeekEnter( Collider other )
@@ -165,16 +180,12 @@ public class Player : Entity, IInteractable
 
 		if( DepositCooldown || interactable == null || !( interactable.CanDeposit() > 0 ) || collectables.Count <= 0 ) return;
 
-		var deposit_count = Mathf.Min( interactable.CanDeposit(), collectables.Count );
+		lastDeposit = Time.time + GameSettings.Instance.player_cooldown_deposit;
 
-		lastDeposit = Time.time + GameSettings.Instance.player_duration_deposit;
-
-		for( var i = 0; i < deposit_count; i++ )
-		{
-			var collectable = collectables.Pop();
-			collectable.transform.SetParent( origin_deposit_wait );
-			collectable.DepositToInteractable( interactable, i * GameSettings.Instance.collectable_delay_deposit );
-		}	
+		var collectable = collectables.Pop();
+		collectable.transform.SetParent( origin_deposit_wait );
+		interactable.IncomingDeposit();
+		collectable.DepositToInteractable( interactable, GameSettings.Instance.collectable_delay_deposit );
 	}
 #endregion
 
