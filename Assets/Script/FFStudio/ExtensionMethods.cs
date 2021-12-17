@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
 namespace FFStudio
@@ -303,6 +304,14 @@ namespace FFStudio
 		public static Color SetAlpha( this Color color, float alpha )
 		{
 			Color newColor = color;
+			newColor.a = alpha;
+
+			return newColor;
+		}
+
+		public static Color SetAlpha( this Image image, float alpha )
+		{
+			Color newColor = image.color;
 			newColor.a = alpha;
 
 			return newColor;
