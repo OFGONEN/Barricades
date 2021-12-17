@@ -30,14 +30,14 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ally_Deposit
+  - Enemy_Seek
+  - Enemy_Damage
+  - Ally_Seek
+  - Environment
+  - Ally_Damage
+  - Ally_Health
+  - Enemy_Health
   m_SortingLayers:
   - name: Default
     uniqueID: 0
