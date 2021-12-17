@@ -97,7 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41aea37958269443b9d6dcbe83251bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image_renderer_array: []
+  image_renderer_array:
+  - {fileID: 9125930552399054569}
+  - {fileID: 9125930552100303037}
+  - {fileID: 9125930552302823552}
   image_background: {fileID: 9125930552100303037}
   image_foreground: {fileID: 9125930552302823552}
   shared_ratio: {fileID: 0}

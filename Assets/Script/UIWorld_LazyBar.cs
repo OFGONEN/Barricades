@@ -34,6 +34,11 @@ public class UIWorld_LazyBar : MonoBehaviour
     {
 		shared_ratio.changeEvent -= OnRatioChange;
 	}
+
+	private void Awake()
+	{
+		SetAlphaAmount( 0 );
+	}
 #endregion
 
 #region API
@@ -42,8 +47,8 @@ public class UIWorld_LazyBar : MonoBehaviour
 #region Implementation
     private void OnRatioChange()
     {
-		fadeSequence.KillProper();
-		fillSequence.KillProper();
+		fadeSequence = fadeSequence.KillProper();
+		fillSequence = fillSequence.KillProper();
 
 		SetAlphaAmount( 1 );
 

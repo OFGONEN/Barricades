@@ -309,12 +309,12 @@ namespace FFStudio
 			return newColor;
 		}
 
-		public static Color SetAlpha( this Image image, float alpha )
+		public static void SetAlpha( this Image image, float alpha )
 		{
 			Color newColor = image.color;
 			newColor.a = alpha;
 
-			return newColor;
+			image.color = newColor;
 		}
 
 		public static float RoundTo( this float number, float step )

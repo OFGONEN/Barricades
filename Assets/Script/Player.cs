@@ -11,6 +11,7 @@ public class Player : Entity, IInteractable
 {
 #region Fields
 	[ BoxGroup( "Shared Variable" ) ] public SharedReferenceNotifier notifier_shared_camera;
+	[ BoxGroup( "Shared Variable" ) ] public SharedFloatNotifier notifier_health_ratio;
 	[ BoxGroup( "Shared Variable" ) ] public SharedInput_JoyStick input_JoyStick;
 
 	[ BoxGroup( "Setup" ) ] public Transform origin_deposit_wait;
@@ -84,6 +85,7 @@ public class Player : Entity, IInteractable
 		if( onDamageCooldown ) return;
 
 		health = Mathf.Max( health - 1, 0 );
+		notifier_health_ratio.SharedValue = health / ( float )GameSettings.Instance.player_max_health;
 
 		particle_hit.transform.forward = Random.onUnitSphere;
 		particle_hit.Play(); // Particle to play when get it 
