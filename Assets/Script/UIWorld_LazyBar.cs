@@ -14,11 +14,14 @@ public class UIWorld_LazyBar : MonoBehaviour
     [ BoxGroup( "Setup" ) ] public Image[] image_renderer_array;
     [ BoxGroup( "Setup" ) ] public Image image_background; 
     [ BoxGroup( "Setup" ) ] public Image image_foreground; 
+    [ BoxGroup( "Shared Variables" ) ] public SharedReferenceNotifier shared_reference_camera;
     [ BoxGroup( "Shared Variables" ) ] public SharedFloatNotifier shared_ratio;
 
     // Private \\
     private Sequence fillSequence;
     private Sequence fadeSequence;
+
+	private Transform camera_transform;
 #endregion
 
 #region Properties
@@ -38,6 +41,16 @@ public class UIWorld_LazyBar : MonoBehaviour
 	private void Awake()
 	{
 		SetAlphaAmount( 0 );
+	}
+
+	private void Start()
+	{
+		camera_transform = shared_reference_camera.SharedValue as Transform;
+	}
+
+	private void Update()
+	{
+		transform.LookAtAxis( camera_transform.position, Vector3.up );
 	}
 #endregion
 
