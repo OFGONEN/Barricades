@@ -32,9 +32,8 @@ public class Window : Entity, IInteractable
 
     private void Start()
     {
+		ui_deposit.Init( 0, stackHealths.Length );
 		Die();
-
-		UpdateHealthRatio();
 	}
 #endregion
 
@@ -105,16 +104,15 @@ public class Window : Entity, IInteractable
 
 	public void UpdateHealthRatio()
 	{
-		int health = 0;
+		int currentHealth = 0;
 
 		for( var i = 0; i < stackHealths.Length; i++ )
 		{
 			if( stackHealths[ i ] != 0 )
-				health++;
+				currentHealth++;
 		}
 
-		health_ratio = health / ( float ) stackHealths.Length;
-		health_ratio_image.fillAmount = health_ratio;
+		ui_deposit.SetValue( currentHealth );
 	}
 
 	public bool IsAlive()

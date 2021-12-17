@@ -38,15 +38,17 @@ public class Turret : Entity, IInteractable
 
 	private void Start()
 	{
+		health_max = GameSettings.Instance.turret_maxHealth;
+
 		if( startDead )
 			Die();
         else
         {
-			health = GameSettings.Instance.turret_maxHealth;
+			health = health_max;
 			Revive();
 		}
 
-		UpdateHealthRatio();
+		ui_deposit.Init( health, health_max );
 	}
 
 	private void Update()
@@ -97,8 +99,7 @@ public class Turret : Entity, IInteractable
 
 	public void UpdateHealthRatio()
 	{
-		health_ratio = health / ( float ) GameSettings.Instance.turret_maxHealth;
-		health_ratio_image.fillAmount = health_ratio;
+		ui_deposit.SetValue( health );
 	}
 
 	public bool IsAlive()
