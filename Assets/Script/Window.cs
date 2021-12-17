@@ -30,6 +30,11 @@ public class Window : Entity, IInteractable
 		colliderListener_Seek_Stay.ClearEventList();
 	}
 
+	private void Awake()
+	{
+		ui_deposit = GetComponentInChildren< UIWorld_Deposit >();
+	}
+
     private void Start()
     {
 		ui_deposit.Init( 0, stackHealths.Length );

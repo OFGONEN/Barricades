@@ -31,8 +31,8 @@ public class Turret : Entity, IInteractable
 #region Unity API
     private void Awake()
     {
+		ui_deposit = GetComponentInChildren< UIWorld_Deposit >();
 		updateMethod = ExtensionMethods.EmptyMethod;
-
 		shootOffSet = Vector3.up * GameSettings.Instance.guard_shoot_offset.y;
 	}
 

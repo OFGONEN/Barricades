@@ -18,6 +18,11 @@ public class Table : Entity, IInteractable
 #endregion
 
 #region Unity API
+    private void Awake()
+    {
+        ui_deposit = GetComponentInChildren< UIWorld_Deposit >();
+    }
+
     private void Start()
     {
 		ui_deposit.Init( 1, 1 );

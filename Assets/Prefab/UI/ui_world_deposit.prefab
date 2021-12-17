@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 7547777331532013245}
   - component: {fileID: 7547777331532013244}
   - component: {fileID: 7547777331532013247}
+  - component: {fileID: 8819869846878577386}
   m_Layer: 5
   m_Name: ui_world_deposit
   m_TagString: Untagged
@@ -370,3 +371,17 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!114 &8819869846878577386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7547777331532013246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb47c993ea97426885ba0f7eb4b7942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deposit_text: {fileID: 7547777330495914939}
+  deposit_image: {fileID: 7547777331166417147}

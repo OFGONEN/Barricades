@@ -18,6 +18,11 @@ public class Spike : Entity, IInteractable
 #endregion
 
 #region Unity API
+	private void Awake()
+	{
+		ui_deposit = GetComponentInChildren< UIWorld_Deposit >();
+	}
+
 	private void Start()
 	{
 		health_max = GameSettings.Instance.spike_maxHealth;
