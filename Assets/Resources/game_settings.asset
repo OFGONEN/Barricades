@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useRemoveConfig_GameSettings: 0
   useRemoveConfig_Components: 0
-  maxLevelCount: 2
+  maxLevelCount: 9
   ui_Entity_Move_TweenDuration: 0.5
   ui_Entity_Fade_TweenDuration: 0.5
   ui_Entity_Scale_TweenDuration: 0.5
@@ -24,7 +24,7 @@ MonoBehaviour:
   enemy_animation_idle_count: 2
   enemy_animation_run_count: 2
   enemy_animation_attack_count: 3
-  enemy_animation_vault_duration: 1.4
+  enemy_animation_vault_duration: 1
   enemy_animation_run_speed: 1
   enemy_ragdoll_duration: 1
   enemy_death_velocity_range: {x: 50, y: 100}
@@ -37,7 +37,7 @@ MonoBehaviour:
   - {fileID: 4910410205004592983, guid: 1b507aeb94e6b4c319aff31f203e4a95, type: 3}
   spike_maxHealth: 6
   turret_maxHealth: 6
-  turret_bullet_fireRate: 0.5
+  turret_bullet_fireRate: 1.2
   turret_bullet_speed: 6
   player_max_health: 6
   player_max_collectable: 12
