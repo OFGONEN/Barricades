@@ -50,7 +50,7 @@ public class UIWorld_LazyBar : MonoBehaviour
 
 	private void Update()
 	{
-		transform.LookAtAxis( camera_transform.position, Vector3.up );
+		transform.LookAtAxis( camera_transform.position, Vector3.up, -1f );
 	}
 #endregion
 
