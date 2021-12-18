@@ -241,7 +241,7 @@ MonoBehaviour:
   origin_deposit: {fileID: 5596442012154051046}
   colliderListener_Health_Enter: {fileID: 4003372399739101427}
   colliderListener_Seek_Stay: {fileID: 2170953821735610401}
-  health_ratio_image: {fileID: 0}
+  ui_deposit: {fileID: 0}
   notifier_shared_camera: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
   notifier_health_ratio: {fileID: 11400000, guid: 33a1c3cd623b3484f9923254fe9a767e, type: 2}
   input_JoyStick: {fileID: 11400000, guid: 08eb8fdc8d362bf42bdf5b8d62505e59, type: 2}
@@ -350,6 +350,10 @@ PrefabInstance:
     - target: {fileID: 187906, guid: 9336dc16b126c96449e1c25d672b00a0, type: 3}
       propertyPath: m_Name
       value: particle_player_hit
+      objectReference: {fileID: 0}
+    - target: {fileID: 187906, guid: 9336dc16b126c96449e1c25d672b00a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 489806, guid: 9336dc16b126c96449e1c25d672b00a0, type: 3}
       propertyPath: m_RootOrder
