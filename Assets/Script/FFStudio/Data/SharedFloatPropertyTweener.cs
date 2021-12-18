@@ -55,6 +55,13 @@ namespace FFStudio
 			if( valueChangeTween != null )
 				valueChangeTween.Kill();
 		}
+
+		public void SetValue_Kill( float value )
+		{
+			KillTween();
+
+			sharedValue = value;
+		}
 #endregion
 
 #region Implementation

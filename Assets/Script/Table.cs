@@ -18,9 +18,15 @@ public class Table : Entity, IInteractable
 #endregion
 
 #region Unity API
+    private void Awake()
+    {
+        ui_deposit = GetComponentInChildren< UIWorld_Deposit >();
+    }
+
     private void Start()
     {
-		UpdateHealthRatio();
+		ui_deposit.Init( 1, 1 );
+		ui_deposit.SetText( "" );
 	}
 #endregion
 
@@ -55,8 +61,7 @@ public class Table : Entity, IInteractable
 
     public void UpdateHealthRatio()
     {
-		health_ratio = 1;
-		health_ratio_image.fillAmount = 1;
+		ui_deposit.SetValue( 1 );
 	}
 
 	public bool IsAlive()
