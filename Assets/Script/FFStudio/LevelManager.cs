@@ -151,6 +151,7 @@ namespace FFStudio
 			var collectable = collectable_pool.GiveEntity();
 			position.x = position.x.RoundTo( GameSettings.Instance.collectable_spawn_grid );
 			position.z = position.z.RoundTo( GameSettings.Instance.collectable_spawn_grid );
+			position = level_volume.BoundPosition( position );
 			collectable.Spawn( position );
 		}
 

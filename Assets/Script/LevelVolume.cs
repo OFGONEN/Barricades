@@ -36,6 +36,15 @@ public class LevelVolume : MonoBehaviour
 
 		return new Vector3( random_x, 0, random_z );
 	}
+
+	public Vector3 BoundPosition( Vector3 position )
+	{
+		position.x = Mathf.Clamp( position.x, volume_position_world.x - volume_size.x / 2f, volume_position_world.x + volume_size.x / 2f );
+		position.y = Mathf.Clamp( position.y, volume_position_world.y - volume_size.y / 2f, volume_position_world.y + volume_size.y / 2f );
+		position.z = Mathf.Clamp( position.z, volume_position_world.z - volume_size.z / 2f, volume_position_world.z + volume_size.z / 2f );
+
+		return position;
+	}
 #endregion
 
 #region Implementation
