@@ -51,6 +51,8 @@ public class UIWorld_Deposit : MonoBehaviour
 
     public void SetValue( int newValue )
     {
+		deposit_text.text = GiveDepositText( newValue );
+
 		deposit_tween = deposit_tween.KillProper();
 		deposit_tween = DOTween.To( () => deposit_ratio, x => deposit_ratio = x, newValue / ( float )deposit_maxValue, deposit_duration );
 
