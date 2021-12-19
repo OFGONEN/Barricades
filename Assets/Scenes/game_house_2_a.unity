@@ -1512,14 +1512,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1109147575186076186, guid: 675a7cf7dda62ff42afe6748b838ff9f, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 00cfe5f13f8471441a589588dd94ab66, type: 2}
-    - target: {fileID: 1109147575717660289, guid: 675a7cf7dda62ff42afe6748b838ff9f, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 00cfe5f13f8471441a589588dd94ab66, type: 2}
     - target: {fileID: 1706486257315542032, guid: 675a7cf7dda62ff42afe6748b838ff9f, type: 3}
       propertyPath: m_Name
       value: safe_house_2
