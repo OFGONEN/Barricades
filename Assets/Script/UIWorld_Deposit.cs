@@ -40,7 +40,7 @@ public class UIWorld_Deposit : MonoBehaviour
     {
 		deposit_maxValue         = maxValue;
 		deposit_text.text        = GiveDepositText( curentValue );
-		deposit_ratio            = curentValue / ( float )maxValue;
+		deposit_ratio            = ( float )curentValue / ( float )maxValue;
 		deposit_image.fillAmount = deposit_ratio;
 	}
 

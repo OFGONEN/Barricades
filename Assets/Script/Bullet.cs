@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviour
 
     // Private Fields \\
     private Rigidbody bulletRigidbody;
+	private TrailRenderer trail_renderer;
 #endregion
 
 #region Properties
@@ -36,13 +37,18 @@ public class Bullet : MonoBehaviour
     {
 		listener_level_finished.response = ReturnToPool;
         bulletRigidbody = GetComponent< Rigidbody >();
-    }
+		trail_renderer = GetComponentInChildren< TrailRenderer >();
+
+		trail_renderer.enabled = false;
+	}
 #endregion
 
 #region API
     public void Spawn( Vector3 position, Vector3 direction, float speed )
     {
 		gameObject.SetActive( true );
+
+		trail_renderer.enabled = true;
 
 		transform.position       = position;
 		transform.forward        = direction;
@@ -62,6 +68,7 @@ public class Bullet : MonoBehaviour
     private void ReturnToPool()
     {
 		gameObject.SetActive( false );
+		trail_renderer.enabled = false;
 		bulletPool.ReturnEntity( this );
 
 		colliderListener_AllyDamage_Enter.triggerEvent -= OnTrigger;
