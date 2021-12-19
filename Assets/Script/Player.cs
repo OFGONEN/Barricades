@@ -144,6 +144,7 @@ public class Player : Entity, IInteractable
 		colliderListener_Seek_Stay.triggerEvent -= OnAllySeekEnter;
 
 		animator.SetTrigger( "death" );
+		animator_dog.SetBool( "run", false );
 
 		//! Raise Level Fail Event
 		levelFailed.Raise();
