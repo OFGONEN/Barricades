@@ -181,6 +181,8 @@ public class Collectable : MonoBehaviour
 
 		ToggleTrailRenderer( false );
 
+		colliderListener_Seek_Enter.ClearEventList();
+
 		transform.localScale = Vector3.one;
 		gameObject.SetActive( false );
 		collectablePool.ReturnEntity( this );
