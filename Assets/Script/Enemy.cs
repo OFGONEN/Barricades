@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
 	// Private \\
 	private bool isInside = false;
 	private bool isAlive = false;
+	private bool isRunning = false;
 	private Vector3 vaultPosition;
 	private SharedReferenceNotifier currentDestination;
 	private Transform currentDestinationTransform;
@@ -52,7 +53,6 @@ public class Enemy : MonoBehaviour
 	// Properties
 	public bool IsInside => isInside;
 	public bool IsAlive => isAlive;
-	public Vector3 ShootOffSet => transform.TransformPoint( GameSettings.Instance.guard_shoot_offset );
 #endregion
 
 #region Properties
@@ -138,6 +138,18 @@ public class Enemy : MonoBehaviour
 		vaultSequence.Join( transform.DOLookAt( position, GameSettings.Instance.enemy_animation_vault_duration ) );
 		vaultSequence.OnComplete( OnVaultComplete );
 	}
+
+	public Vector3 GiveShootPosition()
+	{
+		Vector3 offSet;
+
+		if( isRunning )
+			offSet = GameSettings.Instance.guard_shoot_offset;
+		else
+			offSet = Vector3.up * GameSettings.Instance.guard_shoot_offset.y;
+
+		return transform.TransformPoint( offSet );
+	}
 #endregion
 
 #region Implementation
@@ -213,7 +225,7 @@ public class Enemy : MonoBehaviour
 
     private void CheckIfRunning()
     {
-		var isRunning = navMeshAgent.velocity.magnitude >= GameSettings.Instance.enemy_animation_run_speed;
+		isRunning = navMeshAgent.velocity.magnitude >= GameSettings.Instance.enemy_animation_run_speed;
 		animator.SetBool( "run", isRunning );
 	}
 
@@ -244,7 +256,7 @@ public class Enemy : MonoBehaviour
 		var interactable = other.GetComponentInParent< IInteractable >();
 		interactable.GetDamage( GameSettings.Instance.enemy_damage );
 
-		particle_spawn.Raise( "enemy_damage", ShootOffSet );
+		particle_spawn.Raise( "enemy_damage", GiveShootPosition() );
 	}
 
 	private void OnInteractableDeath()

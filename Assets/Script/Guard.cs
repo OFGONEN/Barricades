@@ -134,7 +134,7 @@ public class Guard : MonoBehaviour
 		var bullet = bulletPool.GiveEntity();
 
 		var origin_shoot_position = origin_shoot.position;
-		var direction = current_target.ShootOffSet - origin_shoot_position;
+		var direction = current_target.GiveShootPosition() - origin_shoot_position;
 
 		bullet.Spawn( origin_shoot_position, direction.normalized, GameSettings.Instance.guard_bullet_speed );
 	}
