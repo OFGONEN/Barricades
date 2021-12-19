@@ -102,7 +102,7 @@ public class Guard : MonoBehaviour
 
     private void OnUpdate_Shoot()
     {
-		if( current_target.IsAlive )
+		if( current_target.IsAlive && !current_target.IsInside )
 			ShootAtCurrentTarget();
 		else
 			StopShooting();
