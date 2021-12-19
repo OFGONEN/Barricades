@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
 namespace FFStudio
@@ -88,6 +89,19 @@ namespace FFStudio
 			var newDirection     = targetPosition - baseTransform.position;
 			var eulerAngles      = baseTransform.eulerAngles;
 			var newRotationEuler = Quaternion.LookRotation( newDirection ).eulerAngles;
+
+			newRotationEuler.x = eulerAngles.x + ( newRotationEuler.x - eulerAngles.x ) * axis.x;
+			newRotationEuler.y = eulerAngles.y + ( newRotationEuler.y - eulerAngles.y ) * axis.y;
+			newRotationEuler.z = eulerAngles.z + ( newRotationEuler.z - eulerAngles.z ) * axis.z;
+
+			baseTransform.rotation = Quaternion.Euler( newRotationEuler );
+		}
+
+		public static void LookAtAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis, float directionCofactor )
+		{
+			var newDirection     = targetPosition - baseTransform.position;
+			var eulerAngles      = baseTransform.eulerAngles;
+			var newRotationEuler = Quaternion.LookRotation( newDirection * directionCofactor ).eulerAngles;
 
 			newRotationEuler.x = eulerAngles.x + ( newRotationEuler.x - eulerAngles.x ) * axis.x;
 			newRotationEuler.y = eulerAngles.y + ( newRotationEuler.y - eulerAngles.y ) * axis.y;
@@ -306,6 +320,14 @@ namespace FFStudio
 			newColor.a = alpha;
 
 			return newColor;
+		}
+
+		public static void SetAlpha( this Image image, float alpha )
+		{
+			Color newColor = image.color;
+			newColor.a = alpha;
+
+			image.color = newColor;
 		}
 
 		public static float RoundTo( this float number, float step )

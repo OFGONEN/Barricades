@@ -23,6 +23,7 @@ namespace FFStudio
 
         [ Header( "Level Releated" ) ]
         public SharedFloatNotifier levelProgress;
+        public SharedFloatPropertyTweener levelProgress_Tweener;
         public SharedReferenceNotifier level_destination_outside;
 		public SharedInt enemy_count;
 		public SharedIntNotifier enemy_count_remaining;
@@ -47,6 +48,8 @@ namespace FFStudio
             levelStartedListener.OnEnable();
 			listener_level_finished.OnEnable();
 			listener_enemy_death.OnEnable();
+
+			levelProgress_Tweener.changeEvent += OnlevelProgressUpdate;
 		}
 
         private void OnDisable()
@@ -56,6 +59,8 @@ namespace FFStudio
             levelStartedListener.OnDisable();
 			listener_level_finished.OnDisable();
 			listener_enemy_death.OnDisable();
+
+			levelProgress_Tweener.changeEvent -= OnlevelProgressUpdate;
         }
 
         private void Awake()
@@ -81,7 +86,8 @@ namespace FFStudio
 #region Implementation
         private void LevelLoadedResponse()
         {
-			levelProgress.SharedValue = 0;
+			levelProgress_Tweener.SetValue_Kill( 1 );
+			levelProgress.SharedValue = 1;
 
 			var levelData = CurrentLevelData.Instance.levelData;
 
@@ -101,8 +107,6 @@ namespace FFStudio
         {
 			// Enemy Count
 			enemy_count_remaining.SetValue_NotifyAlways( enemy_count.sharedValue );
-			levelProgress.SharedValue         = 1;
-
 
 			// Configure Spawning Collectable
 			level_volume          = ( level_destination_outside.SharedValue as Transform ).GetComponentInParent< LevelVolume >();
@@ -112,7 +116,8 @@ namespace FFStudio
         
         private void LevelFinishedResponse()
         {
-			enemy_count.sharedValue           = 0;
+			enemy_count.sharedValue   = 0;
+			levelProgress.SharedValue = 0;
 
 			updateMethod = ExtensionMethods.EmptyMethod;
 		}
@@ -120,7 +125,7 @@ namespace FFStudio
         private void EnemyDeathResponse()
         {
 			enemy_count_remaining.SetValue_NotifyAlways( enemy_count_remaining.SharedValue - 1);
-			levelProgress.SharedValue = enemy_count_remaining.SharedValue / (float)enemy_count.sharedValue;
+			levelProgress_Tweener.SetValue( enemy_count_remaining.SharedValue / ( float )enemy_count.sharedValue );
 
 			if( enemy_count_remaining.SharedValue <= 0 )
 				levelCompleted.Raise();
@@ -146,7 +151,13 @@ namespace FFStudio
 			var collectable = collectable_pool.GiveEntity();
 			position.x = position.x.RoundTo( GameSettings.Instance.collectable_spawn_grid );
 			position.z = position.z.RoundTo( GameSettings.Instance.collectable_spawn_grid );
+			position = level_volume.BoundPosition( position );
 			collectable.Spawn( position );
+		}
+
+		private void OnlevelProgressUpdate()
+		{
+			levelProgress.SharedValue = levelProgress_Tweener.sharedValue;
 		}
 #endregion
     }
