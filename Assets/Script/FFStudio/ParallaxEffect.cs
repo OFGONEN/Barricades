@@ -20,7 +20,7 @@ namespace FFStudio
 #region Unity API
 		private void Start()
 		{
-			targetTransform = ( targetReference.SharedValue as Rigidbody ).transform;
+			targetTransform = targetReference.SharedValue as Transform;
 
 			startPosition = transform.position;
 			target_StartPosition = targetTransform.position;
