@@ -7,31 +7,49 @@ namespace FFStudio
 	public class ParallaxEffect : MonoBehaviour
 	{
 #region Fields
+		public EventListenerDelegateResponse level_start_listener;
+
 		public SharedReferenceNotifier targetReference;
-		public Vector3 parallaxRatio;
-		public float parallaxSpeed;
+		// public Vector3 parallax_ratio;
+		public Vector3 parallax_offset;
+		public float parallax_speed;
 
 		/* Private Fields */
 		private Transform targetTransform;
 		private Vector3 startPosition;
 		private Vector3 target_StartPosition;
+
+		private UnityMessage updateMethod;
 #endregion
 
 #region Unity API
+		private void OnEnable()
+		{
+			level_start_listener.OnEnable();
+		}
+
+		private void OnDisable()
+		{
+			level_start_listener.OnDisable();
+
+			updateMethod = ExtensionMethods.EmptyMethod;
+		}
+
+		private void Awake()
+		{
+			updateMethod = ExtensionMethods.EmptyMethod;
+
+			level_start_listener.response = LevelStartResponse;
+		}
+
 		private void Start()
 		{
 			targetTransform = targetReference.SharedValue as Transform;
-
-			startPosition = transform.position;
-			target_StartPosition = targetTransform.position;
 		}
 
-private void Update()
+		private void Update()
 		{
-			var diff = targetTransform.position - target_StartPosition;
-			diff.Scale( parallaxRatio );
-
-			transform.position = Vector3.MoveTowards( transform.position, startPosition + diff, Time.deltaTime * parallaxSpeed );
+			updateMethod();
 		}
 #endregion
 
@@ -39,6 +57,15 @@ private void Update()
 #endregion
 
 #region Implementation
+		private void OnUpdate()
+		{
+			transform.position = Vector3.MoveTowards( transform.position, targetTransform.position + parallax_offset, Time.deltaTime * parallax_speed );
+		}
+
+		private void LevelStartResponse()
+		{
+			updateMethod = OnUpdate;
+		}
 #endregion
 	}
 }
