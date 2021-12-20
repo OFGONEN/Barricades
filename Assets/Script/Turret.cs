@@ -17,6 +17,7 @@ public class Turret : Entity, IInteractable
 	[ BoxGroup( "Setup" ) ] public Transform rotateObject;
 	[ BoxGroup( "Setup" ) ] public Transform shootOrigin;
 	[ BoxGroup( "Setup" ) ] public bool startDead;
+	[ BoxGroup( "Setup" ), HideIf( "startDead" ) ] public int inital_health;
 
 
 	// Private \\
@@ -44,7 +45,7 @@ public class Turret : Entity, IInteractable
 			Die();
         else
         {
-			health = health_max;
+			health = inital_health;
 			Revive();
 		}
 

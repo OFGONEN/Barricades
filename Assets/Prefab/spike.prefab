@@ -84,6 +84,7 @@ MonoBehaviour:
   aliveMesh: {fileID: 1947594680023965147}
   deadMesh: {fileID: 8416208509926478727}
   startDead: 0
+  inital_health: 6
 --- !u!54 &-7874223956822809747
 Rigidbody:
   m_ObjectHideFlags: 0

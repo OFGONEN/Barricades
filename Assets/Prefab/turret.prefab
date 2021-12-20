@@ -153,6 +153,7 @@ MonoBehaviour:
   rotateObject: {fileID: 7520727947859018872}
   shootOrigin: {fileID: 2460633105657014885}
   startDead: 0
+  inital_health: 6
 --- !u!54 &646191865091557493
 Rigidbody:
   m_ObjectHideFlags: 0

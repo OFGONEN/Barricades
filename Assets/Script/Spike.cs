@@ -12,6 +12,7 @@ public class Spike : Entity, IInteractable
 	[ BoxGroup( "Setup" ) ] public MeshRenderer aliveMesh;
 	[ BoxGroup( "Setup" ) ] public GameObject deadMesh;
 	[ BoxGroup( "Setup" ) ] public bool startDead;
+	[ BoxGroup( "Setup" ), HideIf( "startDead" ) ] public int inital_health;
 #endregion
 
 #region Properties
@@ -31,7 +32,7 @@ public class Spike : Entity, IInteractable
 			Die();
 		else
 		{
-			health = health_max;
+			health = inital_health;
 			Revive();
 		}
 
