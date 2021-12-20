@@ -28,6 +28,11 @@ public class UIWorld_Deposit : MonoBehaviour
 #endregion
 
 #region Unity API
+	private void OnDisable()
+	{
+		deposit_tween.KillProper();
+	}
+
     private void Awake()
     {
 		stringBuilder = new StringBuilder( 8 );
