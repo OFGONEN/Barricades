@@ -10,7 +10,7 @@ public interface IInteractable
 	public abstract void GetDamage( int count );
 	public abstract void UpdateHealthRatio();
 	public abstract bool IsAlive();
-	public abstract void IncomingDeposit();
+	public abstract void IncomingDeposit( int count );
 	public abstract int CanDeposit();
 	public abstract void Subscribe_OnDeath( UnityMessage onDeathDelegate );
 	public abstract void UnSubscribe_OnDeath( UnityMessage onDeathDelegate );

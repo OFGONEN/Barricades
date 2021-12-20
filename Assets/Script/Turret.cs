@@ -70,9 +70,9 @@ public class Turret : Entity, IInteractable
 
     public void GetDeposit( int count, DepositType type, Collectable collectable = null )     
     {
-		//TODO(OFG): spawn deposited particle effect
-		health = Mathf.Min( health + count * ( ( int )type + 1 ), GameSettings.Instance.spike_maxHealth );
-		incomingDeposit--;
+		var deposit_value    = ( int )type + 1;
+		    health           = Mathf.Min( health + count * deposit_value, GameSettings.Instance.spike_maxHealth );
+		    incomingDeposit -= deposit_value;
 
 		UpdateHealthRatio();
 
@@ -85,7 +85,6 @@ public class Turret : Entity, IInteractable
 
     public void GetDamage( int count )
     {
-		//TODO(OFG): spawn damage particle effect
 		health = Mathf.Max( health - 1, 0 );
 
 		UpdateHealthRatio();
@@ -112,9 +111,9 @@ public class Turret : Entity, IInteractable
 		return GameSettings.Instance.turret_maxHealth - health - incomingDeposit;
 	}
 
-    public void IncomingDeposit()
+    public void IncomingDeposit( int count )
     {
-		incomingDeposit++;
+		incomingDeposit += count;
 	}
 
 	public void Subscribe_OnDeath( UnityMessage onDeathDelegate )

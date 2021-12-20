@@ -116,7 +116,7 @@ public class Player : Entity, IInteractable
 		return GameSettings.Instance.player_max_collectable - collectables.Count;
 	}
 
-    public void IncomingDeposit()
+    public void IncomingDeposit( int count )
     {
 	}
 
@@ -191,7 +191,7 @@ public class Player : Entity, IInteractable
 
 		var collectable = collectables.Pop();
 		collectable.transform.SetParent( origin_deposit_wait );
-		interactable.IncomingDeposit();
+		interactable.IncomingDeposit( ( int )collectable.depositType + 1 );
 		collectable.DepositToInteractable( interactable, GameSettings.Instance.collectable_delay_deposit );
 	}
 #endregion

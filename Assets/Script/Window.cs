@@ -66,7 +66,6 @@ public class Window : Entity, IInteractable
 		}
 
 		incomingDeposit--;
-        //TODO(OFG): spawn deposited particle effect
 		stackHealths[ emptyIndex ] = count * ( ( int )type + 1 );
 		stackMeshFilters[ emptyIndex ].mesh = GameSettings.Instance.window_meshes[ ( int )type ];
 
@@ -86,7 +85,6 @@ public class Window : Entity, IInteractable
 				index = i;
 		}
 
-        //TODO(OFG): spawn damage particle effect
 		stackHealths[ index ] -= count;
 
         if( stackHealths[ index ] <= 0 )
@@ -137,7 +135,7 @@ public class Window : Entity, IInteractable
 		return depositCount - incomingDeposit;
 	}
 
-    public void IncomingDeposit()
+    public void IncomingDeposit( int count )
     {
 		incomingDeposit++;
 	}
