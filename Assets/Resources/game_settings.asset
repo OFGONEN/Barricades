@@ -38,7 +38,7 @@ MonoBehaviour:
   spike_maxHealth: 6
   turret_maxHealth: 6
   turret_bullet_fireRate: 1.2
-  turret_bullet_speed: 6
+  turret_bullet_speed: 12
   player_max_health: 6
   player_max_collectable: 12
   player_cooldown_deposit: 0.1
