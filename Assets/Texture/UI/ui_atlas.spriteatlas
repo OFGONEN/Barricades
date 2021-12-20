@@ -37,6 +37,10 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 52c7aea9a3ab34a628d170a386a750fe, type: 3}
     - {fileID: 2800000, guid: a7d22fd3082d24ca6b2f8870197c11c1, type: 3}
     - {fileID: 2800000, guid: a80e3af95db5c408999d45a05321b547, type: 3}
+    - {fileID: 2800000, guid: 21c1a4480295c4c6eb2dae40ea64e6cc, type: 3}
+    - {fileID: 2800000, guid: 64238db5a1b7946e499b2a3b44e35c1c, type: 3}
+    - {fileID: 2800000, guid: 702554ed6d0844970bd9d27efb7efc83, type: 3}
+    - {fileID: 2800000, guid: 8364a2da68f014faca35a4f5c2dff3eb, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -44,15 +48,23 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: e8e620510b23e4c0d80e9091d1f8a9c0, type: 3}
   - {fileID: 21300000, guid: a7d22fd3082d24ca6b2f8870197c11c1, type: 3}
+  - {fileID: 21300000, guid: 64238db5a1b7946e499b2a3b44e35c1c, type: 3}
+  - {fileID: 21300000, guid: 21c1a4480295c4c6eb2dae40ea64e6cc, type: 3}
   - {fileID: 21300000, guid: 52c7aea9a3ab34a628d170a386a750fe, type: 3}
   - {fileID: 21300000, guid: a80e3af95db5c408999d45a05321b547, type: 3}
+  - {fileID: 21300000, guid: 8364a2da68f014faca35a4f5c2dff3eb, type: 3}
   - {fileID: 21300000, guid: 6193935cc70d84957937108e2ca30f27, type: 3}
+  - {fileID: 21300000, guid: 702554ed6d0844970bd9d27efb7efc83, type: 3}
   m_PackedSpriteNamesToIndex:
   - texture_deposit_green
   - texture_lazy_bar_red
+  - texture_loading_frame
+  - texture_loading_background
   - texture_lazy_bar_white
   - texture_lazy_bar_green
+  - texture_loading_red
   - texture_deposit_red
+  - texture_loading_indicator
   m_RenderDataMap: {}
   m_Tag: ui_atlas
   m_IsVariant: 0
