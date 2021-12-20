@@ -145,7 +145,10 @@ public class Spike : Entity, IInteractable
 	{
 		//Enemy will kill itself after colliding with spike
 		if( other.gameObject.layer != 28 )
+		{
 			GetDamage( 1 );
+			particle_spawn.Raise( "enemy_damage", origin_deposit.position );
+		}
 	}
 #endregion
 
