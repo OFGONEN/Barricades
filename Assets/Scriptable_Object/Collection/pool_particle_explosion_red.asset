@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: pool_particle_explosion_red
   m_EditorClassIdentifier: 
   stackSize: 3
-  poolEntity: {fileID: 1350538538214533378, guid: a4ae1c79c8256e84d8a5d48ee87b61b7, type: 3}
+  poolEntity: {fileID: 1847016803450218128, guid: a7c694f0877ea874fa57e033221095c3, type: 3}
