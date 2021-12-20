@@ -378,15 +378,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7547777330495914933, guid: b378766ae59f4e0419e5d9a7ed2d270e, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7547777330834958596, guid: b378766ae59f4e0419e5d9a7ed2d270e, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7547777331166417141, guid: b378766ae59f4e0419e5d9a7ed2d270e, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7547777331532013245, guid: b378766ae59f4e0419e5d9a7ed2d270e, type: 3}
       propertyPath: m_Pivot.x
@@ -458,7 +458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7547777331532013245, guid: b378766ae59f4e0419e5d9a7ed2d270e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7547777331532013245, guid: b378766ae59f4e0419e5d9a7ed2d270e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -478,7 +478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7547777331532013246, guid: b378766ae59f4e0419e5d9a7ed2d270e, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b378766ae59f4e0419e5d9a7ed2d270e, type: 3}

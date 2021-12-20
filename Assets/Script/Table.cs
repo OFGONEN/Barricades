@@ -26,7 +26,7 @@ public class Table : Entity, IInteractable
     private void Start()
     {
 		ui_deposit.Init( 1, 1 );
-		ui_deposit.SetText( "" );
+		ui_deposit.SetText( "Upgrade" );
 	}
 #endregion
 
