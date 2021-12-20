@@ -146,7 +146,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.FFStudios.Template
+    Android: com.FFStudios.Barricades
     Standalone: com.FFStudios.Template
     iPhone: com.FFStudios.Barricades
   buildNumber:
