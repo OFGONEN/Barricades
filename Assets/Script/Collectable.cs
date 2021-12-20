@@ -54,6 +54,7 @@ public class Collectable : MonoBehaviour
 		transform.SetParent( collectablePool.InitialParent );
 		transform.position = position;
 		transform.localEulerAngles = Vector3.forward;
+		transform.localScale = Vector3.one;
 
 		colliderListener_Seek_Enter.triggerEvent += OnAllySeekEnter;
 		colliderListener_Seek_Enter.AttachedCollider.enabled = true;
@@ -155,7 +156,6 @@ public class Collectable : MonoBehaviour
 		interactable.GetDeposit( 1, depositType );
 
 		particle_spawn.Raise( "deposit", transform.position );
-
 		collectablePool.ReturnEntity( this );
 	}
 

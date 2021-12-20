@@ -52,6 +52,7 @@ public class Table : Entity, IInteractable
 		var deposit_position     = origin_deposit_random.position + Random.insideUnitCircle.ConvertV3() * GameSettings.Instance.collectable_random_deposit;
 
 		collectable_upgraded.transform.position = origin_deposit.position;
+		collectable_upgraded.transform.localScale = Vector3.one;
 		collectable_upgraded.DepositToGround( deposit_position, Random.Range( 0, 360 ) );
 	}
 
