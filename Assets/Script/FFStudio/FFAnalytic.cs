@@ -76,8 +76,9 @@ namespace FFStudio
 		void LoadRemoteConfigs()
 		{
 			var gameSettings = GameSettings.Instance;
+			var useRemoteGameSetting = gameSettings.useRemoveConfig_GameSettings;
 
-			if( !gameSettings )
+			if( !useRemoteGameSetting )
 				return;
 
 			var remote = RemoteConfig.GetInstance();
