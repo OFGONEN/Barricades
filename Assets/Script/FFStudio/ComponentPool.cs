@@ -35,9 +35,7 @@ namespace FFStudio
 			if( stack.Count > 0 )
 				entity = stack.Pop();
 			else
-			{
 				entity = GameObject.Instantiate( poolEntity );
-			}
 
 			return entity;
 		}

@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
 namespace FFStudio
@@ -75,12 +76,39 @@ namespace FFStudio
 
 		public static Vector3 ConvertV3( this Vector2 v2 )
 		{
-			return new Vector3( v2.x, v2.y, 0 );
+			return new Vector3( v2.x, 0, v2.y );
 		}
 
 		public static Vector3 RandomPointBetween( this Vector3 first, Vector3 second )
 		{
 			return first + Random.Range( 0, 1f ) * ( second - first );
+		}
+
+		public static void LookAtAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis )
+		{
+			var newDirection     = targetPosition - baseTransform.position;
+			var eulerAngles      = baseTransform.eulerAngles;
+			var newRotationEuler = Quaternion.LookRotation( newDirection ).eulerAngles;
+
+			newRotationEuler.x = eulerAngles.x + ( newRotationEuler.x - eulerAngles.x ) * axis.x;
+			newRotationEuler.y = eulerAngles.y + ( newRotationEuler.y - eulerAngles.y ) * axis.y;
+			newRotationEuler.z = eulerAngles.z + ( newRotationEuler.z - eulerAngles.z ) * axis.z;
+
+			baseTransform.rotation = Quaternion.Euler( newRotationEuler );
+		}
+
+		public static void LookAtAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis, float directionCofactor )
+		{
+			var newDirection     = targetPosition - baseTransform.position;
+			var eulerAngles      = baseTransform.eulerAngles;
+			var newRotationEuler = Quaternion.LookRotation( newDirection * directionCofactor ).eulerAngles;
+
+			newRotationEuler.x = eulerAngles.x + ( newRotationEuler.x - eulerAngles.x ) * axis.x;
+			newRotationEuler.y = eulerAngles.y + ( newRotationEuler.y - eulerAngles.y ) * axis.y;
+			newRotationEuler.z = eulerAngles.z + ( newRotationEuler.z - eulerAngles.z ) * axis.z;
+
+			// baseTransform.rotation = Quaternion.LookRotation( newDirection );
+			baseTransform.rotation = Quaternion.Euler( newRotationEuler );
 		}
 
 		public static void LookAtOverTime( this Transform baseTransform, Vector3 targetPosition, float speed )
@@ -280,6 +308,38 @@ namespace FFStudio
 
 			return tween;
 		}
+
+		public static float RandomRange( this Vector2 range )
+		{
+			return Random.Range( range.x, range.y );
+		}
+
+		public static Color SetAlpha( this Color color, float alpha )
+		{
+			Color newColor = color;
+			newColor.a = alpha;
+
+			return newColor;
+		}
+
+		public static void SetAlpha( this Image image, float alpha )
+		{
+			Color newColor = image.color;
+			newColor.a = alpha;
+
+			image.color = newColor;
+		}
+
+		public static float RoundTo( this float number, float step )
+		{
+			int   quotient = Mathf.FloorToInt( number / step );
+			var   reminder = number % step;
+			float rounded  = quotient * step;
+
+			if( reminder >= step / 2f )
+				rounded += step;
+
+			return rounded;
+		}
 	}
 }
-

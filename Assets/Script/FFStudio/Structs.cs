@@ -12,4 +12,17 @@ namespace FFStudio
 		public Vector3 rotation; // Euler angles.
 		public Vector3 scale; // Local scale.
 	}
+
+	[ Serializable ]
+	public struct SpawnData
+	{
+		[ Tooltip( "Time in minutes" ) ] public float spawn_time;
+		public int spawn_count;
+	}
+
+	[ Serializable ]
+	public struct SpawnPointData
+	{
+		public SpawnData[] spawn_data_array;
+	}
 }

@@ -14,9 +14,109 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useRemoveConfig_GameSettings: 0
   useRemoveConfig_Components: 0
-  maxLevelCount: 1
+  maxLevelCount: 10
   ui_Entity_Move_TweenDuration: 0.5
   ui_Entity_Fade_TweenDuration: 0.5
   ui_Entity_Scale_TweenDuration: 0.5
   ui_Entity_FloatingMove_TweenDuration: 0.5
+  ui_Entity_JoyStick_Gap: 50
   swipeThreshold: 2
+  enemy_animation_idle_count: 2
+  enemy_animation_run_count: 2
+  enemy_animation_attack_count: 3
+  enemy_animation_vault_duration: 1
+  enemy_animation_run_speed: 1
+  enemy_ragdoll_duration: 1
+  enemy_death_velocity_range: {x: 50, y: 100}
+  enemy_distance_targetFollow: 0.25
+  enemy_damage: 1
+  window_cooldown_vault: 1
+  window_meshes:
+  - {fileID: 1759683500688320506, guid: e2ab46ceb8f70422287c115955f380a4, type: 3}
+  - {fileID: -7879486832572969521, guid: 44a62812b21e64bab80de494917a77e4, type: 3}
+  - {fileID: 4910410205004592983, guid: 1b507aeb94e6b4c319aff31f203e4a95, type: 3}
+  spike_maxHealth: 6
+  turret_maxHealth: 6
+  turret_bullet_fireRate: 1.2
+  turret_bullet_speed: 12
+  player_max_health: 6
+  player_max_collectable: 12
+  player_cooldown_deposit: 0.1
+  collectable_ease:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 6
+      outSlope: 6
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 3
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -4
+      outSlope: -4
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  collectable_ease_reverse:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -4
+      outSlope: -4
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: -2
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 6
+      outSlope: 6
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  collectable_stack_height: 20
+  collectable_stack_size: {x: 1.5, y: 4, z: 1}
+  collectable_duration_deposit: 0.25
+  collectable_delay_deposit: 0.2
+  collectable_random_deposit: 1
+  collectable_spawn_grid: 1
+  guard_shoot_offset: {x: 0, y: 1, z: 0.5}
+  guard_shoot_rate: 1
+  guard_bullet_speed: 96
+  asset_material_transparent_start: 0.15
+  asset_material_transparent_end: 0.35
+  asset_material_transparent_duration: 1.25

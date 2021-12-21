@@ -13,3 +13,14 @@ MonoBehaviour:
   m_Name: level_data_1
   m_EditorClassIdentifier: 
   sceneIndex: 1
+  overrideAsActiveScene: 1
+  collectable_spawn_rate: 0.9
+  collectable_spawn_max: 7
+  spawn_point_data_array:
+  - spawn_data_array:
+    - spawn_time: 0.2
+      spawn_count: 7
+    - spawn_time: 0.2
+      spawn_count: 7
+    - spawn_time: 0.2
+      spawn_count: 7
