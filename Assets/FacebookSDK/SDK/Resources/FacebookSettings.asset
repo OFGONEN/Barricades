@@ -16,9 +16,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 0
+  - 587403059262107
   appLabels:
-  - App Name
+  - Barricades
   cookie: 1
   logging: 1
   status: 1
